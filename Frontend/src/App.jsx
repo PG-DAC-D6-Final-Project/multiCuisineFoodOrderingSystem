@@ -2,6 +2,8 @@ import Admin from './pages/admin/admin'
 import { BrowserRouter as Router, Routes, Route} from 'react-router-dom'
 import './App.css'
 
+import {Button} from "./components/ui/button"
+
 function App() {
 
   return (
@@ -10,6 +12,7 @@ function App() {
         <Route path="/admin" element={<Admin/>} />
       </Routes>
     </Router>
+
   )
 }
 
