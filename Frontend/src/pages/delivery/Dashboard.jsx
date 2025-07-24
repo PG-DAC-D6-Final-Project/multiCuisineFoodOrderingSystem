@@ -5,6 +5,8 @@ import { BsCurrencyRupee } from "react-icons/bs"
 import { FaBoxOpen } from "react-icons/fa";
 import { FaStar } from "react-icons/fa";
 import { Button } from "../../components/ui/button";
+import { toast } from "react-toastify";
+import { Link } from "react-router-dom";
 
 
 const Dashboard = () => {
@@ -29,9 +31,9 @@ const Dashboard = () => {
         <div className="h-32 border rounded-xl mb-10 shadow-2xl p-2">
           <div className="text-2xl font-medium text-center">Quick Actions</div>
           <div className="flex justify-around items-center p-4">
-            <Button variant="outline">View New Orders</Button>
-            <Button variant="outline">Check Active Deliveries</Button>
-            <Button variant="outline">View History</Button>
+            <Button variant="outline" className="cursor-pointer hover:bg-orange-100"><Link to="/delivery/available">View New Orders</Link></Button>
+            <Button variant="outline" className="cursor-pointer hover:bg-orange-100"><Link to="/delivery/active">Check Active Deliveries</Link></Button>
+            <Button variant="outline" className="cursor-pointer hover:bg-orange-100"><Link to="/delivery/history">View History</Link></Button>
           </div>
         </div>
       </div>
