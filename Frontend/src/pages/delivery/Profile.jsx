@@ -6,7 +6,6 @@ import {
   SelectContent,
   SelectGroup,
   SelectItem,
-  SelectLabel,
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select"
@@ -25,19 +24,19 @@ const Profile = () => {
           </div>
           <div className="grid w-full max-w-sm items-center gap-3">
             <Label htmlFor="firstName">First Name</Label>
-            <Input type="text" id="firstName" placeholder="First Name" />
+            <Input type="text" id="firstName" placeholder="First Name" value="Girish" />
           </div>
           <div className="grid w-full max-w-sm items-center gap-3">
             <Label htmlFor="lastName">Last Name</Label>
-            <Input type="text" id="lastName" placeholder="Last Name" />
+            <Input type="text" id="lastName" placeholder="Last Name" value="Bora" />
           </div>
           <div className="grid w-full max-w-sm items-center gap-3">
             <Label htmlFor="email">Email</Label>
-            <Input type="email" id="email" placeholder="Email" />
+            <Input type="email" id="email" placeholder="email" value="alf@gmail.com" />
           </div>
           <div className="grid w-full max-w-sm items-center gap-3">
             <Label htmlFor="phone">Phone Number</Label>
-            <Input type="tel" id="phone" placeholder="Phone Number" maxLength={10} />
+            <Input type="tel" id="phone" placeholder="Phone Number" maxLength={10} value="9876543210" />
           </div>
           <div className="grid w-full max-w-sm items-center gap-3">
             <Select>
@@ -56,7 +55,7 @@ const Profile = () => {
           </div>
           <div className="grid w-full max-w-sm items-center gap-3">
             <Label htmlFor="account">Account Number</Label>
-            <Input type="number" id="account" placeholder="Account Number" />
+            <Input type="number" id="account" placeholder="Account Number" value="999999999999" />
           </div>
           <div className="w-[70%]">
             <Button variant="outline" className="w-full bg-green-500 hover:bg-green-600 text-white hover:text-white">Save Changes</Button>
