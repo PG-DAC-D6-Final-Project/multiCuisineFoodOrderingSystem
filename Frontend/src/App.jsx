@@ -1,7 +1,7 @@
 import './App.css'
 
 import Home from './pages/User/Home'
-import {Route, Router, Routes } from 'react-router-dom'
+import { Route, Router, Routes } from 'react-router-dom'
 import Login from './pages/User/Login'
 import Register from './pages/User/Register'
 import Cart from './pages/User/Cart'
@@ -19,6 +19,7 @@ import DeliveryLayout from './pages/delivery/DeliveryLayout'
 
 import OrderHistory from './pages/delivery/OrderHistory'
 import Profile from './pages/delivery/Profile'
+import RegisterDeliveryAgent from './components/delivery/RegisterDeliveryPerson'
 
 
 function App() {
@@ -33,17 +34,18 @@ function App() {
           <Route path="available" element={<AvailableOrders />} />
           <Route path="history" element={<OrderHistory />} />
           <Route path="profile" element={<Profile />} />
+          <Route path="register" element={<RegisterDeliveryAgent />} />
         </Route>
         <Route path="/customer" >
-        <Route path="" element={<Home />} />
-        <Route path='login' element={<Login />}/>
-        <Route path='register' element={<Register />}/>
-        <Route path='cart' element={<Cart />}/>
-        <Route path='profile' element={<CustomerProfile />}/>
-        <Route path='UpdateCustomerProfile' element={<UpdateCustomerProfile />} />
-        <Route path='CustomerPastOrders' element={<CustomerPastOrders />}/>
-        <Route path='viewAllRestaurants' element={<ViewAllRestaurants />}/>
-        <Route path='checkout' element={<Checkout />}/>
+          <Route path="" element={<Home />} />
+          <Route path='login' element={<Login />} />
+          <Route path='register' element={<Register />} />
+          <Route path='cart' element={<Cart />} />
+          <Route path='profile' element={<CustomerProfile />} />
+          <Route path='UpdateCustomerProfile' element={<UpdateCustomerProfile />} />
+          <Route path='CustomerPastOrders' element={<CustomerPastOrders />} />
+          <Route path='viewAllRestaurants' element={<ViewAllRestaurants />} />
+          <Route path='checkout' element={<Checkout />} />
         </Route>
       </Routes>
     </>
