@@ -32,7 +32,7 @@ import DeliveryLayout from './pages/delivery/DeliveryLayout'
 
 import OrderHistory from './pages/delivery/OrderHistory'
 import Profile from './pages/delivery/Profile'
-import RegisterDeliveryAgent from './components/delivery/RegisterDeliveryPerson'
+import RegisterDeliveryAgent from './pages/delivery/RegisterDeliveryPerson'
 
 
 function App() {
