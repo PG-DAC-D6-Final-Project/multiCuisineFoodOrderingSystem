@@ -49,7 +49,7 @@ const Register = () => {
           <input type="text" name="address" id="address" required className="flex-1 border px-3 py-2 rounded" />
         </div>
 
-        <div className="mb-3 flex items-center">
+        {/* <div className="mb-3 flex items-center">
           <label htmlFor="role" className="w-32">Role:</label>
           <select name="role" id="role" required className="flex-1 border px-3 py-2 rounded">
             <option value="">Select Role</option>
@@ -57,7 +57,7 @@ const Register = () => {
             <option value="admin">Admin</option>
             <option value="customer">Customer</option>
           </select>
-        </div>
+        </div> */}
 
         <div className="mb-3 flex items-center">
           <label htmlFor="image" className="w-32">Image:</label>

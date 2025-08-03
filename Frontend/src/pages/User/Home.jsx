@@ -1,15 +1,16 @@
 import React from 'react'
 import { Route, Routes, Link } from 'react-router-dom'
-import Landing from '../../components/Landing'
-import Cuisines from '../../components/Cuisines'
-import DiscoverRestaurants from '../../components/DiscoverRestaurants'
-import Footer from '../../components/Footer'
+import Cuisines from '../../components/user/Cuisines'
+import DiscoverRestaurants from '../../components/user/DiscoverRestaurants'
+import Footer from '../../components/user/Footer'
+import StaticHomepageDesign from '../../components/user/StaticHomepageDesign'
+import JoinUsOptions from '../../components/user/JoinUsOptions'
 const Home = () => {
   return (
     <div>
-      {/* Navbar */}
-      <nav className="flex justify-between items-center bg-white shadow px-6 py-4">
-        <div className="text-xl font-bold text-red-500">ZomatoLite</div>
+      {/* Navbar */} 
+      <nav className="flex justify-between items-center bg-orange-600 shadow px-6 py-4">
+        <div className="text-xl font-bold text-amber-50">ZomatoLite</div>
 
         <div className="flex gap-4">
           <Link to="/cart">
@@ -30,11 +31,19 @@ const Home = () => {
         </div>
       </nav>
 
+      {/* <div className='flex justify-center'>
+        <button type="button" class="focus:outline-none text-white bg-yellow-600 hover:bg-yellow-800 focus:ring-4 focus:ring-yellow-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:focus:ring-yellow-900">List your restaurant</button>
+        <button type="button" class="focus:outline-none text-white bg-yellow-600 hover:bg-yellow-800 focus:ring-4 focus:ring-yellow-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:focus:ring-yellow-900">Become our delivery partner</button>
+      </div> */}
+
       {/* Main Content */}
-      <div className="p-6">
-        <Landing />
+      <div>
+        
         <Cuisines />
+        <StaticHomepageDesign />
         <DiscoverRestaurants />
+        <JoinUsOptions />        
+        
       </div>
 
       <Footer />
