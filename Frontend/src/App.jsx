@@ -1,6 +1,6 @@
 import './App.css'
 import RegistrationPage from './pages/restaurant/Registration'
-import Dashboard from './pages/restaurant/Dashboard'
+import RestaurantDashboard from './pages/restaurant/Dashboard'
 import {BrowserRouter, Route,Routes} from 'react-router-dom'
 
 
@@ -14,7 +14,6 @@ import RemoveMenuItems from './pages/restaurant/RemoveItems'
 import RestaurantLayout from './pages/restaurant/RestaurantLayout'
 
 import Home from './pages/User/Home'
-import {Route, Router, Routes } from 'react-router-dom'
 import Login from './pages/User/Login'
 import Register from './pages/User/Register'
 import Cart from './pages/User/Cart'
@@ -57,19 +56,19 @@ function App() {
         <Route path='viewAllRestaurants' element={<ViewAllRestaurants />}/>
         <Route path='checkout' element={<Checkout />}/>
         </Route>
-          <Route path='/restaurant' >
+          <Route path='/restaurant' element={<RestaurantLayout />}>
             <Route path='Register' element={<RestaurantRegistration />}/>
             <Route path="" element={<RegistrationPage />} />
-            <Route path='/restaurant' element={<RestaurantLayout />}> 
+            {/* <Route path='/restaurant' element={<RestaurantLayout />}>  */}
 
-            <Route path="Dashboard" element={<Dashboard />} />
+            <Route path="Dashboard" element={<RestaurantDashboard />} />
             <Route path="Orders" element={<ShowOrders />} />
 
             <Route path='AddItem' element={<AddFoodItem />}/>
             <Route path='EditProfile' element={<EditRestaurantProfile />}/>
             <Route path='EditItem' element={<EditMenuItem />}/>
             <Route path='DeleteItem' element={<RemoveMenuItems />}/></Route>
-          </Route>  
+            
       </Routes>
     </>
   )
