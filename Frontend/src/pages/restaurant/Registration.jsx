@@ -20,8 +20,9 @@ const RegistrationPage = () => {
     if (!formData.username) newErrors.username = "Username is required";
     // if (!formData.email) newErrors.email = "Email is required";
     if (!formData.password) newErrors.password = "Password is required";
-    // if (formData.password !== formData.confirmPassword)
+    if (formData.password !== formData.confirmPassword) {
       newErrors.confirmPassword = "Passwords do not match";
+    }
     return newErrors;
   };
 

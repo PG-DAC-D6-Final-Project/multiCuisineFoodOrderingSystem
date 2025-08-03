@@ -1,7 +1,10 @@
+
+import Admin from './pages/admin/admin';
 import "./App.css";
 import RegistrationPage from "./pages/restaurant/Registration";
 import RestaurantDashboard from "./pages/restaurant/Dashboard";
-import { BrowserRouter, Route, Routes } from "react-router-dom";
+import { Route, Routes } from "react-router-dom";
+
 
 import { Button } from "./components/ui/button";
 import ShowOrders from "./pages/restaurant/ShowOrders";
@@ -35,6 +38,7 @@ import RegisterDeliveryAgent from "./pages/delivery/RegisterDeliveryPerson";
 
 function App() {
   return (
+
     <>
       <Routes>
         <Route path="/delivery" element={<DeliveryLayout />}>
@@ -72,9 +76,13 @@ function App() {
             <Route path="DeleteItem" element={<RemoveMenuItems />} />
           </Route>
         </Route>
+        <Route path="/admin">
+          <Route path="" element={<Admin/>} />
+        </Route>
       </Routes>
     </>
   );
+
 }
 
 export default App;
