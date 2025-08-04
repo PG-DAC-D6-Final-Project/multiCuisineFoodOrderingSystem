@@ -70,7 +70,7 @@ const Register = () => {
         </div>
 
         <div className="flex flex-col gap-2 mt-4">
-          <Link to="/login">
+          <Link to="/customer/login">
             <button
               type="submit"
               className="w-full text-white bg-green-700 hover:bg-green-800 focus:ring-4 focus:ring-green-300 font-medium rounded text-sm px-5 py-2.5"

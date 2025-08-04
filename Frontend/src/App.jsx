@@ -1,10 +1,8 @@
-
-import Admin from './pages/admin/admin';
+import Admin from "./pages/admin/admin";
 import "./App.css";
 import RegistrationPage from "./pages/restaurant/Registration";
 import RestaurantDashboard from "./pages/restaurant/Dashboard";
 import { Route, Routes } from "react-router-dom";
-
 
 import { Button } from "./components/ui/button";
 import ShowOrders from "./pages/restaurant/ShowOrders";
@@ -38,7 +36,6 @@ import RegisterDeliveryAgent from "./pages/delivery/RegisterDeliveryPerson";
 
 function App() {
   return (
-
     <>
       <Routes>
         <Route path="/delivery" element={<DeliveryLayout />}>
@@ -49,8 +46,10 @@ function App() {
           <Route path="profile" element={<Profile />} />
           <Route path="register" element={<RegisterDeliveryAgent />} />
         </Route>
+        
+        <Route path="" element={<Home />} />
         <Route path="/customer">
-          <Route path="" element={<Home />} />
+          {/* <Route path="" element={<Home />} /> */}
           <Route path="login" element={<Login />} />
           <Route path="register" element={<Register />} />
           <Route path="cart" element={<Cart />} />
@@ -63,6 +62,7 @@ function App() {
           <Route path="viewAllRestaurants" element={<ViewAllRestaurants />} />
           <Route path="checkout" element={<Checkout />} />
         </Route>
+
         <Route path="/restaurant">
           <Route path="Register" element={<RestaurantRegistration />} />
           <Route path="" element={<RegistrationPage />} />
@@ -77,12 +77,11 @@ function App() {
           </Route>
         </Route>
         <Route path="/admin">
-          <Route path="" element={<Admin/>} />
+          <Route path="" element={<Admin />} />
         </Route>
       </Routes>
     </>
   );
-
 }
 
 export default App;

@@ -30,13 +30,13 @@ const CustomerProfile = () => {
 
       <div className="flex justify-between mt-6">
         <button
-          onClick={() => navigate("/UpdateCustomerProfile")}
+          onClick={() => navigate("/customer/UpdateCustomerProfile")}
           className="bg-orange-500 text-white px-4 py-2 rounded hover:bg-orange-600"
         >
           Update Profile
         </button>
         <button
-          onClick={() => navigate("/CustomerPastOrders")}
+          onClick={() => navigate("/customer/CustomerPastOrders")}
           className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600"
         >
           View Past Orders

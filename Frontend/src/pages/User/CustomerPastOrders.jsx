@@ -30,7 +30,7 @@ const CustomerPastOrders = () => {
 
       <div className="mt-6 text-center">
         <button
-          onClick={() => navigate('/profile')}
+          onClick={() => navigate('/customer/profile')}
           className="bg-gray-300 hover:bg-gray-400 text-black px-4 py-2 rounded"
         >
           Back
