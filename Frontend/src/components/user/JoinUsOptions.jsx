@@ -25,7 +25,7 @@ const JoinUsOptions = () => {
             <p className="text-sm text-gray-600 mb-4">
               Reach thousands of customers and grow your business with ZomatoLite.
             </p>
-            <Link to="/restaurant/signup">
+            <Link to="/restaurant/Register">
               <button className="bg-orange-500 px-5 py-2 rounded hover:bg-orange-600 text-white">
                 Get Started
               </button>
@@ -47,7 +47,7 @@ const JoinUsOptions = () => {
             <p className="text-sm text-gray-600 mb-4">
               Join our team and earn by delivering happiness to people's doorsteps.
             </p>
-            <Link to="/delivery/signup">
+            <Link to="/delivery">
               <button className="bg-orange-500 px-5 py-2 rounded hover:bg-orange-600 text-white">
                 Join Now
               </button>

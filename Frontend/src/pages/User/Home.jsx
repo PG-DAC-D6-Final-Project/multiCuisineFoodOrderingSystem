@@ -13,17 +13,17 @@ const Home = () => {
         <div className="text-xl font-bold text-amber-50">ZomatoLite</div>
 
         <div className="flex gap-4">
-          <Link to="/cart">
+          <Link to="/customer/cart">
             <button className="bg-gray-100 px-4 py-2 rounded hover:bg-gray-200">
               View Cart
             </button>
           </Link>
-          <Link to="/login">
+          <Link to="/customer/login">
             <button className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600">
               Login
             </button>
           </Link>
-          <Link to="/profile">
+          <Link to="/customer/profile">
             <button className="bg-gray-100 px-4 py-2 rounded hover:bg-gray-200">
               Profile
             </button>
