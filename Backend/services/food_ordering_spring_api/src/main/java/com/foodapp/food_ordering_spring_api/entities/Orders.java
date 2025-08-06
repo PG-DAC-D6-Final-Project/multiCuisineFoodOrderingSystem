@@ -22,14 +22,13 @@ import lombok.ToString;
 @Setter
 @Getter
 @ToString
-@EqualsAndHashCode(callSuper = false)
+
+@EqualsAndHashCode
 public class Orders extends BaseEntity {
-	@ManyToOne
-    @JoinColumn(name = "user_id", nullable = false)
-	private User user;//foreign key from user table
-	@ManyToOne
-    @JoinColumn(name = "restaurant_id", nullable = false)
-    private Restaurant restaurant; // foreign key from restaurant table
+//	private User user_id;//foreign key from user table
+	
+//	private Restaurant restaurant_id; // foreign key from restaurant table
+
 //	private delivery_personnel deliveryGuy_id; foreign key from delivery_personnel table
 	private LocalDateTime delivery_date_time;
 	private LocalDateTime order_date_time;
@@ -38,10 +37,7 @@ public class Orders extends BaseEntity {
 	private double delivery_fee;
 	private double discount_amount;
 	private double total_amount;
-	@Enumerated(EnumType.STRING)
-	private PaymentMethods payment_method;
-	@Enumerated(EnumType.STRING)
-	private OrderStatus orderstatus;
-	@OneToMany(mappedBy = "order",cascade = CascadeType.ALL,orphanRemoval = true)
-	private List<OrderItems> orderItems = new ArrayList<>();
+
+	private PaymentMethod payment_method;
+	private OrderStatus orderstatus;	
 }

@@ -28,7 +28,9 @@ import lombok.ToString;
 @Getter
 @Setter
 @ToString
-@EqualsAndHashCode(callSuper = false)
+
+@EqualsAndHashCode
+
 public class Restaurant extends BaseEntity{
 	@Column(unique = true, length=50)
 	private String name;
@@ -51,7 +53,7 @@ public class Restaurant extends BaseEntity{
 	private LocalDateTime closing_time;
 	private String image_url;
 	@OneToMany(mappedBy = "restaurant", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<MenuItems> menuItems = new ArrayList<>();
+    private List<MenuItem> menuItems = new ArrayList<>();
 	@OneToMany(mappedBy = "restaurant", cascade = CascadeType.ALL)
     private List<Orders> orders = new ArrayList<>();
 //	OneToMany with items

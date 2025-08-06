@@ -19,11 +19,9 @@ import lombok.ToString;
 @Setter
 @NoArgsConstructor
 @ToString
-@EqualsAndHashCode(callSuper = false)
-public class MenuItems extends BaseEntity{
-	@ManyToOne
-	@JoinColumn(name="restaurant_id",nullable = false)
-	private Restaurant restaurant;
+
+@EqualsAndHashCode
+public class MenuItem extends BaseEntity{
 	@Column(length = 30)
 	private String name;
 	@Column(length = 300)
