@@ -1,11 +1,16 @@
 package com.foodapp.food_ordering_spring_api.entities;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
@@ -30,5 +35,6 @@ public class MenuItem extends BaseEntity{
 	private String image_url;
 	@Enumerated(EnumType.STRING)
 	private RestaurantMenuItemAvailability availability_status;
-
+	@OneToMany(mappedBy = "menuItem",cascade = CascadeType.ALL)
+	private List<OrderItems> orderItems = new ArrayList<>();
 }
