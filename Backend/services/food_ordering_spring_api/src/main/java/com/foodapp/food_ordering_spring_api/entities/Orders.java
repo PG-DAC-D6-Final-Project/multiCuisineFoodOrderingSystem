@@ -25,10 +25,10 @@ import lombok.ToString;
 
 @EqualsAndHashCode
 public class Orders extends BaseEntity {
-//	private User user_id;//foreign key from user table
-	
-//	private Restaurant restaurant_id; // foreign key from restaurant table
-
+////	private User user_id;//foreign key from user table
+//	@ManyToOne
+//	@JoinColumn(name="restaurant_id", nullable = false)
+//	private Restaurant restaurantId; // foreign key from restaurant table
 //	private delivery_personnel deliveryGuy_id; foreign key from delivery_personnel table
 	private LocalDateTime delivery_date_time;
 	private LocalDateTime order_date_time;

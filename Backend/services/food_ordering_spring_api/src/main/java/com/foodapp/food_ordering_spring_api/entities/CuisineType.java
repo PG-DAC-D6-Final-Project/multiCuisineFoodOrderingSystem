@@ -15,7 +15,7 @@ import lombok.ToString;
 @Setter
 @ToString
 @EqualsAndHashCode
-public class CuisineType {
+public class CuisineType extends BaseEntity{
 	@Column(length = 20)
 	private String name;
 	@Column(length = 200)

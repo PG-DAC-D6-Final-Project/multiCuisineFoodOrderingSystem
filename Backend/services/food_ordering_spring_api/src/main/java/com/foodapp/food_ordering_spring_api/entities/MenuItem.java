@@ -27,11 +27,8 @@ public class MenuItem extends BaseEntity{
 	@Column(length = 300)
 	private String description;
 	private double price;
-	@ManyToOne
-	@JoinColumn(name = "cuisine_type_id",nullable = false)
-	private CuisineType cuisine_type;// foreign key from cuisine table
 	private String image_url;
 	@Enumerated(EnumType.STRING)
 	private RestaurantMenuItemAvailability availability_status;
-	
+
 }

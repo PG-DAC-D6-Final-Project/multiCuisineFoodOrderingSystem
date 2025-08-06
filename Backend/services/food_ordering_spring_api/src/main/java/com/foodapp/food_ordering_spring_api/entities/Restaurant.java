@@ -44,17 +44,17 @@ public class Restaurant extends BaseEntity{
 	@Column(name="average_rating")
 	private double avg_rating;
 	private double minimum_order_amount;
-	@ManyToMany
-	@JoinTable(name="restaurant_cuisine",joinColumns = @JoinColumn(name = "restaurant_id"),inverseJoinColumns = @JoinColumn(name = "cuisine_type_id"))
-	private List<CuisineType> cuisineTypes = new ArrayList<>();
+//	@ManyToMany
+//	@JoinTable(name="restaurant_cuisine",joinColumns = @JoinColumn(name = "restaurant_id"),inverseJoinColumns = @JoinColumn(name = "cuisine_type_id"))
+//	private List<CuisineType> cuisineTypes = new ArrayList<>();
 	@Enumerated(EnumType.STRING)
 	private RestaurantStatus status; 
 	private LocalDateTime opening_time;
 	private LocalDateTime closing_time;
 	private String image_url;
-	@OneToMany(mappedBy = "restaurant", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<MenuItem> menuItems = new ArrayList<>();
-	@OneToMany(mappedBy = "restaurant", cascade = CascadeType.ALL)
-    private List<Orders> orders = new ArrayList<>();
+//	@OneToMany(mappedBy = "restaurantId", cascade = CascadeType.ALL, orphanRemoval = true)
+//    private List<MenuItem> menuItems = new ArrayList<>();
+//	@OneToMany(mappedBy = "restaurantId", cascade = CascadeType.ALL)
+//    private List<Orders> orders = new ArrayList<>();
 //	OneToMany with items
 }
