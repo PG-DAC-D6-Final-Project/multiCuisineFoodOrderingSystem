@@ -48,4 +48,8 @@ public class Orders extends BaseEntity {
 	private Restaurant restaurant;
 	@OneToMany(mappedBy = "order",cascade = CascadeType.ALL, orphanRemoval = true)
 	private List<OrderItems> orderItems = new ArrayList<>();
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "delivery_person_id")
+	private DeliveryAgent deliveryPerson;
+
 }
