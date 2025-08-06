@@ -3,6 +3,8 @@ package com.foodapp.food_ordering_spring_api.entities;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -38,6 +40,7 @@ public class User extends BaseEntity {
 	@JoinColumn(name = "address_id")
 	private Address address;
 	
+	@JsonIgnore
 	@OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
 	private List<Orders> orders = new ArrayList<>();
 	
