@@ -1,11 +1,14 @@
 package com.foodapp.food_ordering_spring_api.services;
 
+import java.util.List;
+
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
 import com.foodapp.food_ordering_spring_api.custom_exceptions.ApiException;
 import com.foodapp.food_ordering_spring_api.custom_exceptions.ResourceNotFoundException;
 import com.foodapp.food_ordering_spring_api.dao.RestaurantDao;
+import com.foodapp.food_ordering_spring_api.dto.AllRestaurantDto;
 import com.foodapp.food_ordering_spring_api.dto.ApiResponse;
 import com.foodapp.food_ordering_spring_api.dto.RestaurantByIdDto;
 import com.foodapp.food_ordering_spring_api.dto.RestaurantLoginDto;
@@ -59,5 +62,10 @@ public class RestaurantServiceImpl implements RestaurantService {
 		Restaurant entity = restaurantDao.findById(id).orElseThrow(() -> new ResourceNotFoundException("invalid restaurant id"));
 		modelMapper.map(dto, entity);
 		return new ApiResponse("updated restaurant details!");
+	}
+	public List<AllRestaurantDto> getAllRestaurant() {
+		return restaurantDao.findAll()
+				.stream()
+				.map(restaurant -> modelMapper.map(restaurant, AllRestaurantDto.class)).toList();
 	}
 }
