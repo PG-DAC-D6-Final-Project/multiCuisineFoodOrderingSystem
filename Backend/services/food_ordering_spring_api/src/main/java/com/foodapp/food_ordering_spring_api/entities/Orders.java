@@ -15,9 +15,10 @@ import lombok.ToString;
 @Getter
 @ToString
 @EqualsAndHashCode
-public class Orders {
+public class Orders extends BaseEntity {
 //	private User user_id;//foreign key from user table
-	private Restaurant restaurant_id; // foreign key from restaurant table
+	
+//	private Restaurant restaurant_id; // foreign key from restaurant table
 //	private delivery_personnel deliveryGuy_id; foreign key from delivery_personnel table
 	private LocalDateTime delivery_date_time;
 	private LocalDateTime order_date_time;
@@ -26,6 +27,6 @@ public class Orders {
 	private double delivery_fee;
 	private double discount_amount;
 	private double total_amount;
-	private PaymentMethods payment_method;
+	private PaymentMethod payment_method;
 	private OrderStatus orderstatus;	
 }

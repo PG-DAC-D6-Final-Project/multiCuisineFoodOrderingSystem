@@ -18,7 +18,7 @@ import lombok.ToString;
 @Setter
 @ToString
 @EqualsAndHashCode
-public class Restaurant {
+public class Restaurant extends BaseEntity{
 	@Column(unique = true, length=50)
 	private String name;
 	@Column(length = 500)
