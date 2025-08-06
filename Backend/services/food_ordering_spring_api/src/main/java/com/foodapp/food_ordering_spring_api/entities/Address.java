@@ -29,10 +29,6 @@ public class Address extends BaseEntity {
 	
 	@Column(name="pin_code")
 	private String pinCode;
-	
-	@ManyToOne
-	@JoinColumn(name="user_id", nullable = false)
-	private User userObj;
 
 	public Address(String addressLine1, String addressLine2, String city, String state, String country,
 			String pinCode) {
