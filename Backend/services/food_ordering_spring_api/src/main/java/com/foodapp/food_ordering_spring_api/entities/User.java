@@ -31,6 +31,8 @@ public class User extends BaseEntity {
 	private String image;
 	@OneToMany(mappedBy = "userObj",cascade = CascadeType.ALL, orphanRemoval = true)
 	private List<Address> addressList = new ArrayList<>();
+	@OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+    private List<Orders> orders = new ArrayList<>();
 	public User(String firstName, String lastName, String email, String password, String phone,
 			boolean isPhoneVerified) {
 		super();

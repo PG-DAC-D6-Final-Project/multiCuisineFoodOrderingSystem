@@ -1,9 +1,20 @@
 package com.foodapp.food_ordering_spring_api.entities;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.JoinTable;
+import jakarta.persistence.ManyToMany;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
+import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
@@ -17,12 +28,13 @@ import lombok.ToString;
 @Getter
 @Setter
 @ToString
-@EqualsAndHashCode
-public class Restaurant {
+@EqualsAndHashCode(callSuper = false)
+public class Restaurant extends BaseEntity{
 	@Column(unique = true, length=50)
 	private String name;
-	@Column(length = 500)
-	private String address;
+	@OneToOne(cascade = CascadeType.ALL,optional = false)
+	@JoinColumn(nullable = false,name="address_id")
+	private Address address;
 	@Column(length = 11)
 	private String phone;
 	@Column(length = 100)
@@ -30,10 +42,17 @@ public class Restaurant {
 	@Column(name="average_rating")
 	private double avg_rating;
 	private double minimum_order_amount;
-//	private int cuisine_type; foreign key from cuisine table
+	@ManyToMany
+	@JoinTable(name="restaurant_cuisine",joinColumns = @JoinColumn(name = "restaurant_id"),inverseJoinColumns = @JoinColumn(name = "cuisine_type_id"))
+	private List<CuisineType> cuisineTypes = new ArrayList<>();
+	@Enumerated(EnumType.STRING)
 	private RestaurantStatus status; 
 	private LocalDateTime opening_time;
 	private LocalDateTime closing_time;
-//	private IMAGE_URL;
+	private String image_url;
+	@OneToMany(mappedBy = "restaurant", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<MenuItems> menuItems = new ArrayList<>();
+	@OneToMany(mappedBy = "restaurant", cascade = CascadeType.ALL)
+    private List<Orders> orders = new ArrayList<>();
 //	OneToMany with items
 }

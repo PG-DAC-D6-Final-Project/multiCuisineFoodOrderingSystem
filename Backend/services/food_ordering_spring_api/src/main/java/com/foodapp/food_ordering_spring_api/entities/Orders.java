@@ -1,8 +1,16 @@
 package com.foodapp.food_ordering_spring_api.entities;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -14,10 +22,14 @@ import lombok.ToString;
 @Setter
 @Getter
 @ToString
-@EqualsAndHashCode
-public class Orders {
-//	private User user_id;//foreign key from user table
-	private Restaurant restaurant_id; // foreign key from restaurant table
+@EqualsAndHashCode(callSuper = false)
+public class Orders extends BaseEntity {
+	@ManyToOne
+    @JoinColumn(name = "user_id", nullable = false)
+	private User user;//foreign key from user table
+	@ManyToOne
+    @JoinColumn(name = "restaurant_id", nullable = false)
+    private Restaurant restaurant; // foreign key from restaurant table
 //	private delivery_personnel deliveryGuy_id; foreign key from delivery_personnel table
 	private LocalDateTime delivery_date_time;
 	private LocalDateTime order_date_time;
@@ -26,6 +38,10 @@ public class Orders {
 	private double delivery_fee;
 	private double discount_amount;
 	private double total_amount;
+	@Enumerated(EnumType.STRING)
 	private PaymentMethods payment_method;
-	private OrderStatus orderstatus;	
+	@Enumerated(EnumType.STRING)
+	private OrderStatus orderstatus;
+	@OneToMany(mappedBy = "order",cascade = CascadeType.ALL,orphanRemoval = true)
+	private List<OrderItems> orderItems = new ArrayList<>();
 }

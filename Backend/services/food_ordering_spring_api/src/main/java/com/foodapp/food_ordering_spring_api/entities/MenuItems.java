@@ -2,6 +2,10 @@ package com.foodapp.food_ordering_spring_api.entities;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
@@ -15,16 +19,21 @@ import lombok.ToString;
 @Setter
 @NoArgsConstructor
 @ToString
-@EqualsAndHashCode
-public class MenuItems {
-	private int restaurant_id;
+@EqualsAndHashCode(callSuper = false)
+public class MenuItems extends BaseEntity{
+	@ManyToOne
+	@JoinColumn(name="restaurant_id",nullable = false)
+	private Restaurant restaurant;
 	@Column(length = 30)
 	private String name;
 	@Column(length = 300)
 	private String description;
 	private double price;
-//	private int cuisine_id; foreign key from cuisine table
-//	private IMAGE_URL;
+	@ManyToOne
+	@JoinColumn(name = "cuisine_type_id",nullable = false)
+	private CuisineType cuisine_type;// foreign key from cuisine table
+	private String image_url;
+	@Enumerated(EnumType.STRING)
 	private RestaurantMenuItemAvailability availability_status;
 	
 }
