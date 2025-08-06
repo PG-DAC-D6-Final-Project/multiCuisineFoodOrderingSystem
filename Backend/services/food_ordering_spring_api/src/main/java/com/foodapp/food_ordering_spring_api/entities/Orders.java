@@ -40,4 +40,7 @@ public class Orders extends BaseEntity {
 
 	private PaymentMethod payment_method;
 	private OrderStatus orderstatus;	
+	
+	@OneToMany(mappedBy = "order",cascade = CascadeType.ALL, orphanRemoval = true)
+	private List<OrderItems> orderItems = new ArrayList<>();
 }
