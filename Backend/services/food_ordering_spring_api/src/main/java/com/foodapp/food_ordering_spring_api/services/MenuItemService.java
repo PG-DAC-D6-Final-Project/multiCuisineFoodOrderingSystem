@@ -7,4 +7,6 @@ public interface MenuItemService {
 	ApiResponse addMenuItemToRestaurant(Long restaurantId, MenuItemDto dto);
 
 	ApiResponse removeMenuItemFromRestaurant(Long menuItemId);
+	
+	ApiResponse updateMenuItemOfRestaurant(Long restaurantId, MenuItemDto dto);
 }

@@ -5,6 +5,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -28,8 +29,14 @@ public class MenuItemController {
 	
 	@DeleteMapping("/{menuItemId}")
 	public ResponseEntity<?> removeMenuItemFromRestaurant(@PathVariable Long menuItemId){
-		return ResponseEntity.status(HttpStatus.CREATED)
+		return ResponseEntity.status(HttpStatus.OK)
 				.body(menuItemService.removeMenuItemFromRestaurant(menuItemId));
+	}
+	
+	@PutMapping("/{menuItemId}")
+	public ResponseEntity<?> updateMenuItemOfRestaurant(@PathVariable Long menuItemId, @RequestBody MenuItemDto dto){
+		return ResponseEntity.status(HttpStatus.OK)
+				.body(menuItemService.updateMenuItemOfRestaurant(menuItemId, dto));
 	}
 
 }
