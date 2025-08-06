@@ -23,38 +23,47 @@ import lombok.Setter;
 import lombok.ToString;
 
 @Entity
-@Table(name="restaurants")
+@Table(name = "restaurants")
 @NoArgsConstructor
 @Getter
 @Setter
 @ToString
 
 @EqualsAndHashCode
+public class Restaurant extends BaseEntity {
+	@Column(unique = true, length = 50)
 
-public class Restaurant extends BaseEntity{
-	@Column(unique = true, length=50)
 	private String name;
-	@OneToOne(cascade = CascadeType.ALL,optional = false)
-	@JoinColumn(nullable = false,name="address_id")
+	@OneToOne(cascade = CascadeType.ALL, optional = false)
+	@JoinColumn(nullable = false, name = "address_id")
 	private Address address;
 	@Column(length = 11)
 	private String phone;
 	@Column(length = 100)
 	private String email;
+	@Column(length = 50)
+	private String password;
 	@Column(name="average_rating")
 	private double avg_rating;
 	private double minimum_order_amount;
-//	@ManyToMany
-//	@JoinTable(name="restaurant_cuisine",joinColumns = @JoinColumn(name = "restaurant_id"),inverseJoinColumns = @JoinColumn(name = "cuisine_type_id"))
-//	private List<CuisineType> cuisineTypes = new ArrayList<>();
 	@Enumerated(EnumType.STRING)
-	private RestaurantStatus status; 
+	private RestaurantStatus status;
 	private LocalDateTime opening_time;
 	private LocalDateTime closing_time;
 	private String image_url;
-//	@OneToMany(mappedBy = "restaurantId", cascade = CascadeType.ALL, orphanRemoval = true)
-//    private List<MenuItem> menuItems = new ArrayList<>();
-//	@OneToMany(mappedBy = "restaurantId", cascade = CascadeType.ALL)
-//    private List<Orders> orders = new ArrayList<>();
-//	OneToMany with items
+
+	@OneToMany(mappedBy = "restaurant", cascade = CascadeType.ALL)
+	private List<Orders> orders = new ArrayList<>();
+	@OneToMany(mappedBy = "restaurant", cascade = CascadeType.ALL)
+	private List<MenuItem> menuItems = new ArrayList<>();
+
+	public void addMenuItem(MenuItem menuItem) {
+		this.menuItems.add(menuItem);
+		menuItem.setRestaurant(this);
+	}
+
+	public void removeMenuItem(MenuItem menuItem) {
+		this.menuItems.remove(menuItem);
+		menuItem.setRestaurant(null);
+	}
 }
