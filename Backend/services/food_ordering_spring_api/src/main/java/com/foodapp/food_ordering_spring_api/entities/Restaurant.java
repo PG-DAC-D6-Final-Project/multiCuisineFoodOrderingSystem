@@ -30,7 +30,6 @@ import lombok.ToString;
 @ToString
 
 @EqualsAndHashCode
-
 public class Restaurant extends BaseEntity{
 	@Column(unique = true, length=50)
 	private String name;
@@ -41,6 +40,8 @@ public class Restaurant extends BaseEntity{
 	private String phone;
 	@Column(length = 100)
 	private String email;
+	@Column(length = 50)
+	private String password;
 	@Column(name="average_rating")
 	private double avg_rating;
 	private double minimum_order_amount;
