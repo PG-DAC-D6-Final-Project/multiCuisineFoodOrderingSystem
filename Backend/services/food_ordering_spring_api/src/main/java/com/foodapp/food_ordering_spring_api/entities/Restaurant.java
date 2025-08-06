@@ -23,18 +23,19 @@ import lombok.Setter;
 import lombok.ToString;
 
 @Entity
-@Table(name="restaurants")
+@Table(name = "restaurants")
 @NoArgsConstructor
 @Getter
 @Setter
 @ToString
 
 @EqualsAndHashCode
-public class Restaurant extends BaseEntity{
-	@Column(unique = true, length=50)
+public class Restaurant extends BaseEntity {
+	@Column(unique = true, length = 50)
+
 	private String name;
-	@OneToOne(cascade = CascadeType.ALL,optional = false)
-	@JoinColumn(nullable = false,name="address_id")
+	@OneToOne(cascade = CascadeType.ALL, optional = false)
+	@JoinColumn(nullable = false, name = "address_id")
 	private Address address;
 	@Column(length = 11)
 	private String phone;
@@ -46,13 +47,23 @@ public class Restaurant extends BaseEntity{
 	private double avg_rating;
 	private double minimum_order_amount;
 	@Enumerated(EnumType.STRING)
-	private RestaurantStatus status; 
+	private RestaurantStatus status;
 	private LocalDateTime opening_time;
 	private LocalDateTime closing_time;
 	private String image_url;
-	
+
 	@OneToMany(mappedBy = "restaurant", cascade = CascadeType.ALL)
 	private List<Orders> orders = new ArrayList<>();
 	@OneToMany(mappedBy = "restaurant", cascade = CascadeType.ALL)
 	private List<MenuItem> menuItems = new ArrayList<>();
+
+	public void addMenuItem(MenuItem menuItem) {
+		this.menuItems.add(menuItem);
+		menuItem.setRestaurant(this);
+	}
+
+	public void removeMenuItem(MenuItem menuItem) {
+		this.menuItems.remove(menuItem);
+		menuItem.setRestaurant(null);
+	}
 }

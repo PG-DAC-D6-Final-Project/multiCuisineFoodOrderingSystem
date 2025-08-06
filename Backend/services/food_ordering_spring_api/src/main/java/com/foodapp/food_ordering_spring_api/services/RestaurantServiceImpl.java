@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service;
 import com.foodapp.food_ordering_spring_api.custom_exceptions.ApiException;
 import com.foodapp.food_ordering_spring_api.dao.RestaurantDao;
 import com.foodapp.food_ordering_spring_api.dto.ApiResponse;
+import com.foodapp.food_ordering_spring_api.dto.RestaurantLoginDto;
 import com.foodapp.food_ordering_spring_api.dto.RestaurantSignUpDTO;
 import com.foodapp.food_ordering_spring_api.entities.Restaurant;
 
@@ -30,4 +31,15 @@ public class RestaurantServiceImpl implements RestaurantService {
 		return new ApiResponse("Added new Restaurant with ID = " + persistentRestaurant.getId());
 	}
 
+//	restaurant login function 
+	@Override
+    public ApiResponse restaurantLogin(RestaurantLoginDto dto) {
+        boolean exists = restaurantDao.findByEmailAndPassword(dto.getEmail(), dto.getPassword()).isPresent();
+        if(exists) {
+        	return new ApiResponse("Restaurant login successful...");
+        }
+        else {
+        	return new ApiResponse("Invalid Email or password");
+        }
+    }
 }

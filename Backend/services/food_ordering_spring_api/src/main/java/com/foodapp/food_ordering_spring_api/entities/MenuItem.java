@@ -41,4 +41,8 @@ public class MenuItem extends BaseEntity{
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "restaurant_id", nullable = false)
 	private Restaurant restaurant;
+	
+	@ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "cuisine_type_id", nullable = false)
+    private CuisineType cuisineType;
 }
