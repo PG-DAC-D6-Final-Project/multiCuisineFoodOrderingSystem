@@ -34,7 +34,7 @@ public class CuisineType extends BaseEntity{
 		menuItem.setCuisineType(this);
 	}
 
-	public void removeFoodItem(MenuItem menuItem) {
+	public void removeMenuItem(MenuItem menuItem) {
 		this.menuItems.remove(menuItem);
 		menuItem.setCuisineType(null);
 	}
