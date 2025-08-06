@@ -61,4 +61,31 @@ public class MenuItemServiceImpl implements MenuItemService {
 		return new ApiResponse("Food item removed from the restaurant");
 	}
 
+	@Override
+	public ApiResponse updateMenuItemOfRestaurant(Long menuItemId, MenuItemDto dto) {
+		
+		MenuItem menuItem = menuItemDao.findById(menuItemId).orElseThrow(() ->
+		new RuntimeException("Invalid menu item id - Menu Item can't be removed!!!!"));
+		
+		CuisineType cuisineType = cuisineTypeDao.findById(menuItem.getCuisineType().getId()).orElseThrow(() -> 
+		new RuntimeException("Invalid cuisine type id - Menu Item can't be added!!!!"));
+		
+		CuisineType newCuisineType = cuisineTypeDao.findById(dto.getCuisineType()).orElseThrow(() -> 
+		new RuntimeException("Invalid cuisine type id - Menu Item can't be added!!!!"));
+		
+		cuisineType.removeMenuItem(menuItem);
+		
+		menuItem.setName(dto.getName());
+		menuItem.setDescription(dto.getDescription());
+		menuItem.setAvailability_status(dto.getAvailability_status());
+		menuItem.setPrice(dto.getPrice());
+		menuItem.setCuisineType(newCuisineType);
+		
+		newCuisineType.addMenuItem(menuItem);
+		
+		return new ApiResponse("Food item updated in the restaurant");
+	}
+	
+	
+
 }
