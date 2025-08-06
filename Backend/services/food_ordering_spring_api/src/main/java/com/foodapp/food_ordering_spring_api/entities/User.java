@@ -1,10 +1,14 @@
 package com.foodapp.food_ordering_spring_api.entities;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.JoinColumn;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import lombok.Getter;
@@ -33,8 +37,10 @@ public class User extends BaseEntity {
 	@OneToOne(cascade = CascadeType.ALL, orphanRemoval = true,fetch=FetchType.EAGER)
 	@JoinColumn(name = "address_id")
 	private Address address;
-//	@OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
-//    private List<Orders> orders = new ArrayList<>();
+	
+	@OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+	private List<Orders> orders = new ArrayList<>();
+	
 	public User(String firstName, String lastName, String email, String password, String phone,
 			boolean isPhoneVerified) {
 		super();
