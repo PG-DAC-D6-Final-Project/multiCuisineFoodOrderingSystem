@@ -30,9 +30,9 @@ import lombok.ToString;
 @ToString
 
 @EqualsAndHashCode
-
 public class Restaurant extends BaseEntity {
 	@Column(unique = true, length = 50)
+
 	private String name;
 	@OneToOne(cascade = CascadeType.ALL, optional = false)
 	@JoinColumn(nullable = false, name = "address_id")
@@ -41,7 +41,9 @@ public class Restaurant extends BaseEntity {
 	private String phone;
 	@Column(length = 100)
 	private String email;
-	@Column(name = "average_rating")
+	@Column(length = 50)
+	private String password;
+	@Column(name="average_rating")
 	private double avg_rating;
 	private double minimum_order_amount;
 	@Enumerated(EnumType.STRING)

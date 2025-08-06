@@ -4,6 +4,8 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
@@ -40,15 +42,16 @@ public class Orders extends BaseEntity {
 	@Enumerated(EnumType.STRING)
 	private OrderStatus orderstatus;	
 	
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne
 	@JoinColumn(name = "user_id",nullable = false)
 	private User user;
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne
 	@JoinColumn(name = "restaurant_id", nullable = false)
 	private Restaurant restaurant;
+	@JsonIgnore
 	@OneToMany(mappedBy = "order",cascade = CascadeType.ALL, orphanRemoval = true)
 	private List<OrderItems> orderItems = new ArrayList<>();
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne
 	@JoinColumn(name = "delivery_person_id")
 	private DeliveryAgent deliveryPerson;
 

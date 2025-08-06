@@ -10,9 +10,9 @@ import lombok.Setter;
 public class ApiResponse {
 	private LocalDateTime timeStamp;
 	private String message;
-
+	
 	public ApiResponse(String message) {
 		this.timeStamp = LocalDateTime.now();
-		this.message = message;
+		this.message=message;
 	}
 }
