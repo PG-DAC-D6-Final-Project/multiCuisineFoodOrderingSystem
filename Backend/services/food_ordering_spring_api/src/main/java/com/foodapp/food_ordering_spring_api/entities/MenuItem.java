@@ -16,8 +16,8 @@ import lombok.ToString;
 @NoArgsConstructor
 @ToString
 @EqualsAndHashCode
-public class MenuItems {
-	private int restaurant_id;
+public class MenuItem extends BaseEntity{
+	
 	@Column(length = 30)
 	private String name;
 	@Column(length = 300)
