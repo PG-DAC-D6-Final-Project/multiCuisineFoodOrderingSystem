@@ -4,10 +4,13 @@ import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
 import com.foodapp.food_ordering_spring_api.custom_exceptions.ApiException;
+import com.foodapp.food_ordering_spring_api.custom_exceptions.ResourceNotFoundException;
 import com.foodapp.food_ordering_spring_api.dao.RestaurantDao;
 import com.foodapp.food_ordering_spring_api.dto.ApiResponse;
+import com.foodapp.food_ordering_spring_api.dto.RestaurantByIdDto;
 import com.foodapp.food_ordering_spring_api.dto.RestaurantLoginDto;
 import com.foodapp.food_ordering_spring_api.dto.RestaurantSignUpDTO;
+import com.foodapp.food_ordering_spring_api.dto.UpdateRestaurantDto;
 import com.foodapp.food_ordering_spring_api.entities.Restaurant;
 
 import jakarta.transaction.Transactional;
@@ -42,4 +45,19 @@ public class RestaurantServiceImpl implements RestaurantService {
         	return new ApiResponse("Invalid Email or password");
         }
     }
+
+	@Override
+	public RestaurantByIdDto getRestaurantById(Long restaurantId) {
+		Restaurant entity = restaurantDao.findById(restaurantId).orElseThrow(() -> new ResourceNotFoundException("Invalid restaurant id!"));
+		return modelMapper.map(entity,RestaurantByIdDto.class);
+	}
+
+	@Override
+	public ApiResponse UpdateRestaurant(Long id, UpdateRestaurantDto dto) {
+		if(restaurantDao.existsByName(dto.getName()))
+			throw new ApiException("restaurant already exists by this name...");
+		Restaurant entity = restaurantDao.findById(id).orElseThrow(() -> new ResourceNotFoundException("invalid restaurant id"));
+		modelMapper.map(dto, entity);
+		return new ApiResponse("updated restaurant details!");
+	}
 }
