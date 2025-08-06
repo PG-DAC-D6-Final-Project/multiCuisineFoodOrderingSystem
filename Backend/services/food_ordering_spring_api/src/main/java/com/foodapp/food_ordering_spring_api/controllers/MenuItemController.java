@@ -2,6 +2,7 @@ package com.foodapp.food_ordering_spring_api.controllers;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -20,8 +21,15 @@ public class MenuItemController {
 	private final MenuItemService menuItemService;
 	
 	@PostMapping("/{restaurantId}")
-	public ResponseEntity<?> addMenuItem(@PathVariable Long restaurantId, @RequestBody MenuItemDto dto){
+	public ResponseEntity<?> addMenuItemToRestaurant(@PathVariable Long restaurantId, @RequestBody MenuItemDto dto){
 		return ResponseEntity.status(HttpStatus.CREATED)
 				.body(menuItemService.addMenuItemToRestaurant(restaurantId, dto));
 	}
+	
+	@DeleteMapping("/{menuItemId}")
+	public ResponseEntity<?> removeMenuItemFromRestaurant(@PathVariable Long menuItemId){
+		return ResponseEntity.status(HttpStatus.CREATED)
+				.body(menuItemService.removeMenuItemFromRestaurant(menuItemId));
+	}
+
 }

@@ -28,17 +28,37 @@ public class MenuItemServiceImpl implements MenuItemService {
 	public ApiResponse addMenuItemToRestaurant(Long restaurantId, MenuItemDto dto) {
 		
 		Restaurant restaurant = restaurantDao.findById(restaurantId).orElseThrow(() -> 
-		new RuntimeException("Invalid restaurant id - Food Item can't be added!!!!"));
+		new RuntimeException("Invalid restaurant id - Menu Item can't be added!!!!"));
 		
 		CuisineType cuisineType = cuisineTypeDao.findById(dto.getCuisineType()).orElseThrow(() -> 
-		new RuntimeException("Invalid cuisine type id - Food Item can't be added!!!!"));
+		new RuntimeException("Invalid cuisine type id - Menu Item can't be added!!!!"));
 		
 		MenuItem menuItem = modelMapper.map(dto, MenuItem.class);
 		
 		restaurant.addMenuItem(menuItem);
 		cuisineType.addMenuItem(menuItem);
 		
-		return new ApiResponse("New food item added to the restaurant");
+		return new ApiResponse("New menu item added to the restaurant");
+	}
+
+	@Override
+	public ApiResponse removeMenuItemFromRestaurant(Long menuItemId) {
+		
+		MenuItem menuItem = menuItemDao.findById(menuItemId).orElseThrow(() ->
+		new RuntimeException("Invalid menu item id - Menu Item can't be removed!!!!"));
+		
+		Restaurant restaurant = restaurantDao.findById(menuItem.getRestaurant().getId()).orElseThrow(() -> 
+		new RuntimeException("Invalid restaurant id - Menu Item can't be removed!!!!"));
+		
+		CuisineType cuisineType = cuisineTypeDao.findById(menuItem.getCuisineType().getId()).orElseThrow(() -> 
+		new RuntimeException("Invalid cuisine type id - Menu Item can't be added!!!!"));
+		
+		restaurant.removeMenuItem(menuItem);
+		cuisineType.removeMenuItem(menuItem);
+		
+		menuItemDao.delete(menuItem);
+		
+		return new ApiResponse("Food item removed from the restaurant");
 	}
 
 }
