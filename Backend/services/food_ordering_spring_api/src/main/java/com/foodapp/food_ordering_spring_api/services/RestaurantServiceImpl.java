@@ -1,10 +1,13 @@
 package com.foodapp.food_ordering_spring_api.services;
 
+import java.util.List;
+
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
 import com.foodapp.food_ordering_spring_api.custom_exceptions.ApiException;
 import com.foodapp.food_ordering_spring_api.dao.RestaurantDao;
+import com.foodapp.food_ordering_spring_api.dto.AllRestaurantDto;
 import com.foodapp.food_ordering_spring_api.dto.ApiResponse;
 import com.foodapp.food_ordering_spring_api.dto.RestaurantLoginDto;
 import com.foodapp.food_ordering_spring_api.dto.RestaurantSignUpDTO;
@@ -42,4 +45,11 @@ public class RestaurantServiceImpl implements RestaurantService {
         	return new ApiResponse("Invalid Email or password");
         }
     }
+
+	@Override
+	public List<AllRestaurantDto> getAllRestaurant() {
+		return restaurantDao.findAll()
+				.stream()
+				.map(restaurant -> modelMapper.map(restaurant, AllRestaurantDto.class)).toList();
+	}
 }
