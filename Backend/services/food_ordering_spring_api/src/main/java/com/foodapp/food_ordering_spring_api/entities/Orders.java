@@ -8,6 +8,7 @@ import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
@@ -25,10 +26,6 @@ import lombok.ToString;
 
 @EqualsAndHashCode
 public class Orders extends BaseEntity {
-////	private User user_id;//foreign key from user table
-//	@ManyToOne
-//	@JoinColumn(name="restaurant_id", nullable = false)
-//	private Restaurant restaurantId; // foreign key from restaurant table
 //	private delivery_personnel deliveryGuy_id; foreign key from delivery_personnel table
 	private LocalDateTime delivery_date_time;
 	private LocalDateTime order_date_time;
@@ -38,9 +35,21 @@ public class Orders extends BaseEntity {
 	private double discount_amount;
 	private double total_amount;
 
+	@Enumerated(EnumType.STRING)
 	private PaymentMethod payment_method;
+	@Enumerated(EnumType.STRING)
 	private OrderStatus orderstatus;	
 	
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "user_id",nullable = false)
+	private User user;
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "restaurant_id", nullable = false)
+	private Restaurant restaurant;
 	@OneToMany(mappedBy = "order",cascade = CascadeType.ALL, orphanRemoval = true)
 	private List<OrderItems> orderItems = new ArrayList<>();
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "delivery_person_id")
+	private DeliveryAgent deliveryPerson;
+
 }
