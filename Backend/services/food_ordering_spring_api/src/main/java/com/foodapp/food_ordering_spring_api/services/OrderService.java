@@ -13,6 +13,7 @@ import com.foodapp.food_ordering_spring_api.dao.OrderDao;
 import com.foodapp.food_ordering_spring_api.dao.RestaurantDao;
 import com.foodapp.food_ordering_spring_api.dao.UserDao;
 import com.foodapp.food_ordering_spring_api.dto.CreateNewOrderDto;
+import com.foodapp.food_ordering_spring_api.dto.CreateOrderMenuItemDto;
 import com.foodapp.food_ordering_spring_api.dto.MenuItemDto;
 import com.foodapp.food_ordering_spring_api.dto.OrderDto;
 import com.foodapp.food_ordering_spring_api.dto.OrderItemDto;
@@ -55,6 +56,8 @@ public class OrderService {
 	}
 
 	public CreateNewOrderDto createNewOrder(ReqOrderDto orderDto) {
+		
+		
 		Long userId = orderDto.getUserId();
 		Long restaurantId = orderDto.getRestaurantId();
 		
@@ -86,7 +89,7 @@ public class OrderService {
 		List<OrderItems> orderItemsEntities = new ArrayList<>();
 		
 		
-		List<MenuItemDto> userItems = new ArrayList();
+		List<CreateOrderMenuItemDto> userItems = new ArrayList();
 		
 		for(OrderItemDto itemDto: orderItemDtoList) {
 			MenuItem menuItem = menuItemDao.findById(itemDto.getMenuItemId())
@@ -98,7 +101,7 @@ public class OrderService {
 	 		
 	 		orderItemsEntities.add(orderItem);
 	 		
-	 		userItems.add(modelMapper.map(menuItem, MenuItemDto.class));
+	 		userItems.add(modelMapper.map(menuItem, CreateOrderMenuItemDto.class));
 	 		
 		}
 		

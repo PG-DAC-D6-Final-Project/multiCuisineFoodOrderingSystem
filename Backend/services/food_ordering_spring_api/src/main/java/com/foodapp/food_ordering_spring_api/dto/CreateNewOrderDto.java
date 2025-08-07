@@ -27,6 +27,6 @@ public class CreateNewOrderDto {
 	
 	private RestaurantSignUpDTO restaurant;
 
-	private List<MenuItemDto> MenuItems;
+	private List<CreateOrderMenuItemDto> MenuItems;
 
 }
