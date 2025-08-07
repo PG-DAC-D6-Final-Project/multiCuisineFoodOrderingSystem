@@ -1,7 +1,9 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 function EditMenuItem() {
     const [isSidebarOpen, setIsSidebarOpen] = useState(true);
+    const navigate = useNavigate();
   const [formData, setFormData] = useState({
     name: "",
     description: "",
@@ -19,7 +21,9 @@ function EditMenuItem() {
   const handleSubmit = (e) => {
     e.preventDefault();
     console.log("Updated Menu Item:", formData);
+    navigate("/restaurant/Dashboard")
   };
+
 
   return (
     <div className="flex w-full">
