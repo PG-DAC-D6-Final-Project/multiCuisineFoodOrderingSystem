@@ -102,7 +102,21 @@ public class MenuItemServiceImpl implements MenuItemService {
                 })
                 .toList();
 	}
-	
-	
+
+	@Override
+	public List<MenuItemResponseDto> getAllMenuItemsByCuisineType(Long cuisineTypeId) {
+		List<MenuItem> menuItems = menuItemDao.findByCuisineTypeId(cuisineTypeId);
+		if(menuItems.size() == 0) {
+			throw new RuntimeException("No such cuisine exists.");
+		}
+		return menuItems.stream()
+				.map(menuItem -> {
+					MenuItemResponseDto dto = modelMapper.map(menuItem, MenuItemResponseDto.class);
+		            dto.setRestaurantId(menuItem.getRestaurant().getId());
+		            dto.setCuisineTypeId(menuItem.getCuisineType().getId());
+		            return dto;
+				})
+				.toList();
+	}
 
 }

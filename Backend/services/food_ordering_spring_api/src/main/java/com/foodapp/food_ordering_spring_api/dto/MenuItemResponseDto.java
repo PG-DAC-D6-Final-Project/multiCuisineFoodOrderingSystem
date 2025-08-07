@@ -11,7 +11,8 @@ import lombok.ToString;
 @Setter
 @ToString(callSuper = true)
 @NoArgsConstructor
-public class MenuItemResponseDto extends BaseDTO {
+public class MenuItemResponseDto {
+	private Long id;
 	private String name;
     private String description;
     private double price;
