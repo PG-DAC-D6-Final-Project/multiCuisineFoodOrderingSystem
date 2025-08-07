@@ -1,24 +1,34 @@
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import { customerLogin } from "../../services/userServices";
+import { toast } from "react-toastify";
 
 const Login = () => {
   const navigate = useNavigate();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
-    // replace with real authentication
     if (email && password) {
-      navigate("/");
+      const result = await customerLogin(email, password);
+
+      if (result?.email) {
+        toast.success("Login successful")
+        navigate("/");
+      }
+      else {
+        toast.error("Invalid email or password");
+      }
+
     } else {
-      alert("Please enter email and password");
+      toast.error("Please enter email and password");
     }
   };
 
   return (
-     <div className="flex justify-center items-center h-screen bg-gray-100">
+    <div className="flex justify-center items-center h-screen bg-gray-100">
       <div className="bg-white p-6 rounded-xl shadow-md w-full max-w-sm">
         <h3 className="text-xl font-semibold mb-4 text-center">Login</h3>
 
