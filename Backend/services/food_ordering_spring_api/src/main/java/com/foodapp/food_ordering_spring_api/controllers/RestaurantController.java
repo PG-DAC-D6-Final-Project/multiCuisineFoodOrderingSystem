@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -54,5 +55,10 @@ public class RestaurantController {
 	@PatchMapping("/{restaurantId}")
 	public ResponseEntity<?> UpdateRestaurant(@PathVariable Long restaurantId, @RequestBody UpdateRestaurantDto dto){
 		return ResponseEntity.ok(restaurantService.UpdateRestaurant(restaurantId, dto));
+	}
+	
+	@DeleteMapping("/{restaurantId}")
+	public ResponseEntity<?> deleteRestaurantDetail(@PathVariable Long restaurantId){
+		return ResponseEntity.ok(restaurantService.deleteRestaurantDetail(restaurantId));
 	}
 }

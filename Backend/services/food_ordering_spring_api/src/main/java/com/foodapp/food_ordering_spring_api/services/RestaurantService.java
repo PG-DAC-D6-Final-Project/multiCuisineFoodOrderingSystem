@@ -14,4 +14,5 @@ public interface RestaurantService {
 	RestaurantByIdDto getRestaurantById(Long restaurantId);
 	ApiResponse UpdateRestaurant(Long id, UpdateRestaurantDto dto);	
 	List<AllRestaurantDto> getAllRestaurant();
+	ApiResponse deleteRestaurantDetail(Long restaurantId);
 }
