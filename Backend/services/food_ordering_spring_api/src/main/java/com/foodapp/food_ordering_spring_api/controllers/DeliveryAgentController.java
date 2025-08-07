@@ -2,6 +2,8 @@ package com.foodapp.food_ordering_spring_api.controllers;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -34,4 +36,9 @@ public class DeliveryAgentController {
     public ResponseEntity<?> deliveryAgentRegistration(@RequestBody DeliveryAgentRegisterDto dto) {
         return ResponseEntity.ok(deliveryAgentService.deliveryAgentRegistration(dto));
     }
+	
+	@GetMapping("{deliveryAgentId}")
+	public ResponseEntity<?> getOrderHistory(@PathVariable Long deliverAgentId){
+		return ResponseEntity.ok(null);
+	}
 }
