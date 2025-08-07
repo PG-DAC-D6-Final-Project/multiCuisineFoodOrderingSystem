@@ -1,7 +1,9 @@
 import React, { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 
 function EditRestaurantProfile() {
     const [isSidebarOpen, setIsSidebarOpen] = useState(true);
+    const navigate = useNavigate();
   const initialData = {
     name: "Tasty Bites",
     address: "123, Food Street, Pune",
@@ -28,6 +30,7 @@ function EditRestaurantProfile() {
     e.preventDefault();
     if (formData.password !== formData.confirmPassword) {
       setMessage("Passwords do not match.");
+      navigate("/restaurant/Dashboard")
       return;
     }
 
