@@ -1,5 +1,11 @@
 package com.foodapp.food_ordering_spring_api.services;
 
-public interface DeliveryAgentService {
+import com.foodapp.food_ordering_spring_api.dto.DeliveryAgentDto;
+import com.foodapp.food_ordering_spring_api.dto.DeliveryAgentLoginDto;
+import com.foodapp.food_ordering_spring_api.dto.DeliveryAgentRegisterDto;
 
+public interface DeliveryAgentService {
+	DeliveryAgentDto deliveryAgentLogin(DeliveryAgentLoginDto dto);
+	
+	DeliveryAgentDto deliveryAgentRegistration(DeliveryAgentRegisterDto dto);
 }
