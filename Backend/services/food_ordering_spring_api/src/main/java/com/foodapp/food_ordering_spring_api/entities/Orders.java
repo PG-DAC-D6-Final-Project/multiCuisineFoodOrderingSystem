@@ -42,16 +42,16 @@ public class Orders extends BaseEntity {
 	@Enumerated(EnumType.STRING)
 	private OrderStatus orderstatus;	
 	
-	@ManyToOne
+	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "user_id",nullable = false)
 	private User user;
-	@ManyToOne
+	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "restaurant_id", nullable = false)
 	private Restaurant restaurant;
 	@JsonIgnore
 	@OneToMany(mappedBy = "order",cascade = CascadeType.ALL, orphanRemoval = true)
 	private List<OrderItems> orderItems = new ArrayList<>();
-	@ManyToOne
+	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "delivery_person_id")
 	private DeliveryAgent deliveryPerson;
 

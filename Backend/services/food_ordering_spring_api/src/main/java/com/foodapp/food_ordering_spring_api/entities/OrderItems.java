@@ -23,7 +23,7 @@ import lombok.EqualsAndHashCode;
 	@ManyToOne 
 	@JoinColumn(name = "order_id", nullable = false)
  	private Orders order; // foreign key from orders table
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "menu_item_id",nullable = false)
  	private MenuItem menuItem; //foreign key from menu_item table
  	private int quantity;
