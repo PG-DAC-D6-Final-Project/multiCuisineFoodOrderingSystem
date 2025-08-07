@@ -7,5 +7,5 @@ import com.foodapp.food_ordering_spring_api.dto.RestaurantSignUpDTO;
 public interface RestaurantService {
 	ApiResponse restaurantSignUp(RestaurantSignUpDTO dto);
 	
-	ApiResponse restaurantLogin(RestaurantLoginDto dto);
+	RestaurantSignUpDTO restaurantLogin(RestaurantLoginDto dto);
 }
