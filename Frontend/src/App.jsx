@@ -46,7 +46,7 @@ function App() {
           <Route path="profile" element={<Profile />} />
           <Route path="register" element={<RegisterDeliveryAgent />} />
         </Route>
-        
+
         <Route path="" element={<Home />} />
         <Route path="/customer">
           {/* <Route path="" element={<Home />} /> */}

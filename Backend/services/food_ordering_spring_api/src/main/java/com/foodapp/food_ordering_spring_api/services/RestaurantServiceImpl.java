@@ -16,6 +16,7 @@ import com.foodapp.food_ordering_spring_api.dto.RestaurantLoginDto;
 import com.foodapp.food_ordering_spring_api.dto.RestaurantSignUpDTO;
 import com.foodapp.food_ordering_spring_api.dto.UpdateRestaurantDto;
 import com.foodapp.food_ordering_spring_api.entities.Restaurant;
+import com.foodapp.food_ordering_spring_api.entities.RestaurantStatus;
 
 import jakarta.transaction.Transactional;
 import lombok.AllArgsConstructor;
@@ -64,9 +65,21 @@ public class RestaurantServiceImpl implements RestaurantService {
 		modelMapper.map(dto, entity);
 		return new ApiResponse("updated restaurant details!");
 	}
+	
+	@Override
 	public List<AllRestaurantDto> getAllRestaurant() {
-		return restaurantDao.findAll()
+		return restaurantDao.findByStatus(RestaurantStatus.ACTIVE)
 				.stream()
 				.map(restaurant -> modelMapper.map(restaurant, AllRestaurantDto.class)).toList();
+	}
+
+	@Override
+	public ApiResponse deleteRestaurantDetail(Long restaurantId) {
+		Restaurant entity = restaurantDao.findById(restaurantId)
+									  .orElseThrow(() -> new ResourceNotFoundException("Invalid restaurant id...."));
+		
+		entity.setStatus(RestaurantStatus.INACTIVE);
+		restaurantDao.save(entity);
+		return new ApiResponse("restaurant deleted");		
 	}
 }
