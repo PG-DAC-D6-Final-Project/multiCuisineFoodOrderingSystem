@@ -23,7 +23,6 @@ const Register = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log({formData});
 
     if (formData.email && formData.firstName && formData.lastName && formData.password && formData.phone) {
       const result = await customerRegister(formData);
