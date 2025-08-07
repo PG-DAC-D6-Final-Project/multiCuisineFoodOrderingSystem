@@ -1,24 +1,39 @@
-import React from "react";
-import { Link } from "react-router-dom";
+import React, { useState } from "react";
+
+import { Link, useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
+import { customerRegister } from "../../services/userServices";
 const Register = () => {
-  //   const [formData, setFormData] = useState({
-  //   name: '',
-  //   email: '',
-  //   password: '',
-  // });
+  const [formData, setFormData] = useState({
+    firstName: '',
+    lastName: '',
+    email: '',
+    password: '',
+    phone: '',
+  });
 
-  // const handleChange = (e) => {
-  //   setFormData({
-  //     ...formData,
-  //     [e.target.name]: e.target.value
-  //   });
-  // };
+  const navigate = useNavigate();
 
-  // const handleSubmit = (e) => {
-  //   e.preventDefault();
-  //   console.log('Form submitted:', formData);
-  //   // send formData to backend api
-  // };
+  const handleChange = (e) => {
+    setFormData({
+      ...formData,
+      [e.target.name]: e.target.value
+    });
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    if (formData.email && formData.firstName && formData.lastName && formData.password && formData.phone) {
+      const result = await customerRegister(formData);
+
+      toast.success("User registered successfully.")
+      navigate("/customer/login");
+    }
+    else {
+      toast.error("All fields are required.")
+    }
+  };
 
   return (
     <div className="max-w-md mx-auto mt-8 p-4 shadow">
@@ -26,28 +41,28 @@ const Register = () => {
       <form>
         <div className="mb-3 flex items-center">
           <label htmlFor="firstname" className="w-32">First name:</label>
-          <input type="text" name="firstname" id="firstname" required className="flex-1 border px-3 py-2 rounded" />
+          <input type="text" onChange={handleChange} name="firstName" id="firstname" required className="flex-1 border px-3 py-2 rounded" />
         </div>
 
         <div className="mb-3 flex items-center">
           <label htmlFor="lastname" className="w-32">Last name:</label>
-          <input type="text" name="lastname" id="lastname" required className="flex-1 border px-3 py-2 rounded" />
+          <input type="text" onChange={handleChange} name="lastName" id="lastname" required className="flex-1 border px-3 py-2 rounded" />
         </div>
 
         <div className="mb-3 flex items-center">
           <label htmlFor="email" className="w-32">Email:</label>
-          <input type="email" name="email" id="email" required className="flex-1 border px-3 py-2 rounded" />
+          <input type="email" onChange={handleChange} name="email" id="email" required className="flex-1 border px-3 py-2 rounded" />
         </div>
 
         <div className="mb-3 flex items-center">
           <label htmlFor="phone" className="w-32">Phone:</label>
-          <input type="number" name="phone" id="phone" required className="flex-1 border px-3 py-2 rounded" />
+          <input type="number" onChange={handleChange} name="phone" id="phone" required className="flex-1 border px-3 py-2 rounded" />
         </div>
 
-        <div className="mb-3 flex items-center">
+        {/* <div className="mb-3 flex items-center">
           <label htmlFor="address" className="w-32">Address:</label>
-          <input type="text" name="address" id="address" required className="flex-1 border px-3 py-2 rounded" />
-        </div>
+          <input type="text" onChange={handleChange} name="address" id="address" required className="flex-1 border px-3 py-2 rounded" />
+        </div> */}
 
         {/* <div className="mb-3 flex items-center">
           <label htmlFor="role" className="w-32">Role:</label>
@@ -59,26 +74,27 @@ const Register = () => {
           </select>
         </div> */}
 
-        <div className="mb-3 flex items-center">
+        {/* <div className="mb-3 flex items-center">
           <label htmlFor="image" className="w-32">Image:</label>
           <input type="file" name="image" id="image" accept="image/*" className="flex-1" />
-        </div>
+        </div> */}
 
         <div className="mb-3 flex items-center">
           <label htmlFor="password" className="w-32">Password:</label>
-          <input type="password" name="password" id="password" required className="flex-1 border px-3 py-2 rounded" />
+          <input type="password" onChange={handleChange} name="password" id="password" required className="flex-1 border px-3 py-2 rounded" />
         </div>
 
         <div className="flex flex-col gap-2 mt-4">
           <Link to="/customer/login">
             <button
               type="submit"
+              onClick={handleSubmit}
               className="w-full text-white bg-green-700 hover:bg-green-800 focus:ring-4 focus:ring-green-300 font-medium rounded text-sm px-5 py-2.5"
             >
               Register
             </button>
           </Link>
-          
+
           <Link to="/" className="w-full">
             <button
               type="button"

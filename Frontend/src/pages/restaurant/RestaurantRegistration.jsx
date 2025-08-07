@@ -1,9 +1,9 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 function RestaurantRegistration() {
   const [formData, setFormData] = useState({
     name: "",
-    address: "",
     phone: "",
     email: "",
     password: "",
@@ -12,6 +12,9 @@ function RestaurantRegistration() {
     closingTime: "",
   });
 
+  const navigate = useNavigate();
+
+
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData((prev) => ({ ...prev, [name]: value }));
@@ -19,8 +22,26 @@ function RestaurantRegistration() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log("Restaurant Registered:", formData);
+    const address = {
+    addressLane1: formData.addressLane1,
+    addressLane2: formData.addressLane2,
+    city: formData.city,
+    state: formData.state,
+    country: formData.country,
+    pincode: formData.pincode
   };
+
+
+  const payload = {
+    ...formData,
+    address, // Nested object
+  };
+
+  console.log("Final Payload:", payload);
+  // Then POST it to your backend
+  navigate("/restaurant/")
+};
+
 
   return (
     <div className="min-h-screen bg-orange-400 flex items-center justify-center p-4">
@@ -44,7 +65,7 @@ function RestaurantRegistration() {
           />
         </div>
 
-        <div>
+        {/* <div>
           <label className="block text-sm font-medium mb-1">Address</label>
           <textarea
             name="address"
@@ -53,7 +74,83 @@ function RestaurantRegistration() {
             required
             className="w-full border border-gray-300 rounded px-3 py-2"
           />
-        </div>
+        </div> */}
+        <div>
+  <label className="block text-sm font-medium mb-1">Address Lane 1</label>
+  <input
+    type="text"
+    name="addressLane1"
+    value={formData.addressLane1}
+    onChange={handleChange}
+    required
+    className="w-full border border-gray-300 rounded px-3 py-2"
+  />
+</div>
+
+<div>
+  <label className="block text-sm font-medium mb-1">Address Lane 2</label>
+  <input
+    type="text"
+    name="addressLane2"
+    value={formData.addressLane2}
+    onChange={handleChange}
+    className="w-full border border-gray-300 rounded px-3 py-2"
+  />
+</div>
+
+<div className="flex gap-4">
+  <div className="w-1/2">
+    <label className="block text-sm font-medium mb-1">City</label>
+    <input
+      type="text"
+      name="city"
+      value={formData.city}
+      onChange={handleChange}
+      required
+      className="w-full border border-gray-300 rounded px-3 py-2"
+    />
+  </div>
+
+  <div className="w-1/2">
+    <label className="block text-sm font-medium mb-1">State</label>
+    <input
+      type="text"
+      name="state"
+      value={formData.state}
+      onChange={handleChange}
+      required
+      className="w-full border border-gray-300 rounded px-3 py-2"
+    />
+  </div>
+</div>
+
+<div className="flex gap-4">
+  <div className="w-1/2">
+    <label className="block text-sm font-medium mb-1">Country</label>
+    <input
+      type="text"
+      name="country"
+      value={formData.country}
+      onChange={handleChange}
+      required
+      className="w-full border border-gray-300 rounded px-3 py-2"
+    />
+  </div>
+
+  <div className="w-1/2">
+    <label className="block text-sm font-medium mb-1">Pincode</label>
+    <input
+      type="text"
+      name="pincode"
+      value={formData.pincode}
+      onChange={handleChange}
+      required
+      pattern="[0-9]{6}"
+      className="w-full border border-gray-300 rounded px-3 py-2"
+    />
+  </div>
+</div>
+
         <div>
           <label className="block text-sm font-medium mb-1">Password</label>
           <input
@@ -133,7 +230,7 @@ function RestaurantRegistration() {
           type="submit"
           className="w-full bg-orange-400 text-white font-semibold py-2 rounded hover:bg-red-700"
         >
-          Next
+          Register
         </button>
       </form>
     </div>

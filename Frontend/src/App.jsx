@@ -33,6 +33,7 @@ import DeliveryLayout from "./pages/delivery/DeliveryLayout";
 import OrderHistory from "./pages/delivery/OrderHistory";
 import Profile from "./pages/delivery/Profile";
 import RegisterDeliveryAgent from "./pages/delivery/RegisterDeliveryPerson";
+import LoginDeliveryPerson from "./pages/delivery/LoginDeliveryPerson";
 
 function App() {
   return (
@@ -45,8 +46,9 @@ function App() {
           <Route path="history" element={<OrderHistory />} />
           <Route path="profile" element={<Profile />} />
           <Route path="register" element={<RegisterDeliveryAgent />} />
+          <Route path="login" element={<LoginDeliveryPerson />} />
         </Route>
-        
+
         <Route path="" element={<Home />} />
         <Route path="/customer">
           {/* <Route path="" element={<Home />} /> */}

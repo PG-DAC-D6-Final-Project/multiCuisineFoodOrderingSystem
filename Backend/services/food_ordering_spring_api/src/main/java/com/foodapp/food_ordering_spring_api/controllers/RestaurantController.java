@@ -1,15 +1,23 @@
 package com.foodapp.food_ordering_spring_api.controllers;
 
-import org.springframework.http.HttpStatus;import org.springframework.http.HttpStatusCode;
+import java.util.List;
+
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PatchMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.foodapp.food_ordering_spring_api.dto.AllRestaurantDto;
 import com.foodapp.food_ordering_spring_api.dto.RestaurantLoginDto;
 import com.foodapp.food_ordering_spring_api.dto.RestaurantSignUpDTO;
+import com.foodapp.food_ordering_spring_api.dto.UpdateRestaurantDto;
 import com.foodapp.food_ordering_spring_api.services.RestaurantService;
 
 import lombok.AllArgsConstructor;
@@ -30,8 +38,32 @@ public class RestaurantController {
 	@PostMapping("/")
 	public ResponseEntity<?> RestaurantLogin(@RequestBody RestaurantLoginDto dto){
 		return ResponseEntity.ok(restaurantService.restaurantLogin(dto));
-		
 	}
-		
+	@GetMapping("/{restaurantId}")
+	public ResponseEntity<?> GetRestaurantById(@PathVariable Long restaurantId){
+		return ResponseEntity.ok(restaurantService.getRestaurantById(restaurantId));
+	}	
+	@GetMapping("/")
+	public ResponseEntity<?> GetAllRestaurants(){
+		List<AllRestaurantDto> restaurants = restaurantService.getAllRestaurant();
+		if(restaurants.isEmpty()) {
+			return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
+		}
+		return ResponseEntity.ok(restaurants);
+	}
 	
+	@PatchMapping("/{restaurantId}")
+	public ResponseEntity<?> UpdateRestaurant(@PathVariable Long restaurantId, @RequestBody UpdateRestaurantDto dto){
+		return ResponseEntity.ok(restaurantService.UpdateRestaurant(restaurantId, dto));
+	}
+	
+	@DeleteMapping("/{restaurantId}")
+	public ResponseEntity<?> deleteRestaurantDetail(@PathVariable Long restaurantId){
+		return ResponseEntity.ok(restaurantService.deleteRestaurantDetail(restaurantId));
+	}
+	
+	@GetMapping("{restaurantId}/Dashboard")
+	public ResponseEntity<?> showMenuItemsInDashboard(@PathVariable Long restaurantId){
+		return ResponseEntity.ok(restaurantService.getRestaurantMenu(restaurantId));
+	}
 }

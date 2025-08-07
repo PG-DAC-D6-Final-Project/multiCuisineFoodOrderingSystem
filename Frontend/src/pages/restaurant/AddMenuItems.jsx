@@ -1,7 +1,9 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 function AddFoodItem() {
     const [isSidebarOpen, setIsSidebarOpen] = useState(true);
+    const navigate = useNavigate();
   const [foodData, setFoodData] = useState({
     name: "",
     description: "",
@@ -20,6 +22,7 @@ function AddFoodItem() {
     e.preventDefault();
     setSuccessMsg("Food item added successfully!");
     console.log("Food Item Submitted:", foodData);
+    navigate("/restaurant/Dashboard")
   };
 
   return (
