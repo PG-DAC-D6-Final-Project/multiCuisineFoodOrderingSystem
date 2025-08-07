@@ -61,4 +61,9 @@ public class RestaurantController {
 	public ResponseEntity<?> deleteRestaurantDetail(@PathVariable Long restaurantId){
 		return ResponseEntity.ok(restaurantService.deleteRestaurantDetail(restaurantId));
 	}
+	
+	@GetMapping("{restaurantId}/Dashboard")
+	public ResponseEntity<?> showMenuItemsInDashboard(@PathVariable Long restaurantId){
+		return ResponseEntity.ok(restaurantService.getRestaurantMenu(restaurantId));
+	}
 }

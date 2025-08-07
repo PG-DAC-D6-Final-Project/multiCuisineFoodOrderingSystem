@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom'; // ✅ Step 1
 
 const RegistrationPage = () => {
   const [formData, setFormData] = useState({
@@ -7,6 +8,7 @@ const RegistrationPage = () => {
   });
 
   const [errors, setErrors] = useState({});
+  const navigate = useNavigate(); // ✅ Step 2
 
   const handleChange = (e) => {
     setFormData({ 
@@ -18,11 +20,7 @@ const RegistrationPage = () => {
   const validate = () => {
     const newErrors = {};
     if (!formData.username) newErrors.username = "Username is required";
-    // if (!formData.email) newErrors.email = "Email is required";
     if (!formData.password) newErrors.password = "Password is required";
-    if (formData.password !== formData.confirmPassword) {
-      newErrors.confirmPassword = "Passwords do not match";
-    }
     return newErrors;
   };
 
@@ -34,8 +32,11 @@ const RegistrationPage = () => {
       return;
     }
 
-    console.log("User Registered:", formData);
-    alert("Registration Successful!");
+    console.log("User Logged In:", formData);
+    alert("Login Successful!");
+
+    // ✅ Step 3: Redirect to dashboard
+    navigate("/restaurant/dashboard");
   };
 
   return (
@@ -44,6 +45,7 @@ const RegistrationPage = () => {
         <h2 className="text-2xl font-bold mb-6 text-center">SignIn</h2>
         <form onSubmit={handleSubmit} className="space-y-4">
           <h2 className='text-black text-3xl text-center'>Login</h2>
+
           <div>
             <label className="block mb-1 text-black font-medium">Username</label>
             <input
@@ -56,18 +58,6 @@ const RegistrationPage = () => {
             {errors.username && <p className="text-red-500 text-sm mt-1">{errors.username}</p>}
           </div>
 
-          {/* <div>
-            <label className="block mb-1 font-medium">Email</label>
-            <input
-              type="email"
-              name="email"
-              value={formData.email}
-              onChange={handleChange}
-              className="w-full px-3 py-2 border rounded-md focus:outline-none focus:ring focus:border-blue-500"
-            />
-            {errors.email && <p className="text-red-500 text-sm mt-1">{errors.email}</p>}
-          </div> */}
-
           <div>
             <label className="block mb-1 text-black font-medium">Password</label>
             <input
@@ -79,20 +69,6 @@ const RegistrationPage = () => {
             />
             {errors.password && <p className="text-red-500 text-sm mt-1">{errors.password}</p>}
           </div>
-
-          {/* <div>
-            <label className="block mb-1 font-medium">Confirm Password</label>
-            <input
-              type="password"
-              name="confirmPassword"
-              value={formData.confirmPassword}
-              onChange={handleChange}
-              className="w-full px-3 py-2 border rounded-md focus:outline-none focus:ring focus:border-blue-500"
-            />
-            {errors.confirmPassword && (
-              <p className="text-red-500 text-sm mt-1">{errors.confirmPassword}</p>
-            )}
-          </div> */}
 
           <button
             type="submit"

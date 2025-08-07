@@ -1,20 +1,25 @@
 
 package com.foodapp.food_ordering_spring_api.services;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
-
+import com.foodapp.food_ordering_spring_api.controllers.DummyController;
 import com.foodapp.food_ordering_spring_api.custom_exceptions.ApiException;
 import com.foodapp.food_ordering_spring_api.custom_exceptions.ResourceNotFoundException;
 import com.foodapp.food_ordering_spring_api.dao.RestaurantDao;
 import com.foodapp.food_ordering_spring_api.dto.AllRestaurantDto;
 import com.foodapp.food_ordering_spring_api.dto.ApiResponse;
+import com.foodapp.food_ordering_spring_api.dto.MenuItemDto;
 import com.foodapp.food_ordering_spring_api.dto.RestaurantByIdDto;
 import com.foodapp.food_ordering_spring_api.dto.RestaurantLoginDto;
+import com.foodapp.food_ordering_spring_api.dto.RestaurantMenuDto;
+import com.foodapp.food_ordering_spring_api.dto.RestaurantMenuItemDto;
 import com.foodapp.food_ordering_spring_api.dto.RestaurantSignUpDTO;
 import com.foodapp.food_ordering_spring_api.dto.UpdateRestaurantDto;
+import com.foodapp.food_ordering_spring_api.entities.MenuItem;
 import com.foodapp.food_ordering_spring_api.entities.Restaurant;
 import com.foodapp.food_ordering_spring_api.entities.RestaurantStatus;
 
@@ -54,6 +59,8 @@ public class RestaurantServiceImpl implements RestaurantService {
 	@Override
 	public RestaurantByIdDto getRestaurantById(Long restaurantId) {
 		Restaurant entity = restaurantDao.findById(restaurantId).orElseThrow(() -> new ResourceNotFoundException("Invalid restaurant id!"));
+		if(entity.getStatus() != RestaurantStatus.ACTIVE)
+			throw new ResourceNotFoundException("Restaurant isn't available at the moment...");
 		return modelMapper.map(entity,RestaurantByIdDto.class);
 	}
 
@@ -82,4 +89,37 @@ public class RestaurantServiceImpl implements RestaurantService {
 		restaurantDao.save(entity);
 		return new ApiResponse("restaurant deleted");		
 	}
+
+	@Override
+	public RestaurantMenuDto getRestaurantMenu(Long Id) {
+		Restaurant entity = restaurantDao.fetchRestaurantMenu(Id).orElseThrow(() -> new ResourceNotFoundException("No such restaurant present"));
+		
+		RestaurantMenuDto dto = new RestaurantMenuDto();
+		dto.setName(entity.getName());
+		dto.setAddress(entity.getAddress());
+		
+		List<RestaurantMenuItemDto> items = new ArrayList<>();
+		for(MenuItem menuitem : entity.getMenuItems()) {
+			RestaurantMenuItemDto itemDto = new RestaurantMenuItemDto();
+			itemDto.setId(menuitem.getId());
+			itemDto.setName(menuitem.getName());
+			itemDto.setDescription(menuitem.getDescription());
+			itemDto.setPrice(menuitem.getPrice());
+			itemDto.setImage_url(menuitem.getImage_url());
+//			itemDto.setCuisineType(menuitem.getCuisineType());
+			itemDto.setAvailability_status(menuitem.getAvailability_status());
+			
+			// Get cuisine type name safely
+	        if (menuitem.getCuisineType() != null) {
+	            itemDto.setCuisineType(menuitem.getCuisineType().getName());
+	        }
+	        
+			items.add(itemDto);
+		}
+		dto.setMenuItems(items);
+		
+		return dto;
+		
+	}
 }
+
