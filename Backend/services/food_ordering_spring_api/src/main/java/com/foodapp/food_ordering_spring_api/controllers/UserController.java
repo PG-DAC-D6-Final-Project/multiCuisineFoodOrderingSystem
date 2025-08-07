@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.foodapp.food_ordering_spring_api.dao.UserDao;
 import com.foodapp.food_ordering_spring_api.dto.AddressDto;
 import com.foodapp.food_ordering_spring_api.dto.UserDto;
+import com.foodapp.food_ordering_spring_api.dto.UserLoginDto;
 import com.foodapp.food_ordering_spring_api.entities.User;
 import com.foodapp.food_ordering_spring_api.services.UserService;
 
@@ -40,19 +41,30 @@ public class UserController {
 	
 	
 	@PostMapping("")
-	public ResponseEntity<?> userRegistration(@RequestBody UserDto userdto){
+	public ResponseEntity<?> userregistration(@RequestBody UserDto userdto){
 		System.out.println(userdto);
 		UserDto user = userService.registerUser(userdto);
 		return ResponseEntity.status(HttpStatus.CREATED)
-		.body(userService.registerUser(user));
+		.body(user);
 	}
 	
-	@PutMapping("updateAddress/{userId}")
+	@PutMapping("update-address/{userId}")
 	public ResponseEntity<?> updateAddress(@PathVariable Long userId,@RequestBody AddressDto addressDto){
 		System.out.println(userId);
 		return ResponseEntity.status(HttpStatus.OK)
 				.body( userService.updateAddress(userId,addressDto));
 	}
 
+	@PutMapping("update-user-details/{userId}")
+	public ResponseEntity<?> updateUserDetails(@PathVariable Long userId, @RequestBody UserDto userDto){
+		return ResponseEntity.status(HttpStatus.OK)
+				.body(userService.updateUserDetails(userId,userDto));
+	}
 	
+	@PostMapping("login")
+	public ResponseEntity<?> login(@RequestBody UserLoginDto userLoginDetail){
+		return ResponseEntity.status(HttpStatus.OK)
+				.body(userService.login(userLoginDetail));
+	}
+ 	
 }

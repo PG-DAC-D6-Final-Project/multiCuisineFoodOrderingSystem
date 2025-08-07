@@ -7,6 +7,7 @@ import com.foodapp.food_ordering_spring_api.custom_exceptions.ApiException;
 import com.foodapp.food_ordering_spring_api.dao.UserDao;
 import com.foodapp.food_ordering_spring_api.dto.AddressDto;
 import com.foodapp.food_ordering_spring_api.dto.UserDto;
+import com.foodapp.food_ordering_spring_api.dto.UserLoginDto;
 import com.foodapp.food_ordering_spring_api.entities.Address;
 import com.foodapp.food_ordering_spring_api.entities.User;
 
@@ -42,5 +43,24 @@ public class UserService {
 			return modelMapper.map(updateUser.getAddress(),AddressDto.class);
 				
 		
+	}
+
+	public UserDto updateUserDetails(Long userId, UserDto userDto) {
+		
+		User persistUser = userDao.findById(userId)
+				.orElseThrow(()-> new RuntimeException("User not found with id :"+userId));
+		
+		modelMapper.map(userDto, persistUser);
+		
+		User updateUser = userDao.save(persistUser);
+		
+		return modelMapper.map(updateUser, UserDto.class);
+	}
+
+	public UserDto login(UserLoginDto userLoginDetail) {
+		// TODO Auto-generated method stub
+		User userDetails = userDao.findByEmailAndPassword(userLoginDetail.getEmail(), userLoginDetail.getPassword())
+		.orElseThrow(()->new RuntimeException("Invalid User credentials"));
+		return modelMapper.map(userDetails, UserDto.class);
 	}
 }
