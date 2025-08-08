@@ -52,14 +52,10 @@ public class RestaurantServiceImpl implements RestaurantService {
 
 //	restaurant login function 
 	@Override
-    public ApiResponse restaurantLogin(RestaurantLoginDto dto) {
-        boolean exists = restaurantDao.findByEmailAndPassword(dto.getEmail(), dto.getPassword()).isPresent();
-        if(exists) {
-        	return new ApiResponse("Restaurant login successful...");
-        }
-        else {
-        	return new ApiResponse("Invalid Email or password");
-        }
+    public RestaurantSignUpDTO restaurantLogin(RestaurantLoginDto dto) {
+        Restaurant  restaurant = restaurantDao.findByEmailAndPassword(dto.getEmail(), dto.getPassword())
+        		.orElseThrow(()->new RuntimeException("Invalid Email or password"));
+        return modelMapper.map(restaurant, RestaurantSignUpDTO.class);
     }
 
 	@Override
