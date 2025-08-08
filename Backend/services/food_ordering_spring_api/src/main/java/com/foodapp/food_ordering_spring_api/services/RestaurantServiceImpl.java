@@ -8,6 +8,7 @@ import java.util.Map;
 import java.util.Optional;
 
 import org.modelmapper.ModelMapper;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import com.foodapp.food_ordering_spring_api.controllers.DummyController;
 import com.foodapp.food_ordering_spring_api.custom_exceptions.ApiException;
@@ -25,6 +26,7 @@ import com.foodapp.food_ordering_spring_api.dto.UpdateRestaurantDto;
 import com.foodapp.food_ordering_spring_api.entities.MenuItem;
 import com.foodapp.food_ordering_spring_api.entities.Restaurant;
 import com.foodapp.food_ordering_spring_api.entities.RestaurantStatus;
+import org.springframework.data.domain.Pageable;
 
 import jakarta.transaction.Transactional;
 import lombok.AllArgsConstructor;
@@ -80,8 +82,9 @@ public class RestaurantServiceImpl implements RestaurantService {
 	}
 	
 	@Override
-	public List<AllRestaurantDto> getAllRestaurant() {
-		return restaurantDao.findByStatus(RestaurantStatus.ACTIVE)
+	public List<AllRestaurantDto> getAllRestaurant(int limit) {
+		 Pageable  pageable = PageRequest.of(0, limit);
+		return restaurantDao.findByStatus(RestaurantStatus.ACTIVE,pageable)
 				.stream()
 				.map(restaurant -> modelMapper.map(restaurant, AllRestaurantDto.class)).toList();
 	}

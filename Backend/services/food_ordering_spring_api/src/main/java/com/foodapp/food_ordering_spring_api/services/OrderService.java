@@ -14,7 +14,6 @@ import com.foodapp.food_ordering_spring_api.dao.RestaurantDao;
 import com.foodapp.food_ordering_spring_api.dao.UserDao;
 import com.foodapp.food_ordering_spring_api.dto.CreateNewOrderDto;
 import com.foodapp.food_ordering_spring_api.dto.CreateOrderMenuItemDto;
-import com.foodapp.food_ordering_spring_api.dto.MenuItemDto;
 import com.foodapp.food_ordering_spring_api.dto.OrderDto;
 import com.foodapp.food_ordering_spring_api.dto.OrderItemDto;
 import com.foodapp.food_ordering_spring_api.dto.ReqOrderDto;
