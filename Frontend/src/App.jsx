@@ -34,6 +34,7 @@ import OrderHistory from "./pages/delivery/OrderHistory";
 import Profile from "./pages/delivery/Profile";
 import RegisterDeliveryAgent from "./pages/delivery/RegisterDeliveryPerson";
 import LoginDeliveryPerson from "./pages/delivery/LoginDeliveryPerson";
+import MenuItemsByCuisine from "./pages/User/MenuItemsByCuisine";
 
 function App() {
   return (
@@ -63,6 +64,7 @@ function App() {
           <Route path="CustomerPastOrders" element={<CustomerPastOrders />} />
           <Route path="viewAllRestaurants" element={<ViewAllRestaurants />} />
           <Route path="checkout" element={<Checkout />} />
+          <Route path="cuisine/:id" element={<MenuItemsByCuisine />} />
         </Route>
 
         <Route path="/restaurant">
