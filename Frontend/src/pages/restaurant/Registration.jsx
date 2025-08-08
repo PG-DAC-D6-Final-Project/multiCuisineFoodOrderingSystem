@@ -3,13 +3,14 @@ import axios from 'axios';
 import { useNavigate } from 'react-router-dom'; // ✅ Step 1
 
 const RegistrationPage = () => {
+  const navigate = useNavigate(); // ✅ Step 2
   const [formData, setFormData] = useState({
     username: '',
     password: '',
   });
 
   const [errors, setErrors] = useState({});
-  const navigate = useNavigate(); // ✅ Step 2
+  
 
   const handleChange = (e) => {
     setFormData({ 
@@ -54,12 +55,12 @@ const RegistrationPage = () => {
     });
 
     const resData = response.data;
-
-    if (resData.message === "Restaurant login successful...") {
+    console.log(resData)
+    if (resData.message === "Restaurant Login successful...") {
       alert("Login Successful!");
       // Optional: store login info
       // localStorage.setItem("restaurantEmail", formData.username);
-      navigate("/restaurant/dashboard");
+      navigate("/restaurant/Dashboard");
     } else {
       alert(resData.message);
     }

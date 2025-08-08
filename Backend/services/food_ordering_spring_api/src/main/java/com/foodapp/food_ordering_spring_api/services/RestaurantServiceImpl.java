@@ -52,12 +52,13 @@ public class RestaurantServiceImpl implements RestaurantService {
 
 //	restaurant login function 
 	@Override
-    public RestaurantSignUpDTO restaurantLogin(RestaurantLoginDto dto) {
+    public RestaurantLoginDto restaurantLogin(RestaurantLoginDto dto) {
         Restaurant  restaurant = restaurantDao.findByEmailAndPassword(dto.getEmail(), dto.getPassword())
         		.orElseThrow(()->new RuntimeException("Invalid Email or password"));
-        return modelMapper.map(restaurant, RestaurantSignUpDTO.class);
+        return modelMapper.map(restaurant, RestaurantLoginDto.class);
     }
 
+	
 	@Override
 	public RestaurantByIdDto getRestaurantById(Long restaurantId) {
 		Restaurant entity = restaurantDao.findById(restaurantId).orElseThrow(() -> new ResourceNotFoundException("Invalid restaurant id!"));
@@ -122,6 +123,15 @@ public class RestaurantServiceImpl implements RestaurantService {
 		
 		return dto;
 		
+	}
+
+	@Override
+	public ApiResponse restaurantSignin(RestaurantLoginDto dto) {
+		boolean exists = restaurantDao.findByEmailAndPassword(dto.getEmail(), dto.getPassword()).isPresent();
+		if(exists)
+			return new ApiResponse("Restaurant Login successful...");
+		else
+			return new ApiResponse("invalid email or password");
 	}
 }
 
