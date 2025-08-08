@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.foodapp.food_ordering_spring_api.dto.AllRestaurantDto;
@@ -46,8 +47,12 @@ public class RestaurantController {
 		return ResponseEntity.ok(restaurantService.getRestaurantById(restaurantId));
 	}	
 	@GetMapping("/")
-	public ResponseEntity<?> GetAllRestaurants(){
-		List<AllRestaurantDto> restaurants = restaurantService.getAllRestaurant();
+	public ResponseEntity<?> GetAllRestaurants(@RequestParam(defaultValue="10") int limit){
+		System.out.println("--------------------------------------");
+		System.out.println(limit);
+		System.out.println("------------------------------------------");
+		
+		List<AllRestaurantDto> restaurants = restaurantService.getAllRestaurant(limit);
 		if(restaurants.isEmpty()) {
 			return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
 		}
@@ -68,4 +73,6 @@ public class RestaurantController {
 	public ResponseEntity<?> showMenuItemsInDashboard(@PathVariable Long restaurantId){
 		return ResponseEntity.ok(restaurantService.getRestaurantMenu(restaurantId));
 	}
+	
+	
 }

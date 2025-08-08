@@ -1,17 +1,33 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
-import { removeItem, clearCart } from "../../slices/cartSlice";
+import {
+  removeItem,
+  clearCart,
+  incrementQuantity,
+  decrementQuantity,
+} from "../../slices/cartSlice";
+
+const DELIVERY_FEE = 50; // moved here for consistency
 
 const Cart = () => {
   const dispatch = useDispatch();
   const cartItems = useSelector((state) => state.cart.items);
 
-  // Calculate total price
-  const totalPrice = cartItems.reduce(
+  // Calculate subtotal
+  const subtotal = cartItems.reduce(
     (total, item) => total + item.price * item.quantity,
     0
   );
+
+  // Constants
+  const TAX_RATE = 0.18; // 18%
+  const DISCOUNT_RATE = 0.10; // 10%
+
+  // Calculate tax, discount and total
+  const taxAmount = subtotal * TAX_RATE;
+  const discountAmount = subtotal * DISCOUNT_RATE;
+  const totalAmount = subtotal + taxAmount + DELIVERY_FEE - discountAmount;
 
   const handleRemove = (id) => {
     dispatch(removeItem(id));
@@ -24,7 +40,9 @@ const Cart = () => {
   if (cartItems.length === 0) {
     return (
       <div className="flex flex-col items-center justify-center min-h-screen p-6 bg-gray-50">
-        <h2 className="text-3xl font-semibold mb-6 text-gray-700">Your Cart is Empty</h2>
+        <h2 className="text-3xl font-semibold mb-6 text-gray-700">
+          Your Cart is Empty
+        </h2>
         <Link to="/">
           <button className="bg-orange-500 text-white px-6 py-3 rounded hover:bg-orange-600 transition">
             Back to Home
@@ -47,13 +65,51 @@ const Cart = () => {
             <th className="border border-gray-300 px-6 py-3">Action</th>
           </tr>
         </thead>
+
         <tbody>
           {cartItems.map((item) => (
-            <tr key={item.id} className="bg-white hover:bg-gray-100 transition">
+            <tr
+              key={item.id}
+              className="bg-white hover:bg-gray-100 transition"
+            >
               <td className="border border-gray-300 px-6 py-4 text-left font-medium">
                 {item.name}
               </td>
-              <td className="border border-gray-300 px-6 py-4">{item.quantity}</td>
+              {/* <td className="border border-gray-300 px-6 py-4 flex items-center justify-center gap-2">
+                <button
+                  onClick={() => dispatch(decrementQuantity(item.id))}
+                  className="px-2 py-1 bg-gray-300 rounded hover:bg-gray-400"
+                  aria-label={`Decrease quantity of ${item.name}`}
+                >
+                  -
+                </button>
+                <span>{item.quantity}</span>
+                <button
+                  onClick={() => dispatch(incrementQuantity(item.id))}
+                  className="px-2 py-1 bg-gray-300 rounded hover:bg-gray-400"
+                  aria-label={`Increase quantity of ${item.name}`}
+                >
+                  +
+                </button>
+              </td> */}
+              <td className="border border-gray-300 px-6 py-4 flex items-center justify-center gap-2">
+                <button
+                  onClick={() => dispatch(decrementQuantity(item.id))}
+                  className="w-8 h-8 flex items-center justify-center rounded-md bg-gray-200 hover:bg-gray-300 text-gray-700 font-bold transition-shadow shadow-sm"
+                  aria-label={`Decrease quantity of ${item.name}`}
+                >
+                  -
+                </button>
+                <span className="w-6 text-center font-semibold">{item.quantity}</span>
+                <button
+                  onClick={() => dispatch(incrementQuantity(item.id))}
+                  className="w-8 h-8 flex items-center justify-center rounded-md bg-gray-200 hover:bg-gray-300 text-gray-700 font-bold transition-shadow shadow-sm"
+                  aria-label={`Increase quantity of ${item.name}`}
+                >
+                  +
+                </button>
+              </td>
+
               <td className="border border-gray-300 px-6 py-4">
                 ₹{(item.price * item.quantity).toFixed(2)}
               </td>
@@ -68,18 +124,76 @@ const Cart = () => {
               </td>
             </tr>
           ))}
-          <tr className="bg-orange-100 font-bold text-gray-800">
-            <td className="border border-gray-300 px-6 py-4 text-right" colSpan={2}>
+
+          <tr className="bg-orange-100 font-semibold text-gray-800">
+            <td
+              className="border border-gray-300 px-6 py-3 text-right"
+              colSpan={2}
+            >
+              Subtotal
+            </td>
+            <td className="border border-gray-300 px-6 py-3">
+              ₹{subtotal.toFixed(2)}
+            </td>
+            <td className="border border-gray-300 px-6 py-3"></td>
+          </tr>
+
+          <tr className="bg-orange-100 font-semibold text-gray-800">
+            <td
+              className="border border-gray-300 px-6 py-3 text-right"
+              colSpan={2}
+            >
+              Tax (18%)
+            </td>
+            <td className="border border-gray-300 px-6 py-3">
+              ₹{taxAmount.toFixed(2)}
+            </td>
+            <td className="border border-gray-300 px-6 py-3"></td>
+          </tr>
+
+          <tr className="bg-orange-100 font-semibold text-gray-800">
+            <td
+              className="border border-gray-300 px-6 py-3 text-right"
+              colSpan={2}
+            >
+              Discount (10%)
+            </td>
+            <td className="border border-gray-300 px-6 py-3 text-green-700">
+              - ₹{discountAmount.toFixed(2)}
+            </td>
+            <td className="border border-gray-300 px-6 py-3"></td>
+          </tr>
+
+          <tr className="bg-orange-100 font-semibold text-gray-800">
+            <td
+              className="border border-gray-300 px-6 py-3 text-right"
+              colSpan={2}
+            >
+              Delivery Fee
+            </td>
+            <td className="border border-gray-300 px-6 py-3">
+              ₹{DELIVERY_FEE.toFixed(2)}
+            </td>
+            <td className="border border-gray-300 px-6 py-3"></td>
+          </tr>
+
+          <tr className="bg-orange-300 font-bold text-gray-900">
+            <td
+              className="border border-gray-300 px-6 py-4 text-right"
+              colSpan={2}
+            >
               Total
             </td>
-            <td className="border border-gray-300 px-6 py-4">₹{totalPrice.toFixed(2)}</td>
+            <td className="border border-gray-300 px-6 py-4">
+              ₹{Math.ceil(totalAmount).toFixed(2)}
+            </td>
             <td className="border border-gray-300 px-6 py-4"></td>
           </tr>
         </tbody>
       </table>
 
       <div className="flex gap-4 mt-8">
-        <Link to="/customer/checkout">
+        <Link to="/customer/checkout" state={{ totalAmount: Math.ceil(totalAmount), subtotal, discountAmount, taxAmount, deliveryFee: DELIVERY_FEE }}>
           <button className="bg-orange-600 text-white px-6 py-3 rounded hover:bg-orange-700 transition">
             Checkout
           </button>

@@ -76,3 +76,15 @@ export const getRestaurantById = async (restaurantId) => {
     console.log(e);
   }
 };
+
+export const createOrder = async (body) => {
+  try {
+    const url = baseUrl + `/order`;
+
+    const response = await axios.post(url, body);
+
+    return response;
+  } catch (e) {
+    console.log(e);
+  }
+};
