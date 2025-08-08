@@ -14,7 +14,7 @@ public interface RestaurantService {
 	RestaurantSignUpDTO restaurantLogin(RestaurantLoginDto dto);
 	RestaurantByIdDto getRestaurantById(Long restaurantId);
 	ApiResponse UpdateRestaurant(Long id, UpdateRestaurantDto dto);	
-	List<AllRestaurantDto> getAllRestaurant();
+	List<AllRestaurantDto> getAllRestaurant(int limit);
 	ApiResponse deleteRestaurantDetail(Long restaurantId);
 	RestaurantMenuDto getRestaurantMenu(Long Id);
 

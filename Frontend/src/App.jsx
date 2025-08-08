@@ -35,6 +35,7 @@ import Profile from "./pages/delivery/Profile";
 import RegisterDeliveryAgent from "./pages/delivery/RegisterDeliveryPerson";
 import LoginDeliveryPerson from "./pages/delivery/LoginDeliveryPerson";
 import MenuItemsByCuisine from "./pages/User/MenuItemsByCuisine";
+import MenuItemsByRestaurants from "./pages/User/MenuItemsByRestaurants";
 
 function App() {
   return (
@@ -63,6 +64,7 @@ function App() {
           />
           <Route path="CustomerPastOrders" element={<CustomerPastOrders />} />
           <Route path="viewAllRestaurants" element={<ViewAllRestaurants />} />
+          <Route path="viewRestaurantMenuItems" element={<MenuItemsByRestaurants/>}/>
           <Route path="checkout" element={<Checkout />} />
           <Route path="cuisine/:id" element={<MenuItemsByCuisine />} />
         </Route>
