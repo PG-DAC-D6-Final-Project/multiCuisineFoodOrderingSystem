@@ -5,10 +5,16 @@ import image from "../../assets/resources/indian.png";
 import { Button } from "../../components/ui/button";
 import { toast } from "react-toastify";
 
+// Redux imports
+import { useDispatch } from "react-redux";
+import { addItem } from "../../slices/cartSlice"; // Adjust path as needed
+
 const MenuItemsByCuisine = () => {
   const { id } = useParams();
   const [menuItems, setMenuItems] = useState([]);
   const [loading, setLoading] = useState(true);
+
+  const dispatch = useDispatch();
 
   useEffect(() => {
     const fetchMenuItems = async () => {
@@ -31,8 +37,9 @@ const MenuItemsByCuisine = () => {
     fetchMenuItems();
   }, [id]);
 
-  const handleAddToCart = () => {
-    toast.success("Added to cart.");
+  const handleAddToCart = (item) => {
+    dispatch(addItem(item));
+    toast.success(`${item.name} added to cart.`);
   };
 
   return (
@@ -72,7 +79,7 @@ const MenuItemsByCuisine = () => {
 
                 <Button
                   className="w-full bg-orange-600 hover:bg-orange-700 transition-colors duration-300"
-                  onClick={handleAddToCart}
+                  onClick={() => handleAddToCart(item)}
                 >
                   Add to Cart
                 </Button>

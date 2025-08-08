@@ -40,14 +40,16 @@ function App() {
   return (
     <>
       <Routes>
-        <Route path="/delivery" element={<DeliveryLayout />}>
-          <Route path="" element={<Dashboard />} />
-          <Route path="active" element={<ActiveOrders />} />
-          <Route path="available" element={<AvailableOrders />} />
-          <Route path="history" element={<OrderHistory />} />
-          <Route path="profile" element={<Profile />} />
-          <Route path="register" element={<RegisterDeliveryAgent />} />
+        <Route path="/delivery">
           <Route path="login" element={<LoginDeliveryPerson />} />
+          <Route path="register" element={<RegisterDeliveryAgent />} />
+          <Route path="" element={<DeliveryLayout />}>
+            <Route path="" element={<Dashboard />} />
+            <Route path="active" element={<ActiveOrders />} />
+            <Route path="available" element={<AvailableOrders />} />
+            <Route path="history" element={<OrderHistory />} />
+            <Route path="profile" element={<Profile />} />
+          </Route>
         </Route>
 
         <Route path="" element={<Home />} />
@@ -83,7 +85,7 @@ function App() {
         <Route path="/admin">
           <Route path="" element={<Admin />} />
         </Route>
-      </Routes>
+      </Routes >
     </>
   );
 }
