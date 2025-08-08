@@ -16,9 +16,9 @@ function Nav() {
               <li className='hover:bg-gray-700 p-2 rounded cursor-pointer'>
             <Link to={'/restaurant/Dashboard'}><div>🏠 Home</div></Link>
           </li>
-              <li className="hover:bg-gray-700 p-2 rounded cursor-pointer">
+              {/* <li className="hover:bg-gray-700 p-2 rounded cursor-pointer">
                 <Link to={'/restaurant/EditItem'}><div>🧾 Edit Menu Items</div></Link>
-              </li>
+              </li> */}
               <li className="hover:bg-gray-700 p-2 rounded cursor-pointer">
                 <Link to={'/restaurant/EditProfile'}><div>👤 Edit Profile</div></Link>
               </li>
@@ -28,9 +28,9 @@ function Nav() {
               <li className="hover:bg-gray-700 p-2 rounded cursor-pointer">
                 <Link to={'/restaurant/AddItem'}><div>🍽️ Add Menu item</div></Link>
               </li>
-              <li className="hover:bg-gray-700 p-2 rounded cursor-pointer">
+              {/* <li className="hover:bg-gray-700 p-2 rounded cursor-pointer">
                 <Link to={'/restaurant/DeleteItem'}><div>🍽️ Delete Menu item</div></Link>
-              </li>
+              </li> */}
             </ul>
           </div>
         </div>

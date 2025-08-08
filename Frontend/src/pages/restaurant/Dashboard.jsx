@@ -1,10 +1,17 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 function Dashboard() {
   const [menuItems, setMenuItems] = useState([]);
   const [loading, setLoading] = useState(true);
 
+  const navigate = useNavigate();
+
+  const handleEdit = (id) => {
+    navigate(`/restaurant/EditItem/${id}`);
+  }
+  
   // Step 1: Get restaurantId from localStorage
   const restaurantId = localStorage.getItem("restaurantId");
 
@@ -27,6 +34,23 @@ function Dashboard() {
         setLoading(false);
       });
   }, [restaurantId]);
+
+  // Delete Menu Item from dashboard
+  const handleDelete = (id) => {
+    if (!window.confirm("Are you sure you want to delete this item?")) return;
+
+    axios
+      .delete(`http://localhost:8080/menu-item/${id}`)
+      .then(() => {
+        // Remove from frontend state
+        setMenuItems((prevItems) => prevItems.filter((item) => item.id !== id));
+        // alert("Menu item deleted successfully!");
+      })
+      .catch((err) => {
+        console.error("Error deleting menu item:", err);
+        alert("Failed to delete menu item.");
+      });
+  };
 
   // Step 3: Show loading, no data, or menu items
   if (loading) {
@@ -55,9 +79,13 @@ function Dashboard() {
                 className="h-60 w-80 object-cover rounded"
               />
               <h2 className="text-xl font-semibold">{item.name}</h2>
-              <p>Cuisine: {item.cuisineTypeName || "N/A"}</p>
+              <p>Cuisine: {item.cuisineName || "N/A"}</p>
               <p>Price: Rs.{item.price} /-</p>
               <p>Description: {item.description}</p>
+              <div className=" flex gap-4">
+                 <button className="bg-yellow-300 px-5 py-2 rounded text-white" onClick={() => handleEdit(item.id)}>Edit</button>
+                 <button className="bg-orange-500 px-5 py-2 rounded text-white" onClick={() => handleDelete(item.id)}>Delete</button>
+              </div>
             </div>
           ))}
         </div>
