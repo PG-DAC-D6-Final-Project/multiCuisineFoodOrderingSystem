@@ -16,6 +16,7 @@ const Login = () => {
 
       if (result?.email) {
         toast.success("Login successful")
+        sessionStorage.setItem("id", result.id)
         sessionStorage.setItem("firstName", result.firstName)
         sessionStorage.setItem("lastName", result.lastName)
         sessionStorage.setItem("email", result.email)

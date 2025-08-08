@@ -1,8 +1,8 @@
 package com.foodapp.food_ordering_spring_api.controllers;
 
-
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -17,6 +17,7 @@ import lombok.AllArgsConstructor;
 @RestController
 @RequestMapping("/order")
 @AllArgsConstructor
+@CrossOrigin("*")
 public class OrderController {
 	/*
 	 * get order by id
@@ -24,25 +25,23 @@ public class OrderController {
 	 * get all orders by user id
 	 * get all orders by restaurant id
 	 * get all orders by delivery person id
-	 * change order status 
+	 * change order status
 	 * assign delivery person to order
-	 *  
-	 * */
-	
+	 * 
+	 */
+
 	private final OrderService orderService;
-	
+
 	@GetMapping("")
-	public ResponseEntity<?> getAllOrders(){
+	public ResponseEntity<?> getAllOrders() {
 		return ResponseEntity.status(HttpStatus.OK)
 				.body(orderService.getAllOrders());
 	}
-	
+
 	@PostMapping("")
-	public ResponseEntity<?> createOrder(@RequestBody ReqOrderDto orderDto){
+	public ResponseEntity<?> createOrder(@RequestBody ReqOrderDto orderDto) {
 		return ResponseEntity.status(HttpStatus.OK)
 				.body(orderService.createNewOrder(orderDto));
 	}
-	
 
-	
 }

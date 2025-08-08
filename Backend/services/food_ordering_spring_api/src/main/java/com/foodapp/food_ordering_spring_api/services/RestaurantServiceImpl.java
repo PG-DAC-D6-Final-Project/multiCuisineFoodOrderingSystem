@@ -2,7 +2,10 @@
 package com.foodapp.food_ordering_spring_api.services;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.Optional;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.data.domain.PageRequest;
@@ -60,6 +63,7 @@ public class RestaurantServiceImpl implements RestaurantService {
         return modelMapper.map(restaurant, RestaurantSignUpDTO.class);
     }
 
+	
 	@Override
 	public RestaurantByIdDto getRestaurantById(Long restaurantId) {
 		Restaurant entity = restaurantDao.findById(restaurantId).orElseThrow(() -> new ResourceNotFoundException("Invalid restaurant id!"));
@@ -123,9 +127,36 @@ public class RestaurantServiceImpl implements RestaurantService {
 			items.add(itemDto);
 		}
 		dto.setMenuItems(items);
-		
+		System.out.println(dto);
 		return dto;
 		
 	}
+
+//	public ApiResponse restaurantSignin(RestaurantLoginDto dto) {
+//		boolean exists = restaurantDao.findByEmailAndPassword(dto.getEmail(), dto.getPassword()).isPresent();
+//		if(exists)
+//			return new ApiResponse("Restaurant Login successful...");
+//		else
+//			return new ApiResponse("invalid email or password");
+//	}
+	
+	public Map<String, Object> restaurantSignin(RestaurantLoginDto dto) {
+	    Map<String, Object> response = new HashMap<>();
+
+	    // Fetch restaurant entity
+	    Optional<Restaurant> restaurantOpt = restaurantDao.findByEmailAndPassword(dto.getEmail(), dto.getPassword());
+
+	    if (restaurantOpt.isPresent()) {
+	        Restaurant restaurant = restaurantOpt.get();
+
+	        response.put("message", "Restaurant Login successful...");
+	        response.put("restaurantId", restaurant.getId()); // ✅ Send ID to frontend
+	    } else {
+	        response.put("message", "Invalid email or password");
+	    }
+
+	    return response;
+	}
+
 }
 

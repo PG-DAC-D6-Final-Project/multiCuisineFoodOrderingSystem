@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import restaurantImage from '../../assets/resources/restaurant-signup.jpg';
-import deliveryImage from '../../assets/resources/delivery-signup.jpg';    
+import deliveryImage from '../../assets/resources/delivery-signup.jpg';
 
 const JoinUsOptions = () => {
   return (
@@ -47,7 +47,7 @@ const JoinUsOptions = () => {
             <p className="text-sm text-gray-600 mb-4">
               Join our team and earn by delivering happiness to people's doorsteps.
             </p>
-            <Link to="/delivery">
+            <Link to="/delivery/register">
               <button className="bg-orange-500 px-5 py-2 rounded hover:bg-orange-600 text-white">
                 Join Now
               </button>

@@ -3,13 +3,14 @@ import axios from 'axios';
 import { useNavigate } from 'react-router-dom'; // ✅ Step 1
 
 const RegistrationPage = () => {
+  const navigate = useNavigate(); // ✅ Step 2
   const [formData, setFormData] = useState({
     username: '',
     password: '',
   });
 
   const [errors, setErrors] = useState({});
-  const navigate = useNavigate(); // ✅ Step 2
+  
 
   const handleChange = (e) => {
     setFormData({ 
@@ -39,7 +40,7 @@ const RegistrationPage = () => {
   //   // ✅ Step 3: Redirect to dashboard
   //   navigate("/restaurant/dashboard");
   // };
-  const handleSubmit = async (e) => {
+const handleSubmit = async (e) => {
   e.preventDefault();
   const validationErrors = validate();
   if (Object.keys(validationErrors).length > 0) {
@@ -49,17 +50,20 @@ const RegistrationPage = () => {
 
   try {
     const response = await axios.post("http://localhost:8080/restaurant/", {
-      email: formData.username, // ⬅️ your input is named "username"
+      email: formData.username,
       password: formData.password
     });
 
     const resData = response.data;
+    console.log(resData);
 
-    if (resData.message === "Restaurant login successful...") {
+    if (resData.message === "Restaurant Login successful...") {
       alert("Login Successful!");
-      // Optional: store login info
-      // localStorage.setItem("restaurantEmail", formData.username);
-      navigate("/restaurant/dashboard");
+
+      // ✅ Store restaurantId in localStorage
+      localStorage.setItem("restaurantId", resData.restaurantId);
+
+      navigate("/restaurant/Dashboard");
     } else {
       alert(resData.message);
     }
@@ -69,6 +73,8 @@ const RegistrationPage = () => {
     alert("Server error during login.");
   }
 };
+
+
 
   return (
     <div className="bg-orange-400 flex justify-center items-center h-[100vh] p-4 text-white">
