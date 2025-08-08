@@ -40,3 +40,39 @@ export const customerRegister = async ({
     console.log(e);
   }
 };
+
+export const getAllCuisines = async () => {
+  try {
+    const url = baseUrl + "/cuisine";
+
+    const response = await axios.get(url);
+
+    return response.data;
+  } catch (e) {
+    console.log(e);
+  }
+};
+
+export const getMenuItemsByCuisineType = async (cuisineTypeId) => {
+  try {
+    const url = baseUrl + `/menu-item/cuisine/${cuisineTypeId}`;
+
+    const response = await axios.get(url);
+
+    return response;
+  } catch (e) {
+    console.log(e);
+  }
+};
+
+export const getRestaurantById = async (restaurantId) => {
+  try {
+    const url = baseUrl + `/restaurant/${restaurantId}`;
+
+    const response = await axios.get(url);
+
+    return response.data;
+  } catch (e) {
+    console.log(e);
+  }
+};

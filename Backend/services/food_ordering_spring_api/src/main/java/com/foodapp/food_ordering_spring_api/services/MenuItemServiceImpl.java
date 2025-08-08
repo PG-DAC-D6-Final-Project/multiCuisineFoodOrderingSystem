@@ -1,7 +1,6 @@
 package com.foodapp.food_ordering_spring_api.services;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
@@ -12,6 +11,7 @@ import com.foodapp.food_ordering_spring_api.dao.RestaurantDao;
 import com.foodapp.food_ordering_spring_api.dto.ApiResponse;
 import com.foodapp.food_ordering_spring_api.dto.MenuItemDto;
 import com.foodapp.food_ordering_spring_api.dto.MenuItemResponseDto;
+import com.foodapp.food_ordering_spring_api.dto.MenuItemsWithRestaurantDto;
 import com.foodapp.food_ordering_spring_api.entities.CuisineType;
 import com.foodapp.food_ordering_spring_api.entities.MenuItem;
 import com.foodapp.food_ordering_spring_api.entities.Restaurant;
@@ -104,14 +104,14 @@ public class MenuItemServiceImpl implements MenuItemService {
 	}
 
 	@Override
-	public List<MenuItemResponseDto> getAllMenuItemsByCuisineType(Long cuisineTypeId) {
+	public List<MenuItemsWithRestaurantDto> getAllMenuItemsByCuisineType(Long cuisineTypeId) {
 		List<MenuItem> menuItems = menuItemDao.findByCuisineTypeId(cuisineTypeId);
 		if(menuItems.size() == 0) {
 			throw new RuntimeException("No such cuisine exists.");
 		}
 		return menuItems.stream()
 				.map(menuItem -> {
-					MenuItemResponseDto dto = modelMapper.map(menuItem, MenuItemResponseDto.class);
+					MenuItemsWithRestaurantDto dto = modelMapper.map(menuItem, MenuItemsWithRestaurantDto.class);
 		            dto.setRestaurantId(menuItem.getRestaurant().getId());
 		            dto.setCuisineTypeId(menuItem.getCuisineType().getId());
 		            return dto;
