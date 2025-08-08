@@ -52,10 +52,10 @@ public class RestaurantServiceImpl implements RestaurantService {
 
 //	restaurant login function 
 	@Override
-    public RestaurantLoginDto restaurantLogin(RestaurantLoginDto dto) {
+    public RestaurantSignUpDTO restaurantLogin(RestaurantLoginDto dto) {
         Restaurant  restaurant = restaurantDao.findByEmailAndPassword(dto.getEmail(), dto.getPassword())
         		.orElseThrow(()->new RuntimeException("Invalid Email or password"));
-        return modelMapper.map(restaurant, RestaurantLoginDto.class);
+        return modelMapper.map(restaurant, RestaurantSignUpDTO.class);
     }
 
 	
