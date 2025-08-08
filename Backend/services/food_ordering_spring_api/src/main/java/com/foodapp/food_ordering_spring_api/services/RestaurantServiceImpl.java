@@ -39,7 +39,13 @@ public class RestaurantServiceImpl implements RestaurantService {
 		if(restaurantDao.existsByName(dto.getName())) {
 			throw new ApiException("Restaurant Already Exists...");
 		}
+		if(restaurantDao.existsByEmail(dto.getEmail())) {
+			throw new ApiException("Restaurant Email Already Exists...");
+		}
+			
 		Restaurant entity = modelMapper.map(dto,Restaurant.class);
+		entity.setStatus(RestaurantStatus.ACTIVE);
+		entity.setMinimum_order_amount(100);
 		Restaurant persistentRestaurant = restaurantDao.save(entity);
 		return new ApiResponse("Added new Restaurant with ID = " + persistentRestaurant.getId());
 	}
