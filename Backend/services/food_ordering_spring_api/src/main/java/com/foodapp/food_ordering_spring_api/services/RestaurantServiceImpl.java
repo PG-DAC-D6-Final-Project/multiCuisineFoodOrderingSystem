@@ -101,6 +101,7 @@ public class RestaurantServiceImpl implements RestaurantService {
 		Restaurant entity = restaurantDao.fetchRestaurantMenu(Id).orElseThrow(() -> new ResourceNotFoundException("No such restaurant present"));
 		
 		RestaurantMenuDto dto = new RestaurantMenuDto();
+		dto.setId(entity.getId());
 		dto.setName(entity.getName());
 		dto.setAddress(entity.getAddress());
 		
@@ -123,7 +124,7 @@ public class RestaurantServiceImpl implements RestaurantService {
 			items.add(itemDto);
 		}
 		dto.setMenuItems(items);
-		
+		System.out.println(dto);
 		return dto;
 		
 	}
