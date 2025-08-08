@@ -2,107 +2,116 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 function AddFoodItem() {
-    const [isSidebarOpen, setIsSidebarOpen] = useState(true);
-    const navigate = useNavigate();
-  const [foodData, setFoodData] = useState({
+  const restaurantId = localStorage.getItem("restaurantId");
+  const navigate = useNavigate();
+
+  const [formData, setFormData] = useState({
     name: "",
     description: "",
     price: "",
     cuisineType: "",
   });
 
-  const [successMsg, setSuccessMsg] = useState("");
+  const cuisines = [
+    { id: 1, name: "Indian" },
+    { id: 2, name: "Italian" },
+    { id: 3, name: "Mexican" },
+    { id: 4, name: "Chinese" },
+    { id: 5, name: "Mediterranean" },
+  ];
 
   const handleChange = (e) => {
-    const { name, value } = e.target;
-    setFoodData((prev) => ({ ...prev, [name]: value }));
+    setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    setSuccessMsg("Food item added successfully!");
-    console.log("Food Item Submitted:", foodData);
-    navigate("/restaurant/Dashboard")
+    try {
+      const res = await fetch(`http://localhost:8080/menu-item/${restaurantId}`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          ...formData,
+          price: parseFloat(formData.price), // ensure number
+          cuisineType: parseInt(formData.cuisineType), // ensure number
+        }),
+      });
+      if (res.ok) {
+        alert("Menu item added successfully!");
+        setFormData({ name: "", description: "", price: "", cuisineType: "" });
+      } else {
+        alert("Error adding menu item");
+      }
+    } catch (error) {
+      console.error("Error:", error);
+      alert("Server error");
+    }
+    navigate("/restaurant/dashboard")
   };
 
   return (
-    <div className="flex w-full">
-    <div className="min-h-screen w-full bg-gray-100 flex items-center justify-center p-4">
-      <form
-        onSubmit={handleSubmit}
-        className="bg-white p-8 rounded-xl shadow-lg w-full max-w-md space-y-6"
-      >
-        <h2 className="text-2xl font-bold text-center text-orange-400">
-          Add Food Item
-        </h2>
-
-        {successMsg && (
-          <p className="text-green-600 text-center text-sm">{successMsg}</p>
-        )}
-
+    <div className="p-4">
+      <h2 className="text-xl font-bold mb-4">
+        Add Menu Item (Restaurant ID: {restaurantId})
+      </h2>
+      <form onSubmit={handleSubmit} className="space-y-4 max-w-md">
         <div>
-          <label className="block text-sm font-medium mb-1">Name</label>
+          <label className="block font-medium">Item Name</label>
           <input
             type="text"
             name="name"
-            value={foodData.name}
+            value={formData.name}
             onChange={handleChange}
+            className="border p-2 rounded w-full"
             required
-            className="w-full border border-gray-300 rounded px-3 py-2"
           />
         </div>
-
         <div>
-          <label className="block text-sm font-medium mb-1">Description</label>
+          <label className="block font-medium">Description</label>
           <textarea
             name="description"
-            value={foodData.description}
+            value={formData.description}
             onChange={handleChange}
+            className="border p-2 rounded w-full"
+            rows="3"
             required
-            className="w-full border border-gray-300 rounded px-3 py-2"
-          />
+          ></textarea>
         </div>
-
         <div>
-          <label className="block text-sm font-medium mb-1">Price (₹)</label>
+          <label className="block font-medium">Price</label>
           <input
             type="number"
             name="price"
-            value={foodData.price}
+            value={formData.price}
             onChange={handleChange}
+            className="border p-2 rounded w-full"
             required
-            min="1"
-            className="w-full border border-gray-300 rounded px-3 py-2"
           />
         </div>
-
         <div>
-          <label className="block text-sm font-medium mb-1">Cuisine Type</label>
+          <label className="block font-medium">Cuisine</label>
           <select
             name="cuisineType"
-            value={foodData.cuisineType}
+            value={formData.cuisineType}
             onChange={handleChange}
+            className="border p-2 rounded w-full"
             required
-            className="w-full border border-gray-300 rounded px-3 py-2"
           >
-            <option value="">Select Cuisine</option>
-            <option value="Indian">Indian</option>
-            <option value="Chinese">Chinese</option>
-            <option value="Italian">Italian</option>
-            <option value="Mexican">Mexican</option>
-            <option value="Thai">Thai</option>
-            <option value="Continental">Continental</option>
+            <option value="">-- Select Cuisine --</option>
+            {cuisines.map((cuisine) => (
+              <option key={cuisine.id} value={cuisine.id}>
+                {cuisine.name}
+              </option>
+            ))}
           </select>
         </div>
-
         <button
           type="submit"
-          className="w-full bg-orange-400 text-white font-semibold py-2 rounded hover:bg-red-700"
+          className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600"
         >
           Add Item
         </button>
       </form>
-    </div>
     </div>
   );
 }

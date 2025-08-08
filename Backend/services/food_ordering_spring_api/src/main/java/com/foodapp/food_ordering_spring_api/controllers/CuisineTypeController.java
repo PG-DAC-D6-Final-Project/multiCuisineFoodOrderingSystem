@@ -13,6 +13,7 @@ import lombok.AllArgsConstructor;
 @RestController
 @RequestMapping("/cuisine")
 @AllArgsConstructor
+
 @CrossOrigin
 public class CuisineTypeController {
 	public final CuisineTypeService cuisineTypeService;
