@@ -11,7 +11,7 @@ import com.foodapp.food_ordering_spring_api.dto.RestaurantSignUpDTO;
 import com.foodapp.food_ordering_spring_api.dto.UpdateRestaurantDto;
 public interface RestaurantService {
 	ApiResponse restaurantSignUp(RestaurantSignUpDTO dto);
-	ApiResponse restaurantLogin(RestaurantLoginDto dto);
+	RestaurantSignUpDTO restaurantLogin(RestaurantLoginDto dto);
 	RestaurantByIdDto getRestaurantById(Long restaurantId);
 	ApiResponse UpdateRestaurant(Long id, UpdateRestaurantDto dto);	
 	List<AllRestaurantDto> getAllRestaurant();
