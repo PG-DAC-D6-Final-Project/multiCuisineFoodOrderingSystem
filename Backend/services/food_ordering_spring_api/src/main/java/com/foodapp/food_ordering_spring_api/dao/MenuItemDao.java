@@ -10,4 +10,6 @@ public interface MenuItemDao extends JpaRepository<MenuItem, Long> {
 	
 	List<MenuItem> findByRestaurantId(Long restaurantId);
 	
+	List<MenuItem> findByCuisineTypeId(Long cuisineTypeId);
+	
 }

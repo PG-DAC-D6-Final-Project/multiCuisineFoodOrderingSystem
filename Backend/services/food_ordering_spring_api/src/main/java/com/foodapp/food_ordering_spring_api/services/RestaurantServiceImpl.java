@@ -39,21 +39,23 @@ public class RestaurantServiceImpl implements RestaurantService {
 		if(restaurantDao.existsByName(dto.getName())) {
 			throw new ApiException("Restaurant Already Exists...");
 		}
+		if(restaurantDao.existsByEmail(dto.getEmail())) {
+			throw new ApiException("Restaurant Email Already Exists...");
+		}
+			
 		Restaurant entity = modelMapper.map(dto,Restaurant.class);
+		entity.setStatus(RestaurantStatus.ACTIVE);
+		entity.setMinimum_order_amount(100);
 		Restaurant persistentRestaurant = restaurantDao.save(entity);
 		return new ApiResponse("Added new Restaurant with ID = " + persistentRestaurant.getId());
 	}
 
 //	restaurant login function 
 	@Override
-    public ApiResponse restaurantLogin(RestaurantLoginDto dto) {
-        boolean exists = restaurantDao.findByEmailAndPassword(dto.getEmail(), dto.getPassword()).isPresent();
-        if(exists) {
-        	return new ApiResponse("Restaurant login successful...");
-        }
-        else {
-        	return new ApiResponse("Invalid Email or password");
-        }
+    public RestaurantSignUpDTO restaurantLogin(RestaurantLoginDto dto) {
+        Restaurant  restaurant = restaurantDao.findByEmailAndPassword(dto.getEmail(), dto.getPassword())
+        		.orElseThrow(()->new RuntimeException("Invalid Email or password"));
+        return modelMapper.map(restaurant, RestaurantSignUpDTO.class);
     }
 
 	@Override
