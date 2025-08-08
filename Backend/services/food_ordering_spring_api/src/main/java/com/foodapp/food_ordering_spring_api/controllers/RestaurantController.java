@@ -39,7 +39,7 @@ public class RestaurantController {
 //	Restaurant login 
 	@PostMapping("/")
 	public ResponseEntity<?> RestaurantLogin(@RequestBody RestaurantLoginDto dto){
-		return ResponseEntity.ok(restaurantService.restaurantLogin(dto));
+		return ResponseEntity.ok(restaurantService.restaurantSignin(dto));
 	}
 	@GetMapping("/{restaurantId}")
 	public ResponseEntity<?> GetRestaurantById(@PathVariable Long restaurantId){
