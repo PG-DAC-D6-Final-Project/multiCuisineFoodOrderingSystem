@@ -17,4 +17,5 @@ public interface RestaurantService {
 	List<AllRestaurantDto> getAllRestaurant();
 	ApiResponse deleteRestaurantDetail(Long restaurantId);
 	RestaurantMenuDto getRestaurantMenu(Long Id);
+
 }
