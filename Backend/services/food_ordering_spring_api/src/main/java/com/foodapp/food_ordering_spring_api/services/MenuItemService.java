@@ -15,11 +15,7 @@ public interface MenuItemService {
 	ApiResponse updateMenuItemOfRestaurant(Long restaurantId, MenuItemDto dto);
 	
 	List<MenuItemResponseDto> getAllMenuItemsOfRestaurant(Long restaurantId);
-	
-<<<<<<< HEAD
-	List<MenuItemResponseDto> getAllMenuItemsByCuisineType(Long cuisineTypeId);
-=======
+	// List<MenuItemResponseDto> getAllMenuItemsByCuisineType(Long cuisineTypeId);
 	List<MenuItemsWithRestaurantDto> getAllMenuItemsByCuisineType(Long cuisineTypeId);
->>>>>>> 3832941339d2cede0f5fcb0f7e5f2b5a5dd83deb
 
 }
