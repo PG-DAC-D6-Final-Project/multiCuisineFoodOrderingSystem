@@ -5,6 +5,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
+import com.foodapp.food_ordering_spring_api.custom_exceptions.ApiException;
 import com.foodapp.food_ordering_spring_api.dto.ErrorResponse;
 
 @RestControllerAdvice
@@ -15,6 +16,12 @@ public class GlobalExceptionHandler {
 		ErrorResponse error = new ErrorResponse(HttpStatus.INTERNAL_SERVER_ERROR.value(),ex.getMessage());
 		
 		return new ResponseEntity<ErrorResponse>(error,HttpStatus.INTERNAL_SERVER_ERROR);
+	}
+	
+	@ExceptionHandler(ApiException.class)
+	public ResponseEntity<ErrorResponse> handleApiException(ApiException ex) {
+		ErrorResponse error = new ErrorResponse(HttpStatus.BAD_REQUEST.value(), ex.getMessage());
+		return new ResponseEntity<>(error, HttpStatus.BAD_REQUEST);
 	}
 
 }

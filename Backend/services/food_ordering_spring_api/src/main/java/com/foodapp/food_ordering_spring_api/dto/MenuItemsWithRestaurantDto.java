@@ -11,7 +11,7 @@ import lombok.ToString;
 @Setter
 @ToString(callSuper = true)
 @NoArgsConstructor
-public class MenuItemResponseDto {
+public class MenuItemsWithRestaurantDto {
 	private Long id;
 	private String name;
     private String description;
@@ -20,4 +20,5 @@ public class MenuItemResponseDto {
     private RestaurantMenuItemAvailability availability_status;
     private Long restaurantId;
     private Long cuisineTypeId;
+    private RestaurantByIdDto restaurant;
 }

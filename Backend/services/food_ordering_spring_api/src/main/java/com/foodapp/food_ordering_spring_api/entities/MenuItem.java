@@ -25,7 +25,6 @@ import lombok.ToString;
 @Setter
 @NoArgsConstructor
 @ToString
-
 @EqualsAndHashCode
 public class MenuItem extends BaseEntity{
 	@Column(length = 30)
