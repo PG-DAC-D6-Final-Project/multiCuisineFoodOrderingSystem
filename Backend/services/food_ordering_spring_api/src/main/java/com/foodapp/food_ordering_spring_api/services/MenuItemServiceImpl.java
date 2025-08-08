@@ -5,6 +5,7 @@ import java.util.List;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
+import com.foodapp.food_ordering_spring_api.custom_exceptions.ResourceNotFoundException;
 import com.foodapp.food_ordering_spring_api.dao.CuisineTypeDao;
 import com.foodapp.food_ordering_spring_api.dao.MenuItemDao;
 import com.foodapp.food_ordering_spring_api.dao.RestaurantDao;
@@ -99,6 +100,7 @@ public class MenuItemServiceImpl implements MenuItemService {
                 .map(item -> {
                     MenuItemResponseDto dto = modelMapper.map(item, MenuItemResponseDto.class);
                     dto.setCuisineTypeId(item.getCuisineType().getId());
+                    dto.setCuisineName(item.getCuisineType().getName());
                     dto.setRestaurantId(item.getRestaurant().getId());
                     return dto;
                 })

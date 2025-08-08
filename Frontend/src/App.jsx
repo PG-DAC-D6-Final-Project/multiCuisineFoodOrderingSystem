@@ -78,7 +78,7 @@ function App() {
 
             <Route path="AddItem" element={<AddFoodItem />} />
             <Route path="EditProfile" element={<EditRestaurantProfile />} />
-            <Route path="EditItem" element={<EditMenuItem />} />
+            <Route path="EditItem/:id" element={<EditMenuItem />} />
             <Route path="DeleteItem" element={<RemoveMenuItems />} />
           </Route>
         </Route>
