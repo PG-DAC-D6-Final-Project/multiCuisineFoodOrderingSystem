@@ -15,6 +15,7 @@ import com.foodapp.food_ordering_spring_api.dto.MenuItemsWithRestaurantDto;
 import com.foodapp.food_ordering_spring_api.entities.CuisineType;
 import com.foodapp.food_ordering_spring_api.entities.MenuItem;
 import com.foodapp.food_ordering_spring_api.entities.Restaurant;
+import com.foodapp.food_ordering_spring_api.entities.RestaurantMenuItemAvailability;
 
 import jakarta.transaction.Transactional;
 import lombok.AllArgsConstructor;
@@ -41,6 +42,7 @@ public class MenuItemServiceImpl implements MenuItemService {
 		
 		restaurant.addMenuItem(menuItem);
 		cuisineType.addMenuItem(menuItem);
+		menuItem.setAvailability_status(RestaurantMenuItemAvailability.AVAILABLE);
 		
 		return new ApiResponse("New menu item added to the restaurant");
 	}
