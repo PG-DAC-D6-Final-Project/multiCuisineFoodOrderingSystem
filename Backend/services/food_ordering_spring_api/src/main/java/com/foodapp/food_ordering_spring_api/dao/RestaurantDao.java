@@ -16,4 +16,6 @@ public interface RestaurantDao extends JpaRepository<Restaurant, Long>{
 	List<Restaurant> findByStatus(RestaurantStatus status);
 	@Query("select r from Restaurant r left join fetch r.menuItems where r.id=:restaurantId")
 	Optional<Restaurant> fetchRestaurantMenu(Long restaurantId);
+	
+	boolean existsByEmail(String email);
 }

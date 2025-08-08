@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import axios from 'axios';
 import { useNavigate } from 'react-router-dom'; // ✅ Step 1
 
 const RegistrationPage = () => {
@@ -24,20 +25,50 @@ const RegistrationPage = () => {
     return newErrors;
   };
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    const validationErrors = validate();
-    if (Object.keys(validationErrors).length > 0) {
-      setErrors(validationErrors);
-      return;
+  // const handleSubmit = (e) => {
+  //   e.preventDefault();
+  //   const validationErrors = validate();
+  //   if (Object.keys(validationErrors).length > 0) {
+  //     setErrors(validationErrors);
+  //     return;
+  //   }
+
+  //   console.log("User Logged In:", formData);
+  //   alert("Login Successful!");
+
+  //   // ✅ Step 3: Redirect to dashboard
+  //   navigate("/restaurant/dashboard");
+  // };
+  const handleSubmit = async (e) => {
+  e.preventDefault();
+  const validationErrors = validate();
+  if (Object.keys(validationErrors).length > 0) {
+    setErrors(validationErrors);
+    return;
+  }
+
+  try {
+    const response = await axios.post("http://localhost:8080/restaurant/", {
+      email: formData.username, // ⬅️ your input is named "username"
+      password: formData.password
+    });
+
+    const resData = response.data;
+
+    if (resData.message === "Restaurant login successful...") {
+      alert("Login Successful!");
+      // Optional: store login info
+      // localStorage.setItem("restaurantEmail", formData.username);
+      navigate("/restaurant/dashboard");
+    } else {
+      alert(resData.message);
     }
 
-    console.log("User Logged In:", formData);
-    alert("Login Successful!");
-
-    // ✅ Step 3: Redirect to dashboard
-    navigate("/restaurant/dashboard");
-  };
+  } catch (error) {
+    console.error("Login failed:", error);
+    alert("Server error during login.");
+  }
+};
 
   return (
     <div className="bg-orange-400 flex justify-center items-center h-[100vh] p-4 text-white">
