@@ -20,4 +20,5 @@ public class MenuItemResponseDto {
     private RestaurantMenuItemAvailability availability_status;
     private Long restaurantId;
     private Long cuisineTypeId;
+    private String cuisineName;
 }

@@ -11,6 +11,7 @@ import lombok.Setter;
 @Getter
 @Setter
 public class AllRestaurantDto {
+	private Long id;
 	private String name;
 	private Address address;
 	private String phone;

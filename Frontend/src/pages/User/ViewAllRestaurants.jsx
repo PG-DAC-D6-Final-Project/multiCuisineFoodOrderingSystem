@@ -1,62 +1,104 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-import restaurant1 from "../../assets/resources/restaurant1.png";
-import restaurant2 from "../../assets/resources/restaurant2.png";
-import restaurant3 from "../../assets/resources/restaurant3.png";
-import restaurant4 from "../../assets/resources/restaurant4.png";
+import restaurant0 from "../../assets/resources/restaurant1.png";
+import restaurant1 from "../../assets/resources/restaurant2.png";
+import restaurant2 from "../../assets/resources/restaurant3.png";
+import restaurant3 from "../../assets/resources/restaurant4.png";
+import axios from "axios";
 
-// In production, this array will be populated dynamically from backend/database
-const restaurants = [
-  { id: 1, name: "Spicy Hub", image: restaurant1, rating: "4.5" },
-  { id: 2, name: "Tandoori Treat", image: restaurant2, rating: "4.2" },
-  { id: 3, name: "Urban Grill", image: restaurant3, rating: "4.7" },
-  { id: 4, name: "Curry Nation", image: restaurant4, rating: "4.3" },
-  { id: 5, name: "Spicy Hub", image: restaurant1, rating: "4.5" },
-  { id: 6, name: "Tandoori Treat", image: restaurant2, rating: "4.2" },
-  { id: 7, name: "Urban Grill", image: restaurant3, rating: "4.7" },
-  { id: 8, name: "Curry Nation", image: restaurant4, rating: "4.3" },
-];
+const restaurantsImages = [restaurant0, restaurant1, restaurant2, restaurant3];
 
 const ViewAllRestaurants = () => {
+  const [restaurants, setRestaurants] = useState([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const fetchResponse = async () => {
+      try {
+        const response = await axios.get("http://localhost:8080/restaurant/");
+        setRestaurants(response.data);
+      } catch (err) {
+        console.log(err);
+        alert("Failed to fetch restaurants");
+      } finally {
+        setLoading(false);
+      }
+    };
+    fetchResponse();
+  }, []);
+
   return (
-    <div className="min-h-screen bg-gray-50 px-6 py-8">
+    <div className="min-h-screen bg-gradient-to-tr from-orange-50 via-white to-orange-100 px-4 py-8 pb-16">
       {/* Back Button */}
-      <div className="mb-6">
+      <div className="mb-6 max-w-3xl mx-auto">
         <Link to="/">
-          <button className="bg-gray-200 text-gray-800 px-4 py-1 rounded hover:bg-gray-300">
-            ← Back
+          <button className="flex items-center gap-2 bg-orange-50 px-5 py-2 text-orange-700 rounded shadow hover:bg-orange-200 transition-all hover:scale-105 font-medium">
+            <span className="text-xl">←</span>
+            Back
           </button>
         </Link>
       </div>
 
-      <h2 className="text-3xl font-semibold text-center text-orange-600 mb-8">
+      <h2 className="text-4xl font-bold text-center text-orange-600 mb-3 drop-shadow">
         All Restaurants
       </h2>
+      <p className="text-center text-lg text-gray-500 mb-10">
+        Find your favorite place to eat!
+      </p>
 
-      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6">
-        {restaurants.map((res) => (
-          <div
-            key={res.id}
-            className="bg-white rounded-lg shadow-md p-4 text-center hover:shadow-lg"
-          >
-            <img
-              src={res.image}
-              alt={res.name}
-              className="w-full h-40 object-cover rounded mb-3"
-            />
+      {(loading) ? (
+        <div className="flex justify-center items-center h-40">
+          <div className="animate-spin h-10 w-10 border-4 border-orange-500 border-t-transparent rounded-full"></div>
+        </div>
+      ) : restaurants.length === 0 ? (
+        <div className="text-center text-xl text-gray-400 font-medium mt-20">
+          Oops! No restaurants found.
+        </div>
+      ) : (
+        <div className="grid gap-8 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 max-w-7xl mx-auto">
+          {restaurants.map((res, index) => (
+            <div
+              key={res.id}
+              className="group bg-white rounded-2xl shadow-lg border border-orange-100 overflow-hidden hover:shadow-2xl transition duration-300 flex flex-col"
+            >
+              <img
+                src={restaurantsImages[index % restaurantsImages.length]}
+                alt={res.name}
+                className="w-full h-48 object-cover border-b border-orange-100 group-hover:scale-105 group-hover:brightness-95 transition duration-300"
+              />
+              <div className="flex-1 flex flex-col justify-between p-6">
+                {/* Name and Rating */}
+                <div className="flex justify-between items-center mb-3">
+                  <h3 className="text-2xl font-semibold text-orange-600">
+                    {res.name}
+                  </h3>
+                  <span className="flex items-center gap-1 text-yellow-500 font-semibold text-base">
+                    <span>⭐</span>
+                    {res.avg_rating ? res.avg_rating : "-"}
+                  </span>
+                </div>
 
-            {/* Name and Rating in one row */}
-            <div className="flex justify-between items-center px-2 mb-2">
-              <h3 className="text-lg font-medium">{res.name}</h3>
-              <p className="text-sm text-yellow-500">⭐ {res.rating}</p>
+                {/* Description or fallback */}
+                <p className="text-gray-500 text-sm mb-6 min-h-[40px]">
+                  {res.description ? res.description : "Delicious cuisine awaits!"}
+                </p>
+
+                <Link
+                  to="/customer/viewRestaurantMenuItems"
+                  state={{ restaurantId: res.id, restaurantName: res.name }}
+                  className="w-full"
+                >
+                  <button className="bg-gradient-to-r from-green-200 to-green-100 text-green-900 px-4 py-2 rounded-lg hover:bg-green-300 hover:scale-[1.03] shadow transition-all duration-200 font-semibold w-full">
+                    View Dishes
+                  </button>
+                </Link>
+              </div>
+              {/* Shine effect */}
+              <div className="absolute inset-0 opacity-0 group-hover:opacity-10 pointer-events-none bg-gradient-to-tr from-orange-300 to-transparent transition" />
             </div>
-
-            <button className="bg-green-100 text-green-900 px-4 py-1 rounded hover:bg-green-200 text-sm w-full h-9">
-              View Dishes
-            </button>
-          </div>
-        ))}
-      </div>
+          ))}
+        </div>
+      )}
     </div>
   );
 };
