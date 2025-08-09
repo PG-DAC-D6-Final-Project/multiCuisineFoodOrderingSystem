@@ -5,6 +5,9 @@ import menuItem0 from '../../assets/resources/menuItem0.jpeg';
 import menuItem1 from '../../assets/resources/menuItem1.jpeg';
 import menuItem2 from '../../assets/resources/menuItem2.jpeg';
 import menuItem3 from '../../assets/resources/menuItem3.jpeg';
+import { toast} from 'react-toastify';
+import { useDispatch } from 'react-redux';
+import { addItem } from '../../slices/cartSlice';
 
 const menuItemsImages = [menuItem0, menuItem1, menuItem2, menuItem3];
 
@@ -14,6 +17,8 @@ const MenuItemsByRestaurants = () => {
 
   const [menuItems, setMenuItems] = useState([]);
   const [loading, setLoading] = useState(true);
+
+  const dispatch = useDispatch();
 
   useEffect(() => {
     if (!restaurantId) {
@@ -47,6 +52,11 @@ const MenuItemsByRestaurants = () => {
         )}
       </div>
     );
+  }
+
+  const handleAddToCart = (item) =>{
+    dispatch(addItem({...item, restaurantId}))
+    toast.success(`${item.name} added to cart`);
   }
 
   return (
@@ -98,9 +108,15 @@ const MenuItemsByRestaurants = () => {
                   {item.description ||
                     'A delicious menu item!'}
                 </p>
+                <div className="flex justify-between items-center">
                 <p className="text-green-700 font-bold text-xl">
                   ₹{item.price}
                 </p>
+                <button className="bg-orange-500 text-white px-4 py-2 rounded mt-3 hover:bg-orange-600"
+                onClick={()=>{handleAddToCart(item)}}>
+                    Add to Cart
+                </button>
+                </div>
               </div>
               {/* Add a subtle "shine" effect on hover */}
               <div className="absolute inset-0 opacity-0 group-hover:opacity-10 pointer-events-none bg-gradient-to-tr from-orange-300 to-transparent transition" />
