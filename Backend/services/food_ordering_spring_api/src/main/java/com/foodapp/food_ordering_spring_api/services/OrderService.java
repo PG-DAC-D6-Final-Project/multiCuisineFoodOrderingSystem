@@ -19,6 +19,7 @@ import com.foodapp.food_ordering_spring_api.dto.OrderItemDto;
 import com.foodapp.food_ordering_spring_api.dto.ReqOrderDto;
 import com.foodapp.food_ordering_spring_api.entities.MenuItem;
 import com.foodapp.food_ordering_spring_api.entities.OrderItems;
+import com.foodapp.food_ordering_spring_api.entities.OrderStatus;
 import com.foodapp.food_ordering_spring_api.entities.Orders;
 import com.foodapp.food_ordering_spring_api.entities.Restaurant;
 import com.foodapp.food_ordering_spring_api.entities.User;
@@ -116,6 +117,23 @@ public class OrderService {
 	    
 		return responseOrderDto;
 	}
+
+//	Get all orders by restaurant id.
+	public List<OrderDto> getOrdersByRestaurantId(Long restaurantId) {
+		List<Orders> orders = orderDao.findOrdersByRestaurantIdSorted(restaurantId);
+//		MenuItem
+		return orders.stream()
+				.map(order -> modelMapper.map(order, OrderDto.class)).toList();
+	}
+
+	public OrderDto updateOrderStatus(Long orderId, OrderStatus status) {
+	    Orders order = orderDao.findById(orderId)
+	            .orElseThrow(() -> new RuntimeException("Order not found with ID " + orderId));
+	    order.setOrderstatus(status);
+	    orderDao.save(order);
+	    return modelMapper.map(order, OrderDto.class);
+	    	}
+
 
 
 }

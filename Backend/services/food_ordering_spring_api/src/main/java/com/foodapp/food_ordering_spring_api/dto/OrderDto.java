@@ -12,7 +12,7 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class OrderDto {
+public class OrderDto extends BaseDTO{
 	
 	private LocalDateTime delivery_date_time;
 	private LocalDateTime order_date_time;
@@ -27,7 +27,7 @@ public class OrderDto {
 	
 	private RestaurantSignUpDTO restaurant;
 
-	private List<MenuItemDto> menuItems;
+	private List<MenuItemWithCuisineDto> menuItems;
 
 //	private DeliveryAgent deliveryPerson;
 }
