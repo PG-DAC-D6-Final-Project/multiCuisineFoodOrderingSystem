@@ -63,5 +63,12 @@ public class OrderController {
 		OrderStatus status = OrderStatus.valueOf(request.get("status").toUpperCase());
 	    return ResponseEntity.ok(orderService.updateOrderStatus(orderId, status));
 	}
+	
+	@GetMapping("/customer/{userId}")
+	public ResponseEntity<?> getOrdersByCustomerId(@PathVariable Long userId) {
+		return ResponseEntity.status(HttpStatus.OK)
+				.body(orderService.getOrdersByCustomerId(userId));
+
+	}
 
 }

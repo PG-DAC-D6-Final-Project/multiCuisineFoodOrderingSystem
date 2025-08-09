@@ -3,7 +3,7 @@ import axios from 'axios';
 
 function ShowOrders() {
   const [orders, setOrders] = useState([]);
-  const restaurantId = 1; // change as per login/session
+  const restaurantId = localStorage.getItem("restaurantId");; // change as per login/session
 
   // Fetch orders
   useEffect(() => {
