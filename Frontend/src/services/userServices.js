@@ -88,3 +88,15 @@ export const createOrder = async (body) => {
     console.log(e);
   }
 };
+
+export const getOrders = async (userId) => {
+  try {
+    const url = baseUrl + `/order/customer/${userId}`;
+
+    const response = await axios.get(url);
+
+    return response;
+  } catch (e) {
+    console.log(e);
+  }
+};
