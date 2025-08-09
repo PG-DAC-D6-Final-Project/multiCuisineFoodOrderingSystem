@@ -70,7 +70,7 @@ function App() {
           <Route path="viewRestaurantMenuItems" element={<MenuItemsByRestaurants />} />
           <Route path="checkout" element={<Checkout />} />
           <Route path="cuisine/:id" element={<MenuItemsByCuisine />} />
-          {/* <Route path="orders" element={<ViewOrders />} /> */}
+          <Route path="orders" element={<ViewOrders />} />
         </Route>
 
         <Route path="/restaurant">
