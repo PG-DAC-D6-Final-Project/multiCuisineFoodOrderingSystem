@@ -20,11 +20,21 @@ const cartSlice = createSlice({
       const existing = state.items.find(
         (item) => item.id === action.payload.id
       );
+
       if (existing) {
         existing.quantity += 1;
       } else {
+
+        // If the items added with different restaurant Id then previous cart will be cleared
+      const itemWithDifferentRestaurantId = state.items.find((item)=>item.restaurantId!==action.payload.restaurantId);
+      if(itemWithDifferentRestaurantId){
+        state.items = [];
+      }
         state.items.push({ ...action.payload, quantity: 1 });
       }
+
+      
+
       saveToSession(state);
     },
     removeItem: (state, action) => {
