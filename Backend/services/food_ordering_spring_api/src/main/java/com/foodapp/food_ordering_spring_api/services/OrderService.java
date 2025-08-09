@@ -23,6 +23,7 @@ import com.foodapp.food_ordering_spring_api.dto.OrderWithMenuItemsDto;
 import com.foodapp.food_ordering_spring_api.dto.ReqOrderDto;
 import com.foodapp.food_ordering_spring_api.entities.MenuItem;
 import com.foodapp.food_ordering_spring_api.entities.OrderItems;
+import com.foodapp.food_ordering_spring_api.entities.OrderStatus;
 import com.foodapp.food_ordering_spring_api.entities.Orders;
 import com.foodapp.food_ordering_spring_api.entities.Restaurant;
 import com.foodapp.food_ordering_spring_api.entities.User;
@@ -151,6 +152,48 @@ public class OrderService {
 			    })
 			    .toList();
 	}
+
+//	Get all orders by restaurant id.
+	public List<OrderWithMenuItemsDto> getOrdersByRestaurantId(Long restaurantId) {
+		Restaurant entity = restaurantDao.findById(restaurantId).orElseThrow(() ->
+		new RuntimeException("Invalid restaurant id!"));
+		
+		List<Orders> orders = orderDao.findByRestaurantId(entity.getId());
+		
+		if(orders.size() == 0) {
+			throw new RuntimeException("No Orders.");
+		}
+		
+		return orders.stream()
+				.map(order -> {
+					OrderWithMenuItemsDto dto = modelMapper.map(order, OrderWithMenuItemsDto.class);
+
+			        List<OrderItems> orderItems = orderItemsDao.findByOrderId(order.getId());
+
+			        List<MenuItemQuantityDto> menuItems = new ArrayList<>();
+			        for (OrderItems item : orderItems) {
+			            MenuItem menuItem = menuItemDao.findById(item.getMenuItem().getId())
+			                .orElseThrow(() -> new RuntimeException("MenuItem Does not exist"));
+			            MenuItemQuantityDto menuItemDto = modelMapper.map(menuItem, MenuItemQuantityDto.class);
+			            menuItemDto.setQuantity(item.getQuantity());
+			            menuItems.add(menuItemDto);
+			        }
+
+			        dto.setMenuItems(menuItems);
+			        return dto;
+				})
+				.toList();
+		
+	}
+
+	public OrderDto updateOrderStatus(Long orderId, OrderStatus status) {
+	    Orders order = orderDao.findById(orderId)
+	            .orElseThrow(() -> new RuntimeException("Order not found with ID " + orderId));
+	    order.setOrderstatus(status);
+	    orderDao.save(order);
+	    return modelMapper.map(order, OrderDto.class);
+	    	}
+
 
 
 }

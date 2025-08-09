@@ -48,7 +48,7 @@ public class Orders extends BaseEntity {
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "restaurant_id", nullable = false)
 	private Restaurant restaurant;
-	@JsonIgnore
+//	@JsonIgnore
 	@OneToMany(mappedBy = "order",cascade = CascadeType.ALL, orphanRemoval = true)
 	private List<OrderItems> orderItems = new ArrayList<>();
 	@ManyToOne(fetch = FetchType.LAZY)

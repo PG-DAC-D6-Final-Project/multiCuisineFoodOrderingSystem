@@ -60,7 +60,7 @@ const handleSubmit = async (e) => {
     if (resData.message === "Restaurant Login successful...") {
       alert("Login Successful!");
 
-      // ✅ Store restaurantId in localStorage
+      // Store restaurantId in localStorage
       localStorage.setItem("restaurantId", resData.restaurantId);
 
       navigate("/restaurant/Dashboard");
