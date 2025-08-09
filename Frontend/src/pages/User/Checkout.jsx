@@ -53,7 +53,7 @@ const Checkout = () => {
       discount_amount: state?.discountAmount,
       total_amount: state?.totalAmount,
       payment_method: paymentMethod,
-      orderstatus: "PREPARING",
+      orderstatus: "ORDERED",
       userId: sessionStorage.getItem("id"),
       restaurantId: cartItems[0].restaurantId,
       orderItems
@@ -64,7 +64,7 @@ const Checkout = () => {
     if (result.status === 200) {
       toast.success("Order successful!")
       dispatch(clearCart());
-      navigate("/");
+      navigate("/CustomerPastOrders");
     }
     else {
       toast.error("Order failed!")

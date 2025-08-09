@@ -16,6 +16,7 @@ import com.foodapp.food_ordering_spring_api.dto.CreateNewOrderDto;
 import com.foodapp.food_ordering_spring_api.dto.CreateOrderMenuItemDto;
 import com.foodapp.food_ordering_spring_api.dto.OrderDto;
 import com.foodapp.food_ordering_spring_api.dto.OrderItemDto;
+import com.foodapp.food_ordering_spring_api.dto.OrderResponseDto;
 import com.foodapp.food_ordering_spring_api.dto.ReqOrderDto;
 import com.foodapp.food_ordering_spring_api.entities.MenuItem;
 import com.foodapp.food_ordering_spring_api.entities.OrderItems;
@@ -115,6 +116,20 @@ public class OrderService {
 	    responseOrderDto.setMenuItems(userItems);
 	    
 		return responseOrderDto;
+	}
+	
+	public List<OrderResponseDto> getOrdersByCustomerId(Long userId){
+		User userEntity = userDao.findById(userId).orElseThrow(() ->
+				new RuntimeException("Invalid user id!"));
+		List<Orders> orders = orderDao.findByUserId(userEntity.getId());
+		
+		if(orders.size() == 0) {
+			throw new RuntimeException("No Orders.");
+		}
+		
+		return orders.stream()
+				.map(order -> modelMapper.map(order, OrderResponseDto.class))
+				.toList();
 	}
 
 
