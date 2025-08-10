@@ -62,7 +62,7 @@ const ViewAllRestaurants = () => {
               className="group bg-white rounded-2xl shadow-lg border border-orange-100 overflow-hidden hover:shadow-2xl transition duration-300 flex flex-col"
             >
               <img
-                src={restaurantsImages[index % restaurantsImages.length]}
+                src={res.image_url || restaurantsImages[index % restaurantsImages.length]}
                 alt={res.name}
                 className="w-full h-48 object-cover border-b border-orange-100 group-hover:scale-105 group-hover:brightness-95 transition duration-300"
               />

@@ -19,6 +19,7 @@ public class RestaurantSignUpDTO {
 	private String password;
 	private LocalDateTime opening_time;
 	private LocalDateTime closing_time;
+	private String image_url;
 //	private double minimum_order_amount;
 //	private RestaurantStatus status;
 }

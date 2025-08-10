@@ -18,5 +18,6 @@ public class MenuItemDto extends BaseDTO {
 	private String description;
 	private double price;
 	private Long cuisineType;
+	private String image_url;
 	private RestaurantMenuItemAvailability availability_status;
 }
