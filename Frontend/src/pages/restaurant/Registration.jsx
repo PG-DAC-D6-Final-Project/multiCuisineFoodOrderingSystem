@@ -77,7 +77,7 @@ const handleSubmit = async (e) => {
 
 
   return (
-    <div className="bg-orange-400 flex justify-center items-center h-[100vh] p-4 text-white">
+    <div className="flex justify-center items-center h-[100vh] p-4 text-white">
       <div className="bg-white p-8 rounded-lg shadow-md w-full max-w-md">
         <h2 className="text-2xl font-bold mb-6 text-center">SignIn</h2>
         <form onSubmit={handleSubmit} className="space-y-4">
@@ -90,7 +90,7 @@ const handleSubmit = async (e) => {
               name="username"
               value={formData.username}
               onChange={handleChange}
-              className="w-full px-3 py-2 border rounded-md focus:outline-none focus:ring focus:border-blue-500"
+              className="w-full px-3 py-2 border rounded-md focus:outline-none focus:ring focus:border-blue-500 text-black"
             />
             {errors.username && <p className="text-red-500 text-sm mt-1">{errors.username}</p>}
           </div>
@@ -102,7 +102,7 @@ const handleSubmit = async (e) => {
               name="password"
               value={formData.password}
               onChange={handleChange}
-              className="w-full px-3 py-2 border rounded-md focus:outline-none focus:ring focus:border-blue-500"
+              className="w-full px-3 py-2 border rounded-md focus:outline-none focus:ring focus:border-blue-500 text-black"
             />
             {errors.password && <p className="text-red-500 text-sm mt-1">{errors.password}</p>}
           </div>

@@ -32,8 +32,8 @@ function AddFoodItem() {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           ...formData,
-          price: parseFloat(formData.price), // ensure number
-          cuisineType: parseInt(formData.cuisineType), // ensure number
+          price: parseFloat(formData.price),
+          cuisineType: parseInt(formData.cuisineType),
         }),
       });
       if (res.ok) {
@@ -46,72 +46,74 @@ function AddFoodItem() {
       console.error("Error:", error);
       alert("Server error");
     }
-    navigate("/restaurant/dashboard")
+    navigate("/restaurant/dashboard");
   };
 
   return (
-    <div className="p-4">
-      <h2 className="text-xl font-bold mb-4">
-        Add Menu Item (Restaurant ID: {restaurantId})
-      </h2>
-      <form onSubmit={handleSubmit} className="space-y-4 max-w-md">
-        <div>
-          <label className="block font-medium">Item Name</label>
-          <input
-            type="text"
-            name="name"
-            value={formData.name}
-            onChange={handleChange}
-            className="border p-2 rounded w-full"
-            required
-          />
-        </div>
-        <div>
-          <label className="block font-medium">Description</label>
-          <textarea
-            name="description"
-            value={formData.description}
-            onChange={handleChange}
-            className="border p-2 rounded w-full"
-            rows="3"
-            required
-          ></textarea>
-        </div>
-        <div>
-          <label className="block font-medium">Price</label>
-          <input
-            type="number"
-            name="price"
-            value={formData.price}
-            onChange={handleChange}
-            className="border p-2 rounded w-full"
-            required
-          />
-        </div>
-        <div>
-          <label className="block font-medium">Cuisine</label>
-          <select
-            name="cuisineType"
-            value={formData.cuisineType}
-            onChange={handleChange}
-            className="border p-2 rounded w-full"
-            required
+    <div className="flex justify-center items-center min-h-screen bg-gray-100 w-screen">
+      <div className="bg-white shadow-lg rounded-lg p-8 w-full max-w-md">
+        <h2 className="text-xl text-orange-400 font-bold mb-4 text-center">
+          Add Menu Item
+        </h2>
+        <form onSubmit={handleSubmit} className="space-y-4">
+          <div>
+            <label className="block font-medium">Item Name</label>
+            <input
+              type="text"
+              name="name"
+              value={formData.name}
+              onChange={handleChange}
+              className="border p-2 rounded w-full"
+              required
+            />
+          </div>
+          <div>
+            <label className="block font-medium">Description</label>
+            <textarea
+              name="description"
+              value={formData.description}
+              onChange={handleChange}
+              className="border p-2 rounded w-full"
+              rows="3"
+              required
+            ></textarea>
+          </div>
+          <div>
+            <label className="block font-medium">Price</label>
+            <input
+              type="number"
+              name="price"
+              value={formData.price}
+              onChange={handleChange}
+              className="border p-2 rounded w-full"
+              required
+            />
+          </div>
+          <div>
+            <label className="block font-medium">Cuisine</label>
+            <select
+              name="cuisineType"
+              value={formData.cuisineType}
+              onChange={handleChange}
+              className="border p-2 rounded w-full"
+              required
+            >
+              <option value="">-- Select Cuisine --</option>
+              {cuisines.map((cuisine) => (
+                <option key={cuisine.id} value={cuisine.id}>
+                  {cuisine.name}
+                </option>
+              ))}
+            </select>
+          </div>
+          <button
+            type="submit"
+            className="bg-orange-400 text-white px-4 py-2 rounded hover:bg-orange-600 w-full"
           >
-            <option value="">-- Select Cuisine --</option>
-            {cuisines.map((cuisine) => (
-              <option key={cuisine.id} value={cuisine.id}>
-                {cuisine.name}
-              </option>
-            ))}
-          </select>
-        </div>
-        <button
-          type="submit"
-          className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600"
-        >
-          Add Item
-        </button>
-      </form>
+            Add Item
+          </button>
+        </form>
+      </div>
     </div>
   );
 }

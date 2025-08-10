@@ -63,7 +63,7 @@ function Dashboard() {
 
   return (
     <div className="flex">
-      <div className="p-6 bg-orange-400 rounded w-full">
+      <div className="p-6  rounded w-full">
         <h1 className="text-2xl text-black">Home</h1>
         <hr className="border-black border-t-2 my-4" />
         <h1 className="text-2xl font-bold mb-4">Items</h1>

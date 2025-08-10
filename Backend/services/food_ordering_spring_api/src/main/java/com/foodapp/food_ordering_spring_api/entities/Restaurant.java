@@ -34,7 +34,7 @@ public class Restaurant extends BaseEntity {
 	@Column(unique = true, length = 50)
 
 	private String name;
-	@OneToOne(cascade = CascadeType.ALL, optional = false)
+	@OneToOne(cascade = CascadeType.ALL, optional = false,orphanRemoval = true)
 	@JoinColumn(nullable = false, name = "address_id")
 	private Address address;
 	@Column(length = 11)
