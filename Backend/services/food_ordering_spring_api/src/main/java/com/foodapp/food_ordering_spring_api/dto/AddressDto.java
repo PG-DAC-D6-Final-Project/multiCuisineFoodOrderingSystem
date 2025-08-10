@@ -10,7 +10,7 @@ import lombok.Setter;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class AddressDto {
+public class AddressDto extends BaseDTO{
 	
 	
 	private String addressLine1;

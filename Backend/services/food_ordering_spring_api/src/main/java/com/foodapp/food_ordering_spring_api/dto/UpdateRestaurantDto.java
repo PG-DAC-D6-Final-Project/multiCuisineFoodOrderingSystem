@@ -10,9 +10,9 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class UpdateRestaurantDto {
+public class UpdateRestaurantDto extends BaseDTO {
 	private String name;
-	private Address address;
+	private AddressDto address;
 	private String phone;
 	private String email;
 	private String password;

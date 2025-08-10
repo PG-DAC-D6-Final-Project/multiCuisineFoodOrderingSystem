@@ -10,7 +10,7 @@ function Nav() {
 
   return (
     <div>
-      <div className="flex f-screen h-full">
+      <div className="flex f-screen h-screen">
         <div
           className={`bg-gray-800 text-white w-64 p-4 space-y-4 transition-all duration-300 ${
             isSidebarOpen ? "block" : "hidden md:block"

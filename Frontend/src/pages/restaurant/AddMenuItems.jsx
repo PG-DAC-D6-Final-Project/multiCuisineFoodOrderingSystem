@@ -54,7 +54,7 @@ function AddFoodItem() {
       console.error("Error:", error);
       alert("Server error");
     }
-    navigate("/restaurant/dashboard")
+    navigate("/restaurant/dashboard");
   };
 
   const handleFileChange = (e) => {
@@ -93,89 +93,91 @@ function AddFoodItem() {
   }
 
   return (
-    <div className="p-4">
-      <h2 className="text-xl font-bold mb-4">
-        Add Menu Item (Restaurant ID: {restaurantId})
-      </h2>
-      <div>
-        <label className="block mb-1 text-black font-medium">Upload Image</label>
-        <input
-          type="file"
-          accept="image/*"
-          onChange={handleFileChange}
-          className="w-full border border-gray-300 rounded p-2"
-        />
-        {imagePreview && (
-          <>
-            <img
-              src={imagePreview}
-              alt="Preview"
-              className="mt-2 rounded-md max-w-[300px] max-h-[300px] object-contain"
+    <div className="flex justify-center items-center min-h-screen bg-gray-100 w-screen">
+      <div className="bg-white shadow-lg rounded-lg p-8 w-full max-w-md">
+        <h2 className="text-xl text-orange-400 font-bold mb-4 text-center">
+          Add Menu Item
+        </h2>
+        <div>
+          <label className="block mb-1 text-black font-medium">Upload Image</label>
+          <input
+            type="file"
+            accept="image/*"
+            onChange={handleFileChange}
+            className="w-full border border-gray-300 rounded p-2"
+          />
+          {imagePreview && (
+            <>
+              <img
+                src={imagePreview}
+                alt="Preview"
+                className="mt-2 rounded-md max-w-[300px] max-h-[300px] object-contain"
+              />
+              {isUploaded === false ? <Button onClick={handleUpload} className="w-[50%] mt-2">Upload</Button>
+                : <p className="mt-2">Uploaded</p>}
+            </>
+          )}
+        </div>
+        <form onSubmit={handleSubmit} className="space-y-4">
+          <div>
+            <label className="block font-medium">Item Name</label>
+            <input
+              type="text"
+              name="name"
+              value={formData.name}
+              onChange={handleChange}
+              className="border p-2 rounded w-full"
+              required
             />
-            {isUploaded === false ? <Button onClick={handleUpload} className="w-[50%] mt-2">Upload</Button>
-              : <p className="mt-2">Uploaded</p>}
-          </>
-        )}
-      </div>
-      <form onSubmit={handleSubmit} className="space-y-4 max-w-md">
-        <div>
-          <label className="block font-medium">Item Name</label>
-          <input
-            type="text"
-            name="name"
-            value={formData.name}
-            onChange={handleChange}
-            className="border p-2 rounded w-full"
-            required
-          />
-        </div>
-        <div>
-          <label className="block font-medium">Description</label>
-          <textarea
-            name="description"
-            value={formData.description}
-            onChange={handleChange}
-            className="border p-2 rounded w-full"
-            rows="3"
-            required
-          ></textarea>
-        </div>
-        <div>
-          <label className="block font-medium">Price</label>
-          <input
-            type="number"
-            name="price"
-            value={formData.price}
-            onChange={handleChange}
-            className="border p-2 rounded w-full"
-            required
-          />
-        </div>
-        <div>
-          <label className="block font-medium">Cuisine</label>
-          <select
-            name="cuisineType"
-            value={formData.cuisineType}
-            onChange={handleChange}
-            className="border p-2 rounded w-full"
-            required
+          </div>
+          <div>
+            <label className="block font-medium">Description</label>
+            <textarea
+              name="description"
+              value={formData.description}
+              onChange={handleChange}
+              className="border p-2 rounded w-full"
+              rows="3"
+              required
+            ></textarea>
+          </div>
+          <div>
+            <label className="block font-medium">Price</label>
+            <input
+              type="number"
+              name="price"
+              value={formData.price}
+              onChange={handleChange}
+              className="border p-2 rounded w-full"
+              required
+            />
+          </div>
+          <div>
+            <label className="block font-medium">Cuisine</label>
+            <select
+              name="cuisineType"
+              value={formData.cuisineType}
+              onChange={handleChange}
+              className="border p-2 rounded w-full"
+              required
+            >
+              <option value="">-- Select Cuisine --</option>
+              {cuisines.map((cuisine) => (
+                <option key={cuisine.id} value={cuisine.id}>
+                  {cuisine.name}
+                </option>
+              ))}
+            </select>
+          </div>
+          <button
+            type="submit"
+            className="bg-orange-400 text-white px-4 py-2 rounded hover:bg-orange-600 w-full"
           >
-            <option value="">-- Select Cuisine --</option>
-            {cuisines.map((cuisine) => (
-              <option key={cuisine.id} value={cuisine.id}>
-                {cuisine.name}
-              </option>
-            ))}
-          </select>
-        </div>
-        <button
-          type="submit"
-          className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600"
-        >
-          Add Item
-        </button>
-      </form>
-    </div>
+            Add Item
+          </button>
+        </form>
+      </div>
+    </div >
   );
 }
 
