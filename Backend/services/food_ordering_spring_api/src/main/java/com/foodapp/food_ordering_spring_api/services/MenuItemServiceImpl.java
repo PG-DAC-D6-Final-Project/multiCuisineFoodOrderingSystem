@@ -108,9 +108,6 @@ public class MenuItemServiceImpl implements MenuItemService {
 	}
 
 	@Override
-
-	// public List<MenuItemResponseDto> getAllMenuItemsByCuisineType(Long cuisineTypeId) {
-
 	public List<MenuItemsWithRestaurantDto> getAllMenuItemsByCuisineType(Long cuisineTypeId) {
 		List<MenuItem> menuItems = menuItemDao.findByCuisineTypeId(cuisineTypeId);
 		if(menuItems.size() == 0) {
@@ -118,7 +115,6 @@ public class MenuItemServiceImpl implements MenuItemService {
 		}
 		return menuItems.stream()
 				.map(menuItem -> {
-					// MenuItemResponseDto dto = modelMapper.map(menuItem, MenuItemResponseDto.class);
 					MenuItemsWithRestaurantDto dto = modelMapper.map(menuItem, MenuItemsWithRestaurantDto.class);
 		            dto.setRestaurantId(menuItem.getRestaurant().getId());
 		            dto.setCuisineTypeId(menuItem.getCuisineType().getId());
@@ -136,7 +132,6 @@ public class MenuItemServiceImpl implements MenuItemService {
 		
 		return menuItems.stream()
 				.map(menuItem -> {
-					// MenuItemResponseDto dto = modelMapper.map(menuItem, MenuItemResponseDto.class);
 					MenuItemsWithRestaurantDto dto = modelMapper.map(menuItem, MenuItemsWithRestaurantDto.class);
 		            dto.setRestaurantId(menuItem.getRestaurant().getId());
 		            dto.setCuisineTypeId(menuItem.getCuisineType().getId());

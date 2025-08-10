@@ -47,7 +47,7 @@ public class RestaurantController {
 		return ResponseEntity.ok(restaurantService.getRestaurantById(restaurantId));
 	}	
 	@GetMapping("/")
-	public ResponseEntity<?> GetAllRestaurants(@RequestParam(defaultValue="10") int limit){
+	public ResponseEntity<?> GetAllRestaurants(@RequestParam(defaultValue="50") int limit){
 		System.out.println("--------------------------------------");
 		System.out.println(limit);
 		System.out.println("------------------------------------------");

@@ -11,7 +11,7 @@ import lombok.ToString;
 @Setter
 @ToString(callSuper = true)
 @NoArgsConstructor
-public class DeliveryAgentDto {
+public class DeliveryAgentDto extends BaseDTO {
 	private String firstName;
     private String lastName;
     private String email;

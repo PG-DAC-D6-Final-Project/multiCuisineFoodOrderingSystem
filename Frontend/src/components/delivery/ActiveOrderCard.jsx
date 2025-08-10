@@ -1,22 +1,87 @@
-import { Button } from '../ui/button'
+import { toast } from "react-toastify";
+import { deliverOrder } from "../../services/deliveryAgentService";
+import { Button } from "../ui/button";
 
-const ActiveOrderCard = () => {
-    return (
-        <div className="w-[80%] border-1 rounded-lg flex flex-col justify-around items-start my-6 p-6 shadow-xl gap-2">
-            <div><span className='font-semibold text-md'>Status:</span> <span className='text-orange-400 font-semibold'>ACCEPTED</span></div>
-            <div><span className='font-semibold text-md'>Restaurant:</span> Spicy Tacos</div>
-            <div><span className='font-semibold text-md'>Restaurant Address:</span> 303 Fiesta Rd, San Jose</div>
-            <div><span className='font-semibold text-md'>Customer:</span> Carlos Ramirez</div>
-            <div><span className='font-semibold text-md'>Delivery Address:</span> 404 Cactus Way, San Jose</div>
-            <div><span className='font-semibold text-md'>Items:</span> 3x Chicken Tacos, 1x Guacamole & Chips</div>
-            <div><span className='font-semibold text-md'>Instructions:</span> Knock loudly, dog is friendly.</div>
-            <div><span className='font-semibold text-md'>Estimated Payout:</span> <span className='text-green-700 font-semibold'>{"\u20b9"}7.20</span></div>
-            <div className='w-full flex justify-around mt-1'>
-                <Button variant="outline" className="cursor-pointer mt-3 border-orange-500 text-white bg-green-500 hover:bg-green-700 hover:text-white">Mark as Picked Up</Button>
-                <Button variant="outline" className="cursor-pointer mt-3 border-orange-500 text-white bg-red-500 hover:bg-red-700 hover:text-white">Cancel Order</Button>
-            </div>
+const ActiveOrderCard = ({
+  id,
+  customerAddress,
+  restaurantAddress,
+  customerName,
+  restaurantName,
+  onOrderDelivered,
+}) => {
+  const handleDeliverOrder = async () => {
+    try {
+      const result = await deliverOrder(id);
+      if (result.status === 200) {
+        toast.success("Order Accepted");
+        onOrderDelivered(id);
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  return (
+    <div className="w-full max-w-2xl bg-white border border-gray-200 rounded-xl shadow-lg hover:shadow-xl transition-all p-6 flex flex-col gap-4">
+      {/* Order ID */}
+      <div className="flex justify-between items-center">
+        <span className="font-semibold text-lg text-gray-700">
+          Order ID:
+        </span>
+        <span className="font-bold text-blue-600">{id}</span>
+      </div>
+
+      {/* Restaurant Info */}
+      <div>
+        <p className="font-semibold text-md text-gray-700">Restaurant</p>
+        <p className="text-gray-600">{restaurantName}</p>
+        <div className="mt-1 text-sm text-gray-500">
+          <div>{restaurantAddress.addressLine1}</div>
+          <div>{restaurantAddress.addressLine2}</div>
+          <div>
+            {restaurantAddress.city}, {restaurantAddress.state}
+          </div>
+          <div>
+            {restaurantAddress.country} - {restaurantAddress.pinCode}
+          </div>
         </div>
-    )
-}
+      </div>
 
-export default ActiveOrderCard
+      {/* Customer Info */}
+      <div>
+        <p className="font-semibold text-md text-gray-700">Customer</p>
+        <p className="text-gray-600">{customerName}</p>
+        <div className="mt-1 text-sm text-gray-500">
+          <div>{customerAddress.addressLine1}</div>
+          <div>{customerAddress.addressLine2}</div>
+          <div>
+            {customerAddress.city}, {customerAddress.state}
+          </div>
+          <div>
+            {customerAddress.country} - {customerAddress.pinCode}
+          </div>
+        </div>
+      </div>
+
+      {/* Estimated Payout */}
+      <div className="flex justify-between items-center border-t pt-3">
+        <span className="font-semibold text-gray-700">Estimated Payout</span>
+        <span className="text-green-600 font-bold">{"\u20b9"}50</span>
+      </div>
+
+      {/* Action Button */}
+      <div className="flex justify-end mt-3">
+        <Button
+          onClick={handleDeliverOrder}
+          variant="outline"
+          className="cursor-pointer px-6 py-2 border-green-500 text-white bg-green-500 hover:bg-green-600 rounded-lg shadow-md"
+        >
+          ✅ Mark as Delivered
+        </Button>
+      </div>
+    </div>
+  );
+};
+
+export default ActiveOrderCard;

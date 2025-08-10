@@ -47,8 +47,8 @@ function App() {
           <Route path="login" element={<LoginDeliveryPerson />} />
           <Route path="register" element={<RegisterDeliveryAgent />} />
           <Route path="" element={<DeliveryLayout />}>
-            <Route path="" element={<Dashboard />} />
-            <Route path="active" element={<ActiveOrders />} />
+            {/* <Route path="" element={<Dashboard />} /> */}
+            <Route path="" element={<ActiveOrders />} />
             <Route path="available" element={<AvailableOrders />} />
             <Route path="history" element={<OrderHistory />} />
             <Route path="profile" element={<Profile />} />

@@ -40,7 +40,7 @@ function ShowOrders() {
         <hr className="border-black border-t-2 my-4" />
         <div className="overflow-x-auto">
           <table className="min-w-full bg-white rounded shadow">
-            <thead className="bg-orange-400 text-white">
+            <thead className="bg-orange-600 text-white">
               <tr>
                 <th className="py-2 px-4 text-left">Order ID</th>
                 <th className="py-2 px-4 text-left">Customer</th>

@@ -86,7 +86,7 @@ const ViewOrders = () => {
       case "ORDERED": return "bg-orange-100 text-orange-700 border border-orange-300";
       case "ACCEPTED": return "bg-orange-200 text-orange-800 border border-orange-400";
       case "PREPARING": return "bg-orange-300 text-white border border-orange-400";
-      case "ON_THE_WAY": return "bg-orange-400 text-white border border-orange-500";
+      case "ON_THE_WAY": return "bg-orange-600 text-white border border-orange-500";
       case "DELIVERED": return "bg-green-100 text-green-700 border border-green-300";
       default: return "bg-orange-100 text-orange-700 border border-orange-300";
     }
