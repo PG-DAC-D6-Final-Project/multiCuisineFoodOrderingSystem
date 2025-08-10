@@ -1,166 +1,231 @@
 import React, { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+import axios from "axios";
 
-function EditRestaurantProfile() {
-    const [isSidebarOpen, setIsSidebarOpen] = useState(true);
-    const navigate = useNavigate();
-  const initialData = {
-    name: "Tasty Bites",
-    address: "123, Food Street, Pune",
-    phone: "9876543210",
-    email: "tastybites@example.com",
+export default function EditRestaurantProfile() {
+  const [formData, setFormData] = useState({
+    name: "",
+    phone: "",
+    email: "",
     password: "",
-    confirmPassword: "",
-    openingTime: "10:00",
-    closingTime: "22:00",
-  };
+    opening_time: "",
+    closing_time: "",
+    minimum_order_amount: "",
+    status: "ACTIVE",
+    address: {
+      addressLine1: "",
+      addressLine2: "",
+      city: "",
+      state: "",
+      country: "",
+      pinCode: ""
+    }
+  });
 
-  const [formData, setFormData] = useState(initialData);
-  const [message, setMessage] = useState("");
+  const restaurantId = 12; // Example — replace with actual ID or get from route
 
   useEffect(() => {
-  }, []);
+    axios
+      .get(`http://localhost:8080/restaurant/${restaurantId}`)
+      .then((res) => {
+        setFormData(res.data);
+      })
+      .catch((err) => {
+        console.error("Error fetching restaurant:", err);
+      });
+  }, [restaurantId]);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setFormData((prev) => ({ ...prev, [name]: value }));
+
+    // For nested address fields
+    if (name.startsWith("address.")) {
+      const addressField = name.split(".")[1];
+      setFormData((prev) => ({
+        ...prev,
+        address: {
+          ...prev.address,
+          [addressField]: value
+        }
+      }));
+    } else {
+      setFormData((prev) => ({
+        ...prev,
+        [name]: value
+      }));
+    }
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    if (formData.password !== formData.confirmPassword) {
-      setMessage("Passwords do not match.");
-      navigate("/restaurant/Dashboard")
-      return;
-    }
-
-    setMessage("Profile updated successfully!");
-    console.log("Updated Profile:", formData);
+    axios
+      .patch(`http://localhost:8080/restaurant/${restaurantId}`, formData)
+      .then((res) => {
+        console.log("Updated successfully:", res.data);
+        alert("Restaurant updated!");
+      })
+      .catch((err) => {
+        console.error("Error updating restaurant:", err);
+      });
   };
 
   return (
-    <div className="flex w-full">
-        <div className="min-h-screen w-full bg-orange-400 flex items-center justify-center p-4">
-      <form
-        onSubmit={handleSubmit}
-        className="bg-white p-8 rounded-xl shadow-lg w-full max-w-md space-y-6"
-      >
-        <h2 className="text-2xl font-bold text-center text-orange-400">
-          Edit Restaurant Profile
-        </h2>
+    <div className="max-w-2xl mx-auto p-6 bg-white rounded-lg shadow-lg">
+      <h2 className="text-2xl text-orange-400 font-bold mb-6">Edit Restaurant Profile</h2>
 
-        {message && (
-          <p className="text-center text-sm font-medium text-red-600">{message}</p>
-        )}
+      <form onSubmit={handleSubmit} className="space-y-4">
+        {/* Name */}
+        <input
+          type="text"
+          name="name"
+          placeholder="Restaurant Name"
+          value={formData.name}
+          onChange={handleChange}
+          className="w-full border p-2 rounded"
+        />
 
+        {/* Phone */}
+        <input
+          type="text"
+          name="phone"
+          placeholder="Phone"
+          value={formData.phone}
+          onChange={handleChange}
+          className="w-full border p-2 rounded"
+        />
+
+        {/* Email */}
+        <input
+          type="email"
+          name="email"
+          placeholder="Email"
+          value={formData.email}
+          onChange={handleChange}
+          className="w-full border p-2 rounded"
+        />
+
+        {/* Password */}
+        <input
+          type="password"
+          name="password"
+          placeholder="Password"
+          value={formData.password}
+          onChange={handleChange}
+          className="w-full border p-2 rounded"
+        />
+
+        {/* Opening Time */}
+        <input
+          type="datetime-local"
+          name="opening_time"
+          value={formData.opening_time}
+          onChange={handleChange}
+          className="w-full border p-2 rounded"
+        />
+
+        {/* Closing Time */}
+        <input
+          type="datetime-local"
+          name="closing_time"
+          value={formData.closing_time}
+          onChange={handleChange}
+          className="w-full border p-2 rounded"
+        />
+
+        {/* Minimum Order Amount */}
+        <input
+          type="number"
+          step="0.01"
+          name="minimum_order_amount"
+          placeholder="Minimum Order Amount"
+          value={formData.minimum_order_amount}
+          onChange={handleChange}
+          className="w-full border p-2 rounded"
+        />
+
+        {/* Status Radio Buttons */}
         <div>
-          <label className="block text-sm font-medium mb-1">Name</label>
-          <input
-            type="text"
-            name="name"
-            value={formData.name}
-            onChange={handleChange}
-            required
-            className="w-full border border-gray-300 rounded px-3 py-2"
-          />
-        </div>
-
-        <div>
-          <label className="block text-sm font-medium mb-1">Address</label>
-          <textarea
-            name="address"
-            value={formData.address}
-            onChange={handleChange}
-            required
-            className="w-full border border-gray-300 rounded px-3 py-2"
-          />
-        </div>
-
-        <div>
-          <label className="block text-sm font-medium mb-1">Password</label>
-          <input
-            type="password"
-            name="password"
-            value={formData.password}
-            onChange={handleChange}
-            placeholder="Enter new password"
-            className="w-full border border-gray-300 rounded px-3 py-2"
-          />
-        </div>
-
-        <div>
-          <label className="block text-sm font-medium mb-1">Confirm Password</label>
-          <input
-            type="password"
-            name="confirmPassword"
-            value={formData.confirmPassword}
-            onChange={handleChange}
-            placeholder="Confirm new password"
-            className="w-full border border-gray-300 rounded px-3 py-2"
-          />
-        </div>
-
-        <div>
-          <label className="block text-sm font-medium mb-1">Phone</label>
-          <input
-            type="tel"
-            name="phone"
-            value={formData.phone}
-            onChange={handleChange}
-            required
-            pattern="[0-9]{10}"
-            className="w-full border border-gray-300 rounded px-3 py-2"
-          />
-        </div>
-
-        <div>
-          <label className="block text-sm font-medium mb-1">Email</label>
-          <input
-            type="email"
-            name="email"
-            value={formData.email}
-            onChange={handleChange}
-            required
-            className="w-full border border-gray-300 rounded px-3 py-2"
-          />
-        </div>
-
-        <div className="flex gap-4">
-          <div className="w-1/2">
-            <label className="block text-sm font-medium mb-1">Opening Time</label>
-            <input
-              type="time"
-              name="openingTime"
-              value={formData.openingTime}
-              onChange={handleChange}
-              required
-              className="w-full border border-gray-300 rounded px-3 py-2"
-            />
-          </div>
-
-          <div className="w-1/2">
-            <label className="block text-sm font-medium mb-1">Closing Time</label>
-            <input
-              type="time"
-              name="closingTime"
-              value={formData.closingTime}
-              onChange={handleChange}
-              required
-              className="w-full border border-gray-300 rounded px-3 py-2"
-            />
+          <label className="block font-medium mb-1">Status</label>
+          <div className="flex gap-4">
+            <label>
+              <input
+                type="radio"
+                name="status"
+                value="ACTIVE"
+                checked={formData.status === "ACTIVE"}
+                onChange={handleChange}
+              />
+              Active
+            </label>
+            <label>
+              <input
+                type="radio"
+                name="status"
+                value="INACTIVE"
+                checked={formData.status === "INACTIVE"}
+                onChange={handleChange}
+              />
+              Inactive
+            </label>
           </div>
         </div>
+
+        {/* Address Fields */}
+        <input
+          type="text"
+          name="address.addressLine1"
+          placeholder="Address Line 1"
+          value={formData.address.addressLine1}
+          onChange={handleChange}
+          className="w-full border p-2 rounded"
+        />
+        <input
+          type="text"
+          name="address.addressLine2"
+          placeholder="Address Line 2"
+          value={formData.address.addressLine2}
+          onChange={handleChange}
+          className="w-full border p-2 rounded"
+        />
+        <input
+          type="text"
+          name="address.city"
+          placeholder="City"
+          value={formData.address.city}
+          onChange={handleChange}
+          className="w-full border p-2 rounded"
+        />
+        <input
+          type="text"
+          name="address.state"
+          placeholder="State"
+          value={formData.address.state}
+          onChange={handleChange}
+          className="w-full border p-2 rounded"
+        />
+        <input
+          type="text"
+          name="address.country"
+          placeholder="Country"
+          value={formData.address.country}
+          onChange={handleChange}
+          className="w-full border p-2 rounded"
+        />
+        <input
+          type="text"
+          name="address.pinCode"
+          placeholder="Pincode"
+          value={formData.address.pinCode}
+          onChange={handleChange}
+          className="w-full border p-2 rounded"
+        />
 
         <button
           type="submit"
-          className="w-full bg-orange-400 text-white font-semibold py-2 rounded hover:bg-red-700"
+          className="bg-orange-400 hover:bg-orange-700 text-white py-2 px-4 rounded"
         >
-          Update Profile
+          Update Restaurant
         </button>
       </form>
     </div>
-    </div>
   );
 }
-
-export default EditRestaurantProfile;
