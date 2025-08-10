@@ -37,6 +37,7 @@ import LoginDeliveryPerson from "./pages/delivery/LoginDeliveryPerson";
 import MenuItemsByCuisine from "./pages/User/MenuItemsByCuisine";
 import ViewOrders from "./pages/User/ViewOrders";
 import MenuItemsByRestaurants from "./pages/User/MenuItemsByRestaurants";
+import RateOrder from "./pages/User/RateOrder";
 
 function App() {
   return (
@@ -71,6 +72,7 @@ function App() {
           <Route path="checkout" element={<Checkout />} />
           <Route path="cuisine/:id" element={<MenuItemsByCuisine />} />
           <Route path="orders" element={<ViewOrders />} />
+          <Route path="review/:orderId" element={<RateOrder />} /> 
         </Route>
 
         <Route path="/restaurant">
