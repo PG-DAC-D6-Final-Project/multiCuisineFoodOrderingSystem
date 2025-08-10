@@ -1,12 +1,16 @@
 import React, { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 import cuisineImg from '../../assets/resources/indian.png';
 import { getAllCuisines } from './../../services/userServices';
+import { Button } from '../ui/button';
+import { toast } from 'react-toastify';
 
 const Cuisines = () => {
   const [showAll, setShowAll] = useState(false);
   const [cuisines, setCuisines] = useState([]);
+  const [searchText, setSearchText] = useState("");
+  const navigate = useNavigate();
 
   const toggleShow = () => {
     setShowAll(!showAll);
@@ -20,6 +24,19 @@ const Cuisines = () => {
     getCuisines();
   }, []);
 
+  const handleSearchTextChange = (e) => {
+    setSearchText(e.target.value)
+  }
+
+  const handleSearch = async () => {
+    if (searchText) {
+      navigate(`/customer/search/${searchText}`)
+    }
+    else {
+      toast.error("No search text...")
+    }
+  }
+
   return (
     <div className="px-6 py-4 bg-orange-600">
       {/* button for searching food  */}
@@ -28,9 +45,11 @@ const Cuisines = () => {
         <h1 className="text-5xl font-bold mb-10 text-white">Order delicious food online. <br /> Discover top restaurants. Taste the best!</h1>
         <input
           type="text"
-          placeholder="Search for food or restaurants..."
+          onChange={handleSearchTextChange}
+          placeholder="Search for your favourite food..."
           className="w-full h-14 rounded-4xl max-w-md px-4 py-2 shadow text-black bg-amber-50"
         />
+        <Button onClick={handleSearch} className="h-14 rounded-4xl px-4 py-2 shadow bg-amber-50 ml-2 text-orange-600 hover:bg-orange-100">Search</Button>
       </div>
 
 
