@@ -123,7 +123,7 @@ function RestaurantRegistration() {
   }
 
   return (
-    <div className="min-h-screen bg-orange-400 flex items-center justify-center p-4">
+    <div className="min-h-screen flex items-center justify-center p-4">
       <form
         onSubmit={handleSubmit}
         className="bg-white p-8 rounded-xl shadow-lg w-full max-w-md space-y-6"
