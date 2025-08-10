@@ -14,7 +14,7 @@ const ActiveOrderCard = ({
     try {
       const result = await deliverOrder(id);
       if (result.status === 200) {
-        toast.success("Order Accepted");
+        toast.success("Order Delivered");
         onOrderDelivered(id);
       }
     } catch (error) {

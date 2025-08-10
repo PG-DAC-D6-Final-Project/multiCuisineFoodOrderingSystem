@@ -144,9 +144,9 @@ const Profile = () => {
               </SelectTrigger>
               <SelectContent>
                 <SelectGroup>
-                  <SelectItem value="motorcycle">Motorcycle</SelectItem>
-                  <SelectItem value="car">Car</SelectItem>
-                  <SelectItem value="bicycle">Bicycle</SelectItem>
+                  <SelectItem value="MOTORCYCLE">Motorcycle</SelectItem>
+                  <SelectItem value="CAR">Car</SelectItem>
+                  <SelectItem value="BICYCLE">Bicycle</SelectItem>
                 </SelectGroup>
               </SelectContent>
             </Select>
