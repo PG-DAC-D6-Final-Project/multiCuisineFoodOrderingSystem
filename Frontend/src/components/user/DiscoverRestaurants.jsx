@@ -16,28 +16,28 @@ const DiscoverRestaurants = () => {
   const [error, setError] = useState(null);
 
 
-  useEffect(()=>{
+  useEffect(() => {
 
-    const fetchRestaurants = async () =>{
+    const fetchRestaurants = async () => {
 
-    try{
-      const response = await fetch("http://localhost:8080/restaurant/?limit=4")
+      try {
+        const response = await fetch("http://localhost:8080/restaurant/?limit=4")
 
-      if(!response.ok) throw new Error("Failed to fetch restaurants");
+        if (!response.ok) throw new Error("Failed to fetch restaurants");
 
         const data = await response.json();
         console.log(data);
         setRestaurants(data);
-    }
-    catch(err){
-      setError(err.message);
-    }
-  };
+      }
+      catch (err) {
+        setError(err.message);
+      }
+    };
 
-  fetchRestaurants();
+    fetchRestaurants();
 
   }, []);
-  
+
 
   return (
     <div className="min-h-[80vh] px-6 py-10 bg-gray-50">
@@ -52,7 +52,7 @@ const DiscoverRestaurants = () => {
             className="bg-white rounded-lg shadow-md p-4 hover:shadow-lg transition text-center"
           >
             <img
-              src={restaurantImages[index]}
+              src={restaurant.image_url || restaurantImages[index]}
               alt={restaurant.name}
               className="h-40 w-full object-cover rounded-md mb-3"
             />
@@ -60,8 +60,8 @@ const DiscoverRestaurants = () => {
             {/* Name and Rating in same line */}
             <div className="flex justify-between items-center mb-2 px-2">
               <h3 className="text-lg font-semibold">{restaurant.name}</h3>
-              
-              <p className="text-yellow-500 text-sm">⭐ {restaurant.avg_rating  }</p>
+
+              <p className="text-yellow-500 text-sm">⭐ {restaurant.avg_rating}</p>
             </div>
 
             {/* Tagline line */}
@@ -69,20 +69,20 @@ const DiscoverRestaurants = () => {
               Taste that tells a story.
             </p>
 
-            
-              <Link 
+
+            <Link
               to="/customer/viewRestaurantMenuItems"
               state={{
                 restaurantId: restaurant.id
               }}
-              >
+            >
 
-            <button className="mt-2 bg-green-100 text-green-900 px-4 py-1 rounded hover:bg-green-200 text-sm w-full h-9">
+              <button className="mt-2 bg-green-100 text-green-900 px-4 py-1 rounded hover:bg-green-200 text-sm w-full h-9">
 
-                 View Dishes
-              
-             
-            </button>
+                View Dishes
+
+
+              </button>
 
             </Link>
           </div>

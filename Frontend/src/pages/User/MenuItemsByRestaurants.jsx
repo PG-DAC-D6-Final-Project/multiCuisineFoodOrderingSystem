@@ -5,7 +5,7 @@ import menuItem0 from '../../assets/resources/menuItem0.jpeg';
 import menuItem1 from '../../assets/resources/menuItem1.jpeg';
 import menuItem2 from '../../assets/resources/menuItem2.jpeg';
 import menuItem3 from '../../assets/resources/menuItem3.jpeg';
-import { toast} from 'react-toastify';
+import { toast } from 'react-toastify';
 import { useDispatch } from 'react-redux';
 import { addItem } from '../../slices/cartSlice';
 
@@ -54,8 +54,8 @@ const MenuItemsByRestaurants = () => {
     );
   }
 
-  const handleAddToCart = (item) =>{
-    dispatch(addItem({...item, restaurantId}))
+  const handleAddToCart = (item) => {
+    dispatch(addItem({ ...item, restaurantId }))
     toast.success(`${item.name} added to cart`);
   }
 
@@ -94,7 +94,7 @@ const MenuItemsByRestaurants = () => {
             >
               <img
                 src={
-                  menuItemsImages[index % menuItemsImages.length] ||
+                  item.image_url ||
                   'https://via.placeholder.com/150'
                 }
                 alt={item.name}
@@ -109,13 +109,13 @@ const MenuItemsByRestaurants = () => {
                     'A delicious menu item!'}
                 </p>
                 <div className="flex justify-between items-center">
-                <p className="text-green-700 font-bold text-xl">
-                  ₹{item.price}
-                </p>
-                <button className="bg-orange-500 text-white px-4 py-2 rounded mt-3 hover:bg-orange-600"
-                onClick={()=>{handleAddToCart(item)}}>
+                  <p className="text-green-700 font-bold text-xl">
+                    ₹{item.price}
+                  </p>
+                  <button className="bg-orange-500 text-white px-4 py-2 rounded mt-3 hover:bg-orange-600"
+                    onClick={() => { handleAddToCart(item) }}>
                     Add to Cart
-                </button>
+                  </button>
                 </div>
               </div>
               {/* Add a subtle "shine" effect on hover */}

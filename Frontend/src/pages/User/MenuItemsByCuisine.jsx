@@ -21,6 +21,8 @@ const MenuItemsByCuisine = () => {
       try {
         setLoading(true);
         const result = await getMenuItemsByCuisineType(id);
+        console.log(result);
+
 
         if (result.status === 200) {
           setMenuItems(result.data);
@@ -60,7 +62,7 @@ const MenuItemsByCuisine = () => {
               className="bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-2xl transition-shadow duration-300"
             >
               <img
-                src={image}
+                src={item.image_url}
                 alt={item.name}
                 className="w-full h-48 object-cover"
               />

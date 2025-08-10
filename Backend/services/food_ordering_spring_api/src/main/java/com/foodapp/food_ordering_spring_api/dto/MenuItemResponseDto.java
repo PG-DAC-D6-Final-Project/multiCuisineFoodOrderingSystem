@@ -16,7 +16,7 @@ public class MenuItemResponseDto {
 	private String name;
     private String description;
     private double price;
-    private String imageUrl;
+    private String image_url;
     private RestaurantMenuItemAvailability availability_status;
     private Long restaurantId;
     private Long cuisineTypeId;
