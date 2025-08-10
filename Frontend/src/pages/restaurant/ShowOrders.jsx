@@ -72,8 +72,10 @@ function ShowOrders() {
                     >
                       <option value="ORDERED">ORDERED</option>
                       <option value="PREPARING">PREPARING</option>
+                      <option value="ON_THE_WAY">ON_THE_WAY</option>
                       <option value="DELIVERED">DELIVERED</option>
                       <option value="REJECTED">REJECTED</option>
+                      
                     </select>
                   </td>
                   <td className="py-2 px-4">{new Date(order.order_date_time).toLocaleString()}</td>
