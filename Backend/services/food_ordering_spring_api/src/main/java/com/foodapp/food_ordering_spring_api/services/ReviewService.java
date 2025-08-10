@@ -1,22 +1,16 @@
 package com.foodapp.food_ordering_spring_api.services;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.stream.Collectors;
 
 import org.springframework.stereotype.Service;
 
 import com.foodapp.food_ordering_spring_api.custom_exceptions.ResourceNotFoundException;
 import com.foodapp.food_ordering_spring_api.dao.FoodItemsReviewDao;
-import com.foodapp.food_ordering_spring_api.dao.MenuItemDao;
+
 import com.foodapp.food_ordering_spring_api.dao.OrderDao;
 import com.foodapp.food_ordering_spring_api.dao.UserDao;
-import com.foodapp.food_ordering_spring_api.dto.MenuItemRatingDto;
+
 import com.foodapp.food_ordering_spring_api.dto.ReviewDto;
-import com.foodapp.food_ordering_spring_api.dto.FoodItemReviewDto;
-import com.foodapp.food_ordering_spring_api.dto.FoodItemReviewResponseDto;
-import com.foodapp.food_ordering_spring_api.entities.FoodItemReview;
-import com.foodapp.food_ordering_spring_api.entities.MenuItem;
+
 import com.foodapp.food_ordering_spring_api.entities.Orders;
 import com.foodapp.food_ordering_spring_api.entities.Reviews;
 import com.foodapp.food_ordering_spring_api.entities.User;
@@ -32,7 +26,7 @@ public class ReviewService {
 	private final FoodItemsReviewDao reviewDao;
 	
 	private final OrderDao orderDao;
-	private final MenuItemDao menuItemDao;
+	
 	private final UserDao userDao;
 	
 	
