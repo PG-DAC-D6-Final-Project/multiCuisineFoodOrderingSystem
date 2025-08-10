@@ -40,7 +40,7 @@ public class RestaurantController {
 //	Restaurant login 
 	@PostMapping("/")
 	public ResponseEntity<?> RestaurantLogin(@RequestBody RestaurantLoginDto dto){
-		return ResponseEntity.ok(restaurantService.restaurantSignin(dto));
+		return ResponseEntity.ok(restaurantService.restaurantLogin(dto));
 	}
 	@GetMapping("/{restaurantId}")
 	public ResponseEntity<?> GetRestaurantById(@PathVariable Long restaurantId){
@@ -48,9 +48,6 @@ public class RestaurantController {
 	}	
 	@GetMapping("/")
 	public ResponseEntity<?> GetAllRestaurants(@RequestParam(defaultValue="10") int limit){
-		System.out.println("--------------------------------------");
-		System.out.println(limit);
-		System.out.println("------------------------------------------");
 		
 		List<AllRestaurantDto> restaurants = restaurantService.getAllRestaurant(limit);
 		if(restaurants.isEmpty()) {

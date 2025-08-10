@@ -19,14 +19,11 @@ public abstract class Reviews extends BaseEntity {
     @ManyToOne
     @JoinColumn(name="user_id")
     private User user;
-    private byte rating;
     private String comment;
+    private byte Rating;
     @OneToOne
     @JoinColumn(name="order_id")
     private Orders order;
 
-    public Reviews(byte rating, String comment){
-        this.rating = rating;
-        this.comment = comment;
-    }
+    
 }
