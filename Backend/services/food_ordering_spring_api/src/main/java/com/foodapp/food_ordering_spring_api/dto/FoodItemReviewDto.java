@@ -11,12 +11,12 @@ import lombok.Setter;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class ReviewDto extends BaseDTO{
+public class FoodItemReviewDto extends BaseDTO{
 	
 	
 	    private Long userId;
 	    private String comment;
-	  
+	    
 	    private Long orderId;
 	    
 	    List<MenuItemRatingDto> listOfItemRating ;

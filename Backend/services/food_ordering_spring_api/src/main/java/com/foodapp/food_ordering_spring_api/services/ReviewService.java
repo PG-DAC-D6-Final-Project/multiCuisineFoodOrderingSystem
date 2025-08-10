@@ -12,7 +12,8 @@ import com.foodapp.food_ordering_spring_api.dao.MenuItemDao;
 import com.foodapp.food_ordering_spring_api.dao.OrderDao;
 import com.foodapp.food_ordering_spring_api.dao.UserDao;
 import com.foodapp.food_ordering_spring_api.dto.MenuItemRatingDto;
-import com.foodapp.food_ordering_spring_api.dto.ReviewDto;
+import com.foodapp.food_ordering_spring_api.dto.FoodItemReviewDto;
+import com.foodapp.food_ordering_spring_api.dto.FoodItemReviewResponseDto;
 import com.foodapp.food_ordering_spring_api.entities.FoodItemReview;
 import com.foodapp.food_ordering_spring_api.entities.MenuItem;
 import com.foodapp.food_ordering_spring_api.entities.Orders;
@@ -32,7 +33,7 @@ public class ReviewService {
 	private final MenuItemDao menuItemDao;
 	private final UserDao userDao;
 
-	public void addReview(ReviewDto review) {
+	public void addReview(FoodItemReviewDto review) {
 		Long userId = review.getUserId();
 		Long orderId = review.getOrderId();
 		List<MenuItemRatingDto> itemsRatingList = review.getListOfItemRating();
@@ -68,5 +69,18 @@ public class ReviewService {
 		
 		
 	}
+
 	
+		public List<FoodItemReviewResponseDto> getAllReviewsByUserId(Long userId) {
+	        return reviewDao.findByUserId(userId).stream()
+	            .map(r -> new FoodItemReviewResponseDto(
+	                r.getId(),
+	                r.getMenuItem().getId(),
+	                r.getMenuItem().getName(),
+	                r.getRating(),
+	                r.getComment(),
+	                r.getOrder().getId()
+	            ))
+	            .collect(Collectors.toList());
+	    }
 }
