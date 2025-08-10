@@ -73,3 +73,41 @@ D:\SUNBEAM\multiCuisineFoodOrderingSystem\Backend\services\CloudinaryImageUpload
 D:\SUNBEAM\multiCuisineFoodOrderingSystem\Backend\services\CloudinaryImageUploader\CloudinaryImageUploader\obj\Debug\net8.0\CloudinaryImageUploader.pdb
 D:\SUNBEAM\multiCuisineFoodOrderingSystem\Backend\services\CloudinaryImageUploader\CloudinaryImageUploader\obj\Debug\net8.0\CloudinaryImageUploader.genruntimeconfig.cache
 D:\SUNBEAM\multiCuisineFoodOrderingSystem\Backend\services\CloudinaryImageUploader\CloudinaryImageUploader\obj\Debug\net8.0\ref\CloudinaryImageUploader.dll
+D:\Engineering\CDAC\Final Project\NewVersion\multiCuisineFoodOrderingSystem\Backend\services\CloudinaryImageUploader\CloudinaryImageUploader\bin\Debug\net8.0\appsettings.Development.json
+D:\Engineering\CDAC\Final Project\NewVersion\multiCuisineFoodOrderingSystem\Backend\services\CloudinaryImageUploader\CloudinaryImageUploader\bin\Debug\net8.0\appsettings.json
+D:\Engineering\CDAC\Final Project\NewVersion\multiCuisineFoodOrderingSystem\Backend\services\CloudinaryImageUploader\CloudinaryImageUploader\bin\Debug\net8.0\CloudinaryImageUploader.staticwebassets.endpoints.json
+D:\Engineering\CDAC\Final Project\NewVersion\multiCuisineFoodOrderingSystem\Backend\services\CloudinaryImageUploader\CloudinaryImageUploader\bin\Debug\net8.0\CloudinaryImageUploader.exe
+D:\Engineering\CDAC\Final Project\NewVersion\multiCuisineFoodOrderingSystem\Backend\services\CloudinaryImageUploader\CloudinaryImageUploader\bin\Debug\net8.0\CloudinaryImageUploader.deps.json
+D:\Engineering\CDAC\Final Project\NewVersion\multiCuisineFoodOrderingSystem\Backend\services\CloudinaryImageUploader\CloudinaryImageUploader\bin\Debug\net8.0\CloudinaryImageUploader.runtimeconfig.json
+D:\Engineering\CDAC\Final Project\NewVersion\multiCuisineFoodOrderingSystem\Backend\services\CloudinaryImageUploader\CloudinaryImageUploader\bin\Debug\net8.0\CloudinaryImageUploader.dll
+D:\Engineering\CDAC\Final Project\NewVersion\multiCuisineFoodOrderingSystem\Backend\services\CloudinaryImageUploader\CloudinaryImageUploader\bin\Debug\net8.0\CloudinaryImageUploader.pdb
+D:\Engineering\CDAC\Final Project\NewVersion\multiCuisineFoodOrderingSystem\Backend\services\CloudinaryImageUploader\CloudinaryImageUploader\bin\Debug\net8.0\CloudinaryDotNet.dll
+D:\Engineering\CDAC\Final Project\NewVersion\multiCuisineFoodOrderingSystem\Backend\services\CloudinaryImageUploader\CloudinaryImageUploader\bin\Debug\net8.0\Microsoft.OpenApi.dll
+D:\Engineering\CDAC\Final Project\NewVersion\multiCuisineFoodOrderingSystem\Backend\services\CloudinaryImageUploader\CloudinaryImageUploader\bin\Debug\net8.0\Newtonsoft.Json.dll
+D:\Engineering\CDAC\Final Project\NewVersion\multiCuisineFoodOrderingSystem\Backend\services\CloudinaryImageUploader\CloudinaryImageUploader\bin\Debug\net8.0\Swashbuckle.AspNetCore.Swagger.dll
+D:\Engineering\CDAC\Final Project\NewVersion\multiCuisineFoodOrderingSystem\Backend\services\CloudinaryImageUploader\CloudinaryImageUploader\bin\Debug\net8.0\Swashbuckle.AspNetCore.SwaggerGen.dll
+D:\Engineering\CDAC\Final Project\NewVersion\multiCuisineFoodOrderingSystem\Backend\services\CloudinaryImageUploader\CloudinaryImageUploader\bin\Debug\net8.0\Swashbuckle.AspNetCore.SwaggerUI.dll
+D:\Engineering\CDAC\Final Project\NewVersion\multiCuisineFoodOrderingSystem\Backend\services\CloudinaryImageUploader\CloudinaryImageUploader\obj\Debug\net8.0\CloudinaryImageUploader.csproj.AssemblyReference.cache
+D:\Engineering\CDAC\Final Project\NewVersion\multiCuisineFoodOrderingSystem\Backend\services\CloudinaryImageUploader\CloudinaryImageUploader\obj\Debug\net8.0\rpswa.dswa.cache.json
+D:\Engineering\CDAC\Final Project\NewVersion\multiCuisineFoodOrderingSystem\Backend\services\CloudinaryImageUploader\CloudinaryImageUploader\obj\Debug\net8.0\CloudinaryImageUploader.GeneratedMSBuildEditorConfig.editorconfig
+D:\Engineering\CDAC\Final Project\NewVersion\multiCuisineFoodOrderingSystem\Backend\services\CloudinaryImageUploader\CloudinaryImageUploader\obj\Debug\net8.0\CloudinaryImageUploader.AssemblyInfoInputs.cache
+D:\Engineering\CDAC\Final Project\NewVersion\multiCuisineFoodOrderingSystem\Backend\services\CloudinaryImageUploader\CloudinaryImageUploader\obj\Debug\net8.0\CloudinaryImageUploader.AssemblyInfo.cs
+D:\Engineering\CDAC\Final Project\NewVersion\multiCuisineFoodOrderingSystem\Backend\services\CloudinaryImageUploader\CloudinaryImageUploader\obj\Debug\net8.0\CloudinaryImageUploader.csproj.CoreCompileInputs.cache
+D:\Engineering\CDAC\Final Project\NewVersion\multiCuisineFoodOrderingSystem\Backend\services\CloudinaryImageUploader\CloudinaryImageUploader\obj\Debug\net8.0\CloudinaryImageUploader.MvcApplicationPartsAssemblyInfo.cs
+D:\Engineering\CDAC\Final Project\NewVersion\multiCuisineFoodOrderingSystem\Backend\services\CloudinaryImageUploader\CloudinaryImageUploader\obj\Debug\net8.0\CloudinaryImageUploader.MvcApplicationPartsAssemblyInfo.cache
+D:\Engineering\CDAC\Final Project\NewVersion\multiCuisineFoodOrderingSystem\Backend\services\CloudinaryImageUploader\CloudinaryImageUploader\obj\Debug\net8.0\CloudinaryImageUploader.sourcelink.json
+D:\Engineering\CDAC\Final Project\NewVersion\multiCuisineFoodOrderingSystem\Backend\services\CloudinaryImageUploader\CloudinaryImageUploader\obj\Debug\net8.0\rjimswa.dswa.cache.json
+D:\Engineering\CDAC\Final Project\NewVersion\multiCuisineFoodOrderingSystem\Backend\services\CloudinaryImageUploader\CloudinaryImageUploader\obj\Debug\net8.0\rjsmrazor.dswa.cache.json
+D:\Engineering\CDAC\Final Project\NewVersion\multiCuisineFoodOrderingSystem\Backend\services\CloudinaryImageUploader\CloudinaryImageUploader\obj\Debug\net8.0\rjsmcshtml.dswa.cache.json
+D:\Engineering\CDAC\Final Project\NewVersion\multiCuisineFoodOrderingSystem\Backend\services\CloudinaryImageUploader\CloudinaryImageUploader\obj\Debug\net8.0\scopedcss\bundle\CloudinaryImageUploader.styles.css
+D:\Engineering\CDAC\Final Project\NewVersion\multiCuisineFoodOrderingSystem\Backend\services\CloudinaryImageUploader\CloudinaryImageUploader\obj\Debug\net8.0\staticwebassets.build.json
+D:\Engineering\CDAC\Final Project\NewVersion\multiCuisineFoodOrderingSystem\Backend\services\CloudinaryImageUploader\CloudinaryImageUploader\obj\Debug\net8.0\staticwebassets.build.json.cache
+D:\Engineering\CDAC\Final Project\NewVersion\multiCuisineFoodOrderingSystem\Backend\services\CloudinaryImageUploader\CloudinaryImageUploader\obj\Debug\net8.0\staticwebassets.development.json
+D:\Engineering\CDAC\Final Project\NewVersion\multiCuisineFoodOrderingSystem\Backend\services\CloudinaryImageUploader\CloudinaryImageUploader\obj\Debug\net8.0\staticwebassets.build.endpoints.json
+D:\Engineering\CDAC\Final Project\NewVersion\multiCuisineFoodOrderingSystem\Backend\services\CloudinaryImageUploader\CloudinaryImageUploader\obj\Debug\net8.0\staticwebassets.upToDateCheck.txt
+D:\Engineering\CDAC\Final Project\NewVersion\multiCuisineFoodOrderingSystem\Backend\services\CloudinaryImageUploader\CloudinaryImageUploader\obj\Debug\net8.0\Cloudina.87615812.Up2Date
+D:\Engineering\CDAC\Final Project\NewVersion\multiCuisineFoodOrderingSystem\Backend\services\CloudinaryImageUploader\CloudinaryImageUploader\obj\Debug\net8.0\CloudinaryImageUploader.dll
+D:\Engineering\CDAC\Final Project\NewVersion\multiCuisineFoodOrderingSystem\Backend\services\CloudinaryImageUploader\CloudinaryImageUploader\obj\Debug\net8.0\refint\CloudinaryImageUploader.dll
+D:\Engineering\CDAC\Final Project\NewVersion\multiCuisineFoodOrderingSystem\Backend\services\CloudinaryImageUploader\CloudinaryImageUploader\obj\Debug\net8.0\CloudinaryImageUploader.pdb
+D:\Engineering\CDAC\Final Project\NewVersion\multiCuisineFoodOrderingSystem\Backend\services\CloudinaryImageUploader\CloudinaryImageUploader\obj\Debug\net8.0\CloudinaryImageUploader.genruntimeconfig.cache
+D:\Engineering\CDAC\Final Project\NewVersion\multiCuisineFoodOrderingSystem\Backend\services\CloudinaryImageUploader\CloudinaryImageUploader\obj\Debug\net8.0\ref\CloudinaryImageUploader.dll
