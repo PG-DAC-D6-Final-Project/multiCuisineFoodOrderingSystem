@@ -65,6 +65,7 @@ const handleSubmit = async (e) => {
 
       navigate("/restaurant/Dashboard");
     } else {
+      console.log(resData)
       alert(resData.message);
     }
 

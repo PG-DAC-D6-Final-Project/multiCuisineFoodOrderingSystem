@@ -6,6 +6,7 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
 import com.foodapp.food_ordering_spring_api.custom_exceptions.ApiException;
+import com.foodapp.food_ordering_spring_api.custom_exceptions.ResourceNotFoundException;
 import com.foodapp.food_ordering_spring_api.dto.ErrorResponse;
 
 @RestControllerAdvice
@@ -15,6 +16,8 @@ public class GlobalExceptionHandler {
 	public ResponseEntity<?> handleGenericException(Exception ex){
 		ErrorResponse error = new ErrorResponse(HttpStatus.INTERNAL_SERVER_ERROR.value(),ex.getMessage());
 		
+		System.out.println("--------------------------------------");
+		System.out.println(ex.getLocalizedMessage());
 		return new ResponseEntity<ErrorResponse>(error,HttpStatus.INTERNAL_SERVER_ERROR);
 	}
 	
@@ -22,6 +25,13 @@ public class GlobalExceptionHandler {
 	public ResponseEntity<ErrorResponse> handleApiException(ApiException ex) {
 		ErrorResponse error = new ErrorResponse(HttpStatus.BAD_REQUEST.value(), ex.getMessage());
 		return new ResponseEntity<>(error, HttpStatus.BAD_REQUEST);
+	}
+	
+	@ExceptionHandler(ResourceNotFoundException.class)
+	public ResponseEntity<?> handleResourceNotFoundException(ResourceNotFoundException ex){
+		ErrorResponse error = new ErrorResponse(HttpStatus.BAD_REQUEST.value(),ex.getMessage());
+		System.err.println(ex.getMessage());
+		return new ResponseEntity<>(error,HttpStatus.BAD_REQUEST);
 	}
 
 }

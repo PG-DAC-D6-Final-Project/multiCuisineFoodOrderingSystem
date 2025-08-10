@@ -17,8 +17,8 @@ function ShowOrders() {
   setOrders(prevOrders =>
     prevOrders.map(order =>
       order.id === orderId
-        ? { ...order, orderstatus: newStatus } // update matching order's status
-        : order // leave as it is
+        ? { ...order, orderstatus: newStatus }
+        : order 
     )
   );
 };
@@ -70,10 +70,7 @@ function ShowOrders() {
                       onChange={(e) => handleStatusChange(order.id, e.target.value)}
                       className="border rounded px-2 py-1"
                     >
-                      <option value="ORDERED">ORDERED</option>
                       <option value="PREPARING">PREPARING</option>
-                      <option value="ON_THE_WAY">ON_THE_WAY</option>
-                      <option value="DELIVERED">DELIVERED</option>
                       <option value="REJECTED">REJECTED</option>
                       
                     </select>
