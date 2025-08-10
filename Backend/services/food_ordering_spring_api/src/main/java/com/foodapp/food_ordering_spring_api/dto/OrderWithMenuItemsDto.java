@@ -3,7 +3,6 @@ package com.foodapp.food_ordering_spring_api.dto;
 import java.time.LocalDateTime;
 import java.util.List;
 
-import com.foodapp.food_ordering_spring_api.entities.DeliveryAgent;
 import com.foodapp.food_ordering_spring_api.entities.OrderStatus;
 import com.foodapp.food_ordering_spring_api.entities.PaymentMethod;
 
@@ -12,7 +11,7 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class OrderDto extends BaseDTO{
+public class OrderWithMenuItemsDto extends BaseDTO {
 	
 	private LocalDateTime delivery_date_time;
 	private LocalDateTime order_date_time;
@@ -27,9 +26,7 @@ public class OrderDto extends BaseDTO{
 	
 	private RestaurantSignUpDTO restaurant;
 
-	private List<MenuItemWithCuisineDto> menuItems;
+	private List<MenuItemQuantityDto> menuItems;
 
 //	private DeliveryAgent deliveryPerson;
 }
-
-

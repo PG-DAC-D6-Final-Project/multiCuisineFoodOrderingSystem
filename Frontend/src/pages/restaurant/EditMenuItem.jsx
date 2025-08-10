@@ -49,10 +49,10 @@ function EditMenuItem() {
 
   return (
     <div className="flex w-full">
-      <div className="min-h-screen w-full flex items-center justify-center bg-orange-400 p-4">
+      <div className="min-h-screen w-full flex items-center justify-center p-4">
         <form
           onSubmit={handleSubmit}
-          className="bg-white p-8 rounded-xl shadow-md w-full max-w-md space-y-6"
+          className="bg-white p-8 border rounded-xl shadow-md w-full max-w-md space-y-6"
         >
           <h2 className="text-2xl font-bold text-center text-orange-400">
             Edit Menu Item

@@ -14,6 +14,7 @@ import com.foodapp.food_ordering_spring_api.controllers.DummyController;
 import com.foodapp.food_ordering_spring_api.custom_exceptions.ApiException;
 import com.foodapp.food_ordering_spring_api.custom_exceptions.ResourceNotFoundException;
 import com.foodapp.food_ordering_spring_api.dao.RestaurantDao;
+import com.foodapp.food_ordering_spring_api.dto.AddressDto;
 import com.foodapp.food_ordering_spring_api.dto.AllRestaurantDto;
 import com.foodapp.food_ordering_spring_api.dto.ApiResponse;
 import com.foodapp.food_ordering_spring_api.dto.MenuItemDto;
@@ -23,6 +24,7 @@ import com.foodapp.food_ordering_spring_api.dto.RestaurantMenuDto;
 import com.foodapp.food_ordering_spring_api.dto.RestaurantMenuItemDto;
 import com.foodapp.food_ordering_spring_api.dto.RestaurantSignUpDTO;
 import com.foodapp.food_ordering_spring_api.dto.UpdateRestaurantDto;
+import com.foodapp.food_ordering_spring_api.entities.Address;
 import com.foodapp.food_ordering_spring_api.entities.MenuItem;
 import com.foodapp.food_ordering_spring_api.entities.Restaurant;
 import com.foodapp.food_ordering_spring_api.entities.RestaurantStatus;
@@ -74,11 +76,40 @@ public class RestaurantServiceImpl implements RestaurantService {
 
 	@Override
 	public ApiResponse UpdateRestaurant(Long id, UpdateRestaurantDto dto) {
-		if(restaurantDao.existsByName(dto.getName()))
-			throw new ApiException("restaurant already exists by this name...");
-		Restaurant entity = restaurantDao.findById(id).orElseThrow(() -> new ResourceNotFoundException("invalid restaurant id"));
-		modelMapper.map(dto, entity);
-		return new ApiResponse("updated restaurant details!");
+		Restaurant entity = restaurantDao.findById(id)
+		        .orElseThrow(() -> new ResourceNotFoundException("invalid restaurant id"));
+
+		    if (!entity.getName().equals(dto.getName()) && restaurantDao.existsByName(dto.getName())) {
+		        throw new ApiException("restaurant already exists by this name...");
+		    }
+		    
+		    entity.setName(dto.getName());
+		    entity.setPhone(dto.getPhone());
+		    entity.setEmail(dto.getEmail());
+		    entity.setPassword(dto.getPassword());
+		    entity.setOpening_time(dto.getOpening_time());
+		    entity.setClosing_time(dto.getClosing_time());
+		    entity.setMinimum_order_amount(dto.getMinimum_order_amount());
+		    entity.setStatus(dto.getStatus());
+
+		    
+		    if (dto.getAddress() != null) {
+		        Address addr = entity.getAddress();
+		        if (addr == null) {
+		            addr = new Address();
+		            entity.setAddress(addr);
+		        }
+		        addr.setAddressLine1(dto.getAddress().getAddressLine1());
+		        addr.setAddressLine2(dto.getAddress().getAddressLine2());
+		        addr.setCity(dto.getAddress().getCity());
+		        addr.setState(dto.getAddress().getState());
+		        addr.setCountry(dto.getAddress().getCountry());
+		        addr.setPinCode(dto.getAddress().getPinCode());
+		    }
+
+		    restaurantDao.save(entity);
+		    return new ApiResponse("updated restaurant details!");
+		
 	}
 	
 	@Override

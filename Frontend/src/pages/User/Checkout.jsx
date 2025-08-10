@@ -64,7 +64,7 @@ const Checkout = () => {
     if (result.status === 200) {
       toast.success("Order successful!")
       dispatch(clearCart());
-      navigate("/CustomerPastOrders");
+      navigate("/customer/orders");
     }
     else {
       toast.error("Order failed!")

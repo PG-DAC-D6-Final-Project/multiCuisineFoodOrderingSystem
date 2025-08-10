@@ -10,16 +10,20 @@ import org.springframework.stereotype.Service;
 
 import com.foodapp.food_ordering_spring_api.dao.MenuItemDao;
 import com.foodapp.food_ordering_spring_api.dao.OrderDao;
+import com.foodapp.food_ordering_spring_api.dao.OrderItemsDao;
 import com.foodapp.food_ordering_spring_api.dao.RestaurantDao;
 import com.foodapp.food_ordering_spring_api.dao.UserDao;
 import com.foodapp.food_ordering_spring_api.dto.CreateNewOrderDto;
 import com.foodapp.food_ordering_spring_api.dto.CreateOrderMenuItemDto;
+import com.foodapp.food_ordering_spring_api.dto.MenuItemQuantityDto;
+import com.foodapp.food_ordering_spring_api.dto.MenuItemResponseDto;
 import com.foodapp.food_ordering_spring_api.dto.OrderDto;
 import com.foodapp.food_ordering_spring_api.dto.OrderItemDto;
-import com.foodapp.food_ordering_spring_api.dto.OrderResponseDto;
+import com.foodapp.food_ordering_spring_api.dto.OrderWithMenuItemsDto;
 import com.foodapp.food_ordering_spring_api.dto.ReqOrderDto;
 import com.foodapp.food_ordering_spring_api.entities.MenuItem;
 import com.foodapp.food_ordering_spring_api.entities.OrderItems;
+import com.foodapp.food_ordering_spring_api.entities.OrderStatus;
 import com.foodapp.food_ordering_spring_api.entities.Orders;
 import com.foodapp.food_ordering_spring_api.entities.Restaurant;
 import com.foodapp.food_ordering_spring_api.entities.User;
@@ -36,6 +40,7 @@ public class OrderService {
 	private final UserDao userDao;
 	private final RestaurantDao restaurantDao;
 	private final MenuItemDao menuItemDao;
+	private final OrderItemsDao orderItemsDao;
 	private final ModelMapper modelMapper;
 	
 	public List<OrderDto> getAllOrders(){
@@ -118,7 +123,7 @@ public class OrderService {
 		return responseOrderDto;
 	}
 	
-	public List<OrderResponseDto> getOrdersByCustomerId(Long userId){
+	public List<OrderWithMenuItemsDto> getOrdersByCustomerId(Long userId){
 		User userEntity = userDao.findById(userId).orElseThrow(() ->
 				new RuntimeException("Invalid user id!"));
 		List<Orders> orders = orderDao.findByUserId(userEntity.getId());
@@ -128,9 +133,67 @@ public class OrderService {
 		}
 		
 		return orders.stream()
-				.map(order -> modelMapper.map(order, OrderResponseDto.class))
-				.toList();
+			    .map(order -> {
+			    	OrderWithMenuItemsDto dto = modelMapper.map(order, OrderWithMenuItemsDto.class);
+
+			        List<OrderItems> orderItems = orderItemsDao.findByOrderId(order.getId());
+
+			        List<MenuItemQuantityDto> menuItems = new ArrayList<>();
+			        for (OrderItems item : orderItems) {
+			            MenuItem menuItem = menuItemDao.findById(item.getMenuItem().getId())
+			                .orElseThrow(() -> new RuntimeException("MenuItem Does not exist"));
+			            MenuItemQuantityDto menuItemDto = modelMapper.map(menuItem, MenuItemQuantityDto.class);
+			            menuItemDto.setQuantity(item.getQuantity());
+			            menuItems.add(menuItemDto);
+			        }
+
+			        dto.setMenuItems(menuItems);
+			        return dto;
+			    })
+			    .toList();
 	}
+
+//	Get all orders by restaurant id.
+	public List<OrderWithMenuItemsDto> getOrdersByRestaurantId(Long restaurantId) {
+		Restaurant entity = restaurantDao.findById(restaurantId).orElseThrow(() ->
+		new RuntimeException("Invalid restaurant id!"));
+		
+		List<Orders> orders = orderDao.findByRestaurantId(entity.getId());
+		
+		if(orders.size() == 0) {
+			throw new RuntimeException("No Orders.");
+		}
+		
+		return orders.stream()
+				.map(order -> {
+					OrderWithMenuItemsDto dto = modelMapper.map(order, OrderWithMenuItemsDto.class);
+
+			        List<OrderItems> orderItems = orderItemsDao.findByOrderId(order.getId());
+
+			        List<MenuItemQuantityDto> menuItems = new ArrayList<>();
+			        for (OrderItems item : orderItems) {
+			            MenuItem menuItem = menuItemDao.findById(item.getMenuItem().getId())
+			                .orElseThrow(() -> new RuntimeException("MenuItem Does not exist"));
+			            MenuItemQuantityDto menuItemDto = modelMapper.map(menuItem, MenuItemQuantityDto.class);
+			            menuItemDto.setQuantity(item.getQuantity());
+			            menuItems.add(menuItemDto);
+			        }
+
+			        dto.setMenuItems(menuItems);
+			        return dto;
+				})
+				.toList();
+		
+	}
+
+	public OrderDto updateOrderStatus(Long orderId, OrderStatus status) {
+	    Orders order = orderDao.findById(orderId)
+	            .orElseThrow(() -> new RuntimeException("Order not found with ID " + orderId));
+	    order.setOrderstatus(status);
+	    orderDao.save(order);
+	    return modelMapper.map(order, OrderDto.class);
+	    	}
+
 
 
 }

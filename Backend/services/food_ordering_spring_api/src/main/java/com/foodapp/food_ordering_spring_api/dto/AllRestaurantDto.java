@@ -18,6 +18,7 @@ public class AllRestaurantDto {
 	private LocalDateTime openingTime;
 	private LocalDateTime closingTime;
 	private Double avg_rating;
+	private String image_url;
 	private double minimum_order_value;
 	private RestaurantStatus status;
 }

@@ -1,6 +1,8 @@
 import axios from "axios";
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { Button } from "../../components/ui/button";
+import { baseUrlNet } from "../../utils/config";
 
 function RestaurantRegistration() {
   const [formData, setFormData] = useState({
@@ -12,6 +14,10 @@ function RestaurantRegistration() {
     openingTime: "",
     closingTime: "",
   });
+  const [imageFile, setImageFile] = useState(null);
+  const [imagePreview, setImagePreview] = useState(null);
+  const [isUploaded, setIsUploaded] = useState(false);
+  const [imageUrl, setImageUrl] = useState("");
 
   const navigate = useNavigate();
 
@@ -44,6 +50,7 @@ function RestaurantRegistration() {
       password: formData.password,
       opening_time: openingDateTime,
       closing_time: closingDateTime,
+      image_url: imageUrl,
       address: addressObj,
     };
 
@@ -73,15 +80,50 @@ function RestaurantRegistration() {
       } else if (backendMessage?.includes("Restaurant Already Exists...")) {
         alert("A restaurant with this name already exists. Try another name.");
       } else {
-        alert("Registration failed. Check console for details."+backendMessage);
+        alert("Registration failed. Check console for details." + backendMessage);
       }
     }
 
     console.log("Final Payload:", payload);
   };
 
+  const handleFileChange = (e) => {
+    const file = e.target.files[0];
+    setImageFile(file);
+
+    if (file) {
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        setImagePreview(reader.result);
+      };
+      reader.readAsDataURL(file);
+    } else {
+      setImagePreview(null);
+    }
+  };
+
+  const handleUpload = async () => {
+    try {
+      const url = baseUrlNet + "/api/upload/image";
+      const imageFormData = new FormData();
+      if (imageFile) {
+        imageFormData.append("file", imageFile);
+      }
+
+      const response = await axios.post(
+        url, imageFormData
+      );
+      console.log(response.data);
+      setIsUploaded(true);
+      setImageUrl(response.data.imageUrl)
+    }
+    catch (e) {
+      console.log(e);
+    }
+  }
+
   return (
-    <div className="min-h-screen bg-orange-400 flex items-center justify-center p-4">
+    <div className="min-h-screen flex items-center justify-center p-4">
       <form
         onSubmit={handleSubmit}
         className="bg-white p-8 rounded-xl shadow-lg w-full max-w-md space-y-6"
@@ -89,6 +131,26 @@ function RestaurantRegistration() {
         <h2 className="text-2xl font-bold text-center text-orange-400">
           Restaurant Registration
         </h2>
+        <div>
+          <label className="block mb-1 text-black font-medium">Upload Image</label>
+          <input
+            type="file"
+            accept="image/*"
+            onChange={handleFileChange}
+            className="w-full border border-gray-300 rounded p-2"
+          />
+          {imagePreview && (
+            <>
+              <img
+                src={imagePreview}
+                alt="Preview"
+                className="mt-2 rounded-md max-w-[300px] max-h-[300px] object-contain"
+              />
+              {isUploaded === false ? <Button onClick={handleUpload} className="w-[50%] mt-2">Upload</Button>
+                : <p className="mt-2">Uploaded</p>}
+            </>
+          )}
+        </div>
 
         <div>
           <label className="block text-sm font-medium mb-1">Name</label>
