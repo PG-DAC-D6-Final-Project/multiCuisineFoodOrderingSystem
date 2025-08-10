@@ -79,7 +79,7 @@ const RegisterDeliveryAgent = () => {
 
     return (
         <>
-            <h1 className="text-3xl font-bold text-center">Register</h1>
+            <h1 className="text-3xl font-bold text-center mt-6 text-orange-600">Delivery Agent Register</h1>
             <div className="w-full flex justify-center items-center p-6">
                 <div className="w-[50%] flex flex-col justify-center items-center gap-6 border-1 p-6 rounded-lg shadow-2xl">
                     {/* <img src={previewUrl} alt="register" className="h-32 border-2 rounded-full" />
@@ -148,7 +148,7 @@ const RegisterDeliveryAgent = () => {
                     <div className="w-[70%]">
                         <Button
                             variant="outline"
-                            className="w-full bg-orange-400 hover:bg-orange-500 text-white hover:text-white"
+                            className="w-full bg-orange-600 hover:bg-orange-500 text-white hover:text-white"
                             onClick={handleSubmit}
                         >
                             Register

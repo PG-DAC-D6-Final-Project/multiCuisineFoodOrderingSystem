@@ -47,8 +47,7 @@ public class RestaurantController {
 		return ResponseEntity.ok(restaurantService.getRestaurantById(restaurantId));
 	}	
 	@GetMapping("/")
-	public ResponseEntity<?> GetAllRestaurants(@RequestParam(defaultValue="10") int limit){
-		
+	public ResponseEntity<?> GetAllRestaurants(@RequestParam(defaultValue="50") int limit){
 		List<AllRestaurantDto> restaurants = restaurantService.getAllRestaurant(limit);
 		if(restaurants.isEmpty()) {
 			return ResponseEntity.status(HttpStatus.NO_CONTENT).build();

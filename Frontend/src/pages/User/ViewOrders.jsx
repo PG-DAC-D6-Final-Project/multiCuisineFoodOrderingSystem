@@ -28,6 +28,7 @@ const ViewOrders = () => {
 
   const getStatusColor = (status) => {
     switch (status) {
+
       case "ORDERED":
         return "bg-orange-100 text-orange-700 border border-orange-300";
       case "ACCEPTED":

@@ -100,3 +100,15 @@ export const getOrders = async (userId) => {
     console.log(e);
   }
 };
+
+export const getMenuItemsByName = async (menuItem) => {
+  try {
+    const url = baseUrl + `/menu-item/search/${menuItem}`;
+
+    const response = await axios.get(url);
+
+    return response;
+  } catch (e) {
+    console.log(e);
+  }
+};

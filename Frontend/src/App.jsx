@@ -37,6 +37,7 @@ import LoginDeliveryPerson from "./pages/delivery/LoginDeliveryPerson";
 import MenuItemsByCuisine from "./pages/User/MenuItemsByCuisine";
 import ViewOrders from "./pages/User/ViewOrders";
 import MenuItemsByRestaurants from "./pages/User/MenuItemsByRestaurants";
+import SearchResults from "./pages/User/SearchResults";
 import RateOrder from "./pages/User/RateOrder";
 
 function App() {
@@ -47,8 +48,8 @@ function App() {
           <Route path="login" element={<LoginDeliveryPerson />} />
           <Route path="register" element={<RegisterDeliveryAgent />} />
           <Route path="" element={<DeliveryLayout />}>
-            <Route path="" element={<Dashboard />} />
-            <Route path="active" element={<ActiveOrders />} />
+            {/* <Route path="" element={<Dashboard />} /> */}
+            <Route path="" element={<ActiveOrders />} />
             <Route path="available" element={<AvailableOrders />} />
             <Route path="history" element={<OrderHistory />} />
             <Route path="profile" element={<Profile />} />
@@ -72,6 +73,7 @@ function App() {
           <Route path="checkout" element={<Checkout />} />
           <Route path="cuisine/:id" element={<MenuItemsByCuisine />} />
           <Route path="orders" element={<ViewOrders />} />
+          <Route path="search/:menuItem" element={<SearchResults />} />
           <Route path="review/:orderId" element={<RateOrder />} /> 
         </Route>
 

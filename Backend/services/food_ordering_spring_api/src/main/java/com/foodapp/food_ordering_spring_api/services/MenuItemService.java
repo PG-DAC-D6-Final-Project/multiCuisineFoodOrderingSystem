@@ -18,4 +18,5 @@ public interface MenuItemService {
 	// List<MenuItemResponseDto> getAllMenuItemsByCuisineType(Long cuisineTypeId);
 	List<MenuItemsWithRestaurantDto> getAllMenuItemsByCuisineType(Long cuisineTypeId);
 
+	List<MenuItemsWithRestaurantDto> getMenuItemsByName(String menuItem);
 }
