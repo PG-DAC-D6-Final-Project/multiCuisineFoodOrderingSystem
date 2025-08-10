@@ -10,42 +10,15 @@ const Register = () => {
     email: '',
     password: '',
     phone: '',
-    address: {
-      addressLine1: "",
-      addressLine2: "",
-      city: "",
-      state: "",
-      country: "",
-      pinCode: ""
-    }
   });
 
   const navigate = useNavigate();
 
-  // const handleChange = (e) => {
-  //   setFormData({
-  //     ...formData,
-  //     [e.target.name]: e.target.value
-  //   });
-  // };
   const handleChange = (e) => {
-    const { name, value } = e.target;
-
-    // Handle nested address fields
-    if (name in formData.address) {
-      setFormData((prev) => ({
-        ...prev,
-        address: {
-          ...prev.address,
-          [name]: value
-        }
-      }));
-    } else {
-      setFormData((prev) => ({
-        ...prev,
-        [name]: value
-      }));
-    }
+    setFormData({
+      ...formData,
+      [e.target.name]: e.target.value
+    });
   };
 
   const handleSubmit = async (e) => {
@@ -74,77 +47,6 @@ const Register = () => {
         <div className="mb-3 flex items-center">
           <label htmlFor="lastname" className="w-32">Last name:</label>
           <input type="text" onChange={handleChange} name="lastName" id="lastname" required className="flex-1 border px-3 py-2 rounded" />
-        </div>
-
-        <div>
-          <label className="block mb-1">Address Line 1</label>
-          <input
-            type="text"
-            name="addressLine1"
-            onChange={handleChange}
-            value={formData.address.addressLine1}
-            className="w-full border px-3 py-2 rounded"
-            required
-          />
-        </div>
-
-        <div>
-          <label className="block mb-1">Address Line 2</label>
-          <input
-            type="text"
-            name="addressLine2"
-            onChange={handleChange}
-            value={formData.address.addressLine2}
-            className="w-full border px-3 py-2 rounded"
-          />
-        </div>
-
-        <div>
-          <label className="block mb-1">City</label>
-          <input
-            type="text"
-            name="city"
-            onChange={handleChange}
-            value={formData.address.city}
-            className="w-full border px-3 py-2 rounded"
-            required
-          />
-        </div>
-
-        <div>
-          <label className="block mb-1">State</label>
-          <input
-            type="text"
-            name="state"
-            onChange={handleChange}
-            value={formData.address.state}
-            className="w-full border px-3 py-2 rounded"
-            required
-          />
-        </div>
-
-        <div>
-          <label className="block mb-1">Country</label>
-          <input
-            type="text"
-            name="country"
-            onChange={handleChange}
-            value={formData.address.country}
-            className="w-full border px-3 py-2 rounded"
-            required
-          />
-        </div>
-
-        <div>
-          <label className="block mb-1">Pin Code</label>
-          <input
-            type="text"
-            name="pinCode"
-            onChange={handleChange}
-            value={formData.address.pinCode}
-            className="w-full border px-3 py-2 rounded"
-            required
-          />
         </div>
 
         <div className="mb-3 flex items-center">

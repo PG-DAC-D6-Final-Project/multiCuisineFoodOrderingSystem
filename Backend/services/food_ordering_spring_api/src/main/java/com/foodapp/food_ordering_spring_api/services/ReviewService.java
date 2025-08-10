@@ -1,22 +1,18 @@
 package com.foodapp.food_ordering_spring_api.services;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.stream.Collectors;
 
 import org.springframework.stereotype.Service;
 
 import com.foodapp.food_ordering_spring_api.custom_exceptions.ResourceNotFoundException;
 import com.foodapp.food_ordering_spring_api.dao.FoodItemsReviewDao;
-import com.foodapp.food_ordering_spring_api.dao.MenuItemDao;
+
 import com.foodapp.food_ordering_spring_api.dao.OrderDao;
 import com.foodapp.food_ordering_spring_api.dao.UserDao;
-import com.foodapp.food_ordering_spring_api.dto.MenuItemRatingDto;
-import com.foodapp.food_ordering_spring_api.dto.FoodItemReviewDto;
-import com.foodapp.food_ordering_spring_api.dto.FoodItemReviewResponseDto;
-import com.foodapp.food_ordering_spring_api.entities.FoodItemReview;
-import com.foodapp.food_ordering_spring_api.entities.MenuItem;
+
+import com.foodapp.food_ordering_spring_api.dto.ReviewDto;
+
 import com.foodapp.food_ordering_spring_api.entities.Orders;
+import com.foodapp.food_ordering_spring_api.entities.Reviews;
 import com.foodapp.food_ordering_spring_api.entities.User;
 
 import jakarta.transaction.Transactional;
@@ -30,57 +26,37 @@ public class ReviewService {
 	private final FoodItemsReviewDao reviewDao;
 	
 	private final OrderDao orderDao;
-	private final MenuItemDao menuItemDao;
+	
 	private final UserDao userDao;
+	
+	
+	public void addReview(ReviewDto reviewDto) {
+		Long userId = reviewDto.getUserId();
+	    Long orderId = reviewDto.getOrderId();
 
-	public void addReview(FoodItemReviewDto review) {
-		Long userId = review.getUserId();
-		Long orderId = review.getOrderId();
-		List<MenuItemRatingDto> itemsRatingList = review.getListOfItemRating();
- 		// Check User Id 
-		User userInfo = userDao.findById(userId)
-		.orElseThrow(()->new ResourceNotFoundException("user with id :"+userId+ " not found"));
-		
-		//Check Order Id
-		Orders orderInfo = orderDao.findById(orderId)
-		.orElseThrow(()->new ResourceNotFoundException("Order with order Id : "+orderId+" not Found"));
-		
-		List<Long> listOfItemsInPersistOrder = orderInfo.getOrderItems().stream()
-				.map((orderItem)->orderItem.getMenuItem().getId())
-				.collect(Collectors.toList());
-		
-		List<FoodItemReview> listOfReviews = new ArrayList<>();
-		for(MenuItemRatingDto menuItemRating:itemsRatingList) {
-			 
-			MenuItem menuItem = menuItemDao.findById(menuItemRating.getMenuItemId())
-					.orElseThrow(()->new ResourceNotFoundException("Menuitem with Id : "+ menuItemRating.getMenuItemId()+" not Found" ));
-			if(!listOfItemsInPersistOrder.contains( menuItem.getId())) {
-				throw new ResourceNotFoundException("Menu Item with id : " +menuItem.getId()+" not belong to order :"+orderInfo.getId());
-			}
-			FoodItemReview foodItemReview = new FoodItemReview();
-			foodItemReview.setUser(userInfo);
-			foodItemReview.setOrder(orderInfo);
-			foodItemReview.setComment(review.getComment());
-			foodItemReview.setMenuItem(menuItem);
-			foodItemReview.setRating(menuItemRating.getItemRating());
-			
-			reviewDao.save(foodItemReview);
-		}
-		
-		
+	    User user = userDao.findById(userId)
+	        .orElseThrow(() -> new ResourceNotFoundException("User with id: " + userId + " not found"));
+
+	    Orders order = orderDao.findById(orderId)
+	        .orElseThrow(() -> new ResourceNotFoundException("Order with id: " + orderId + " not found"));
+
+	  
+	    if (!order.getUser().getId().equals(userId)) {
+	        throw new ResourceNotFoundException("Order does not belong to user: " + userId);
+	    }
+
+	   
+	    if (reviewDao.existsByUserAndOrder(user, order)) {
+	        throw new ResourceNotFoundException("Review already exists for this order and user");
+	    }
+
+	    Reviews  review = new Reviews ();
+	    review.setUser(user);
+	    review.setOrder(order);
+	    review.setRating(reviewDto.getRating());
+	    review.setComment(reviewDto.getComment());
+
+	    reviewDao.save(review);
 	}
 
-	
-		public List<FoodItemReviewResponseDto> getAllReviewsByUserId(Long userId) {
-	        return reviewDao.findByUserId(userId).stream()
-	            .map(r -> new FoodItemReviewResponseDto(
-	                r.getId(),
-	                r.getMenuItem().getId(),
-	                r.getMenuItem().getName(),
-	                r.getRating(),
-	                r.getComment(),
-	                r.getOrder().getId()
-	            ))
-	            .collect(Collectors.toList());
-	    }
 }
