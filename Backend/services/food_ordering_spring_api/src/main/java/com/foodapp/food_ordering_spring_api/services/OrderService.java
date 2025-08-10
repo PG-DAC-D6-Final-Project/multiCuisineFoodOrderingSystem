@@ -11,12 +11,14 @@ import org.springframework.stereotype.Service;
 import com.foodapp.food_ordering_spring_api.dao.MenuItemDao;
 import com.foodapp.food_ordering_spring_api.dao.OrderDao;
 import com.foodapp.food_ordering_spring_api.dao.OrderItemsDao;
+import com.foodapp.food_ordering_spring_api.dao.OrdersDao;
 import com.foodapp.food_ordering_spring_api.dao.RestaurantDao;
 import com.foodapp.food_ordering_spring_api.dao.UserDao;
 import com.foodapp.food_ordering_spring_api.dto.CreateNewOrderDto;
 import com.foodapp.food_ordering_spring_api.dto.CreateOrderMenuItemDto;
 import com.foodapp.food_ordering_spring_api.dto.MenuItemQuantityDto;
 import com.foodapp.food_ordering_spring_api.dto.MenuItemResponseDto;
+import com.foodapp.food_ordering_spring_api.dto.OrderCountAndRevenueDto;
 import com.foodapp.food_ordering_spring_api.dto.OrderDto;
 import com.foodapp.food_ordering_spring_api.dto.OrderItemDto;
 import com.foodapp.food_ordering_spring_api.dto.OrderWithMenuItemsDto;
@@ -37,6 +39,7 @@ import lombok.AllArgsConstructor;
 public class OrderService {
 	
 	private final OrderDao orderDao;
+	private final OrdersDao ordersDao;
 	private final UserDao userDao;
 	private final RestaurantDao restaurantDao;
 	private final MenuItemDao menuItemDao;
@@ -193,6 +196,14 @@ public class OrderService {
 	    orderDao.save(order);
 	    return modelMapper.map(order, OrderDto.class);
 	    	}
+
+	public OrderCountAndRevenueDto getOrderCountAndRevenueByRestaurantId(Long restaurantId) {
+		OrderCountAndRevenueDto  response = new OrderCountAndRevenueDto();
+		response.setOrderCount(ordersDao.countOrdersByRestaurantId(restaurantId));
+		response.setRevenue(ordersDao.getTotalRevenueByRestaurantId(restaurantId));
+		return response;
+		
+	}
 
 
 

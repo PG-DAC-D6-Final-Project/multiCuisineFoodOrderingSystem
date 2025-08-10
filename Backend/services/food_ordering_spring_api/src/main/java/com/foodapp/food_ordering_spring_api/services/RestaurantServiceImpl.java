@@ -6,6 +6,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.data.domain.PageRequest;
@@ -187,6 +188,22 @@ public class RestaurantServiceImpl implements RestaurantService {
 	    }
 
 	    return response;
+	}
+	
+	public List<AllRestaurantDto> getAll(){
+		return restaurantDao.findAll()
+				.stream()
+				.map((restaurant)-> modelMapper.map(restaurant, AllRestaurantDto.class))
+				.collect(Collectors.toList());
+	}
+	
+	public void changeStatusToSuspended(Long restaurantId) {
+		Restaurant restaurant = restaurantDao.findById(restaurantId)
+		.orElseThrow(()-> new ResourceNotFoundException("No such restaurant with id : "+restaurantId) );
+		
+		restaurant.setStatus(RestaurantStatus.SUSPENDED);
+		restaurantDao.save(restaurant);
+		
 	}
 
 }

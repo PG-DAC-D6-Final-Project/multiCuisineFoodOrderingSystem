@@ -8,6 +8,8 @@ import RestaurantsView from "../../components/admin/RestaurantsView"
 import OrdersView from "../../components/admin/OrdersView"
 import DeliveryManagement from "../../components/admin/DeliveryView"
 import Nav from "../../components/admin/Nav"
+import {useEffect} from "react";
+import axios from "axios";
 
 const Admin =()=>{
     const [activeTab, setActiveTab] = useState('dashboard');
