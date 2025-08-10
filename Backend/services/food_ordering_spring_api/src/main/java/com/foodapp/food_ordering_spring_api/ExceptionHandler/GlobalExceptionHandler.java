@@ -15,6 +15,8 @@ public class GlobalExceptionHandler {
 	public ResponseEntity<?> handleGenericException(Exception ex){
 		ErrorResponse error = new ErrorResponse(HttpStatus.INTERNAL_SERVER_ERROR.value(),ex.getMessage());
 		
+		System.out.println("--------------------------------------");
+		System.out.println(ex.getLocalizedMessage());
 		return new ResponseEntity<ErrorResponse>(error,HttpStatus.INTERNAL_SERVER_ERROR);
 	}
 	

@@ -1,6 +1,9 @@
 package com.foodapp.food_ordering_spring_api.controllers;
 
 import org.springframework.http.ResponseEntity;
+
+import org.springframework.web.bind.annotation.CrossOrigin;
+
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -17,6 +20,7 @@ import lombok.AllArgsConstructor;
 @RestController
 @RequestMapping("/review")
 @AllArgsConstructor
+@CrossOrigin("*")
 public class ReviewController {
 	
 	private ReviewService reviewService;
