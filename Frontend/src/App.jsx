@@ -42,6 +42,7 @@ import MenuItemsByRestaurants from "./pages/User/MenuItemsByRestaurants";
 import ReviewPage from "./pages/User/Review";
 import SearchResults from "./pages/User/SearchResults";
 import RateOrder from "./pages/User/RateOrder";
+import CustomerLayout from "./pages/User/CustomerLayout";
 
 function App() {
   return (
@@ -64,22 +65,24 @@ function App() {
           {/* <Route path="" element={<Home />} /> */}
           <Route path="login" element={<Login />} />
           <Route path="register" element={<Register />} />
-          <Route path="cart" element={<Cart />} />
-          <Route path="profile" element={<CustomerProfile />} />
-          <Route
-            path="UpdateCustomerProfile"
-            element={<UpdateCustomerProfile />}
-          />
-          <Route path="CustomerPastOrders" element={<CustomerPastOrders />} />
-          <Route path="viewAllRestaurants" element={<ViewAllRestaurants />} />
-          <Route path="viewRestaurantMenuItems" element={<MenuItemsByRestaurants />} />
-          <Route path="checkout" element={<Checkout />} />
-          <Route path="cuisine/:id" element={<MenuItemsByCuisine />} />
-          <Route path="orders" element={<ViewOrders />} />
-          <Route path="rate/:orderId" element={<ReviewPage />} />
+          <Route path="" element={<CustomerLayout />}>
+            <Route path="cart" element={<Cart />} />
+            <Route path="profile" element={<CustomerProfile />} />
+            <Route
+              path="UpdateCustomerProfile"
+              element={<UpdateCustomerProfile />}
+            />
+            <Route path="CustomerPastOrders" element={<CustomerPastOrders />} />
+            <Route path="viewAllRestaurants" element={<ViewAllRestaurants />} />
+            <Route path="viewRestaurantMenuItems" element={<MenuItemsByRestaurants />} />
+            <Route path="checkout" element={<Checkout />} />
+            <Route path="cuisine/:id" element={<MenuItemsByCuisine />} />
+            <Route path="orders" element={<ViewOrders />} />
+            <Route path="rate/:orderId" element={<ReviewPage />} />
 
-          <Route path="search/:menuItem" element={<SearchResults />} />
-          <Route path="review/:orderId" element={<RateOrder />} />
+            <Route path="search/:menuItem" element={<SearchResults />} />
+            <Route path="review/:orderId" element={<RateOrder />} />
+          </Route>
         </Route>
 
         <Route path="/restaurant">
