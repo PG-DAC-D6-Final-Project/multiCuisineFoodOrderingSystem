@@ -12,72 +12,12 @@ const AllRestaurantList = (props)=>{
 
     const [searchStatus, setSearchStatus] = useState('');
 
+    const [selectedRestaurant, setSelectedRestaurant] = useState(null);
+    const [showModal, setShowModal] = useState(false);
+
     const status = ['Active', 'Inactive', 'Suspended'];
 
-    const cusines = ['All Cuisines','Indian', 'Italian', 'Mexican', 'Chinese', 'American','others']; 
     
-//     const restaurants = [ {
-//       id: 1,
-//       name: 'Pizza Palace',
-//       owner: 'Mario Rossi',
-//       email: 'mario@pizzapalace.com',
-//       phone: '+1 234-567-8901',
-//       address: '123 Main St, New York, NY',
-//       cuisine: 'Italian',
-//       status: 'active',
-//       rating: 4.5,
-//       totalOrders: 1250,
-//       totalRevenue: "45,670",
-//       joinedDate: '2023-01-15',
-//       image: '/api/placeholder/100/100'
-//     },
-//     {
-//       id: 2,
-//       name: 'Sushi World',
-//       owner: 'Kenji Tanaka',
-//       email: 'kenji@sushiworld.com',
-//       phone: '+1 234-567-8902',
-//       address: '456 Oak Ave, Los Angeles, CA',
-//       cuisine: 'Japanese',
-//       status: 'active',
-//       rating: 4.8,
-//       totalOrders: 980,
-//       totalRevenue: "67,890",
-//       joinedDate: '2023-02-20',
-//       image: '/api/placeholder/100/100'
-//     },
-//     {
-//       id: 3,
-//       name: 'Burger House',
-//       owner: 'Bob Wilson',
-//       email: 'bob@burgerhouse.com',
-//       phone: '+1 234-567-8903',
-//       address: '789 Pine St, Chicago, IL',
-//       cuisine: 'American',
-//       status: 'suspended',
-//       rating: 4.2,
-//       totalOrders: 2100,
-//       totalRevenue: "34,560",
-//       joinedDate: '2022-11-10',
-//       image: '/api/placeholder/100/100'
-//     },
-//     {
-//       id: 4,
-//       name: 'Taco Fiesta',
-//       owner: 'Carlos Rodriguez',
-//       email: 'carlos@tacofiesta.com',
-//       phone: '+1 234-567-8904',
-//       address: '321 Elm St, Miami, FL',
-//       cuisine: 'Mexican',
-//       status: 'inactive',
-//       rating: 4.0,
-//       totalOrders: 756,
-//       totalRevenue: "23,450",
-//       joinedDate: '2023-03-05',
-//       image: '/api/placeholder/100/100'
-//     }
-//   ];
-
   useEffect(()=>{
     const fetchRestaurants = async()=>{
         try{
@@ -130,17 +70,7 @@ const AllRestaurantList = (props)=>{
                 </select>
             </div>
 
-            {/* <div className="border-1 border-gray-300 rounded-md p-1">
-                <select>
-                    {cusines.map((cuisine,index)=>{
-                        return (
-                            <option value={cuisine} key={index}>{cuisine}</option>
-                        )
-                    })}
-                </select>
-            </div> */}
-
-
+           
             
         </div>
 
@@ -153,13 +83,13 @@ const AllRestaurantList = (props)=>{
             <div>
             {filterRestaurants.map((restaurant)=>{
                 return (
-                    <RestaurantCard restaurant={restaurant} reloadList={setRestaurants} key={restaurant.id}/>
+                    <RestaurantCard restaurant={restaurant} reloadList={setRestaurants} key={restaurant.id} />
                 )
             })}
                 
         </div>
         )}
-            
+        
         
         </>
     )

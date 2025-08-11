@@ -55,7 +55,7 @@ public class OrderService {
 		List<Orders> orderList =  orderDao.findAll();
 		
 		System.out.println("-------------------------------------------------");
-
+		System.out.println(orderList.get(0).getId());
 		List<OrderDto> list = orderDao.findAll().stream()
 				.map((order)->modelMapper.map(order, OrderDto.class))
 				.collect(Collectors.toList());

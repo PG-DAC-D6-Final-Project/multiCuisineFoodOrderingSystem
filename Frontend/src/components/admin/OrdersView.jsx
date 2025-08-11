@@ -1,141 +1,120 @@
-import { Bell, Search } from "lucide-react"
+import { Bell } from "lucide-react";
 import OrderCard from "./OrderCard";
-const OrdersView = ()=>{
+import { useState, useEffect } from "react";
+import axios from "axios";
+import { toast } from "react-toastify";
 
-    const Orders = [
-      {
-        id: 'ORD-001',
-        customerName: 'John Doe',
-        customerPhone: '+1-234-567-8900',
-        orderTime: '2024-01-15T10:30:00',
-        status: 'pending',
-        cuisine: 'Italian',
-        restaurant: 'Bella Vista',
-        items: [
-          { name: 'Margherita Pizza', qty: 2, price: 24.99 },
-          { name: 'Caesar Salad', qty: 1, price: 12.99 }
-        ],
-        total: 62.97,
-        deliveryAddress: '123 Main St, Downtown',
-        paymentMethod: 'Credit Card',
-        estimatedTime: 45
-      },
-      {
-        id: 'ORD-002',
-        customerName: 'Sarah Chen',
-        customerPhone: '+1-234-567-8901',
-        orderTime: '2024-01-15T11:15:00',
-        status: 'preparing',
-        cuisine: 'Chinese',
-        restaurant: 'Golden Dragon',
-        items: [
-          { name: 'Kung Pao Chicken', qty: 1, price: 18.99 },
-          { name: 'Fried Rice', qty: 2, price: 12.99 }
-        ],
-        total: 44.97,
-        deliveryAddress: '456 Oak Ave, Uptown',
-        paymentMethod: 'PayPal',
-        estimatedTime: 30
-      },
-      {
-        id: 'ORD-003',
-        customerName: 'Mike Johnson',
-        customerPhone: '+1-234-567-8902',
-        orderTime: '2024-01-15T09:45:00',
-        status: 'out-for-delivery',
-        cuisine: 'Mexican',
-        restaurant: 'Taco Fiesta',
-        items: [
-          { name: 'Beef Burrito', qty: 3, price: 13.99 },
-          { name: 'Guacamole', qty: 2, price: 4.99 }
-        ],
-        total: 51.95,
-        deliveryAddress: '789 Pine St, Midtown',
-        paymentMethod: 'Cash',
-        estimatedTime: 15
-      },
-      {
-        id: 'ORD-004',
-        customerName: 'Emily Davis',
-        customerPhone: '+1-234-567-8903',
-        orderTime: '2024-01-15T12:00:00',
-        status: 'delivered',
-        cuisine: 'Indian',
-        restaurant: 'Spice Palace',
-        items: [
-          { name: 'Chicken Tikka Masala', qty: 1, price: 19.99 },
-          { name: 'Naan Bread', qty: 2, price: 3.99 },
-          { name: 'Basmati Rice', qty: 1, price: 5.99 }
-        ],
-        total: 33.96,
-        deliveryAddress: '321 Elm St, Southside',
-        paymentMethod: 'Credit Card',
-        estimatedTime: 0
+const OrdersView = () => {
+  const [orders, setOrders] = useState([]);
+  const [searchTerm, setSearchTerm] = useState("");
+  const [statusFilter, setStatusFilter] = useState(""); // NEW
+
+  useEffect(() => {
+    const fetchOrders = async () => {
+      try {
+        const response = await axios.get("http://localhost:8080/order");
+        setOrders(response.data);
+      } catch (err) {
+        console.log(err);
+        toast.error("Failed to fetch orders");
       }
-    ];
+    };
+    fetchOrders();
+  }, []);
 
-    return (
-  <>
-    <div className="p-3 bg-white rounded-lg mb-2">
-     
-      
+  const calculateActiveOrder = () => {
+    return orders.filter(
+      (order) =>
+        order.orderstatus !== "DELIVERED" && order.orderstatus !== "CANCELLED"
+    ).length;
+  };
 
+  // Combined filtering: search + status
+  const filteredOrders = orders.filter((order) => {
+    const term = searchTerm.toLowerCase();
+    const matchesSearch =
+      order.id.toString().includes(term) ||
+      `${order.user?.firstName || ""} ${order.user?.lastName || ""}`
+        .toLowerCase()
+        .includes(term) ||
+      order.restaurant?.name?.toLowerCase().includes(term);
+
+    const matchesStatus =
+      statusFilter === "" ||
+      order.orderstatus?.toLowerCase() === statusFilter.toLowerCase();
+
+    return matchesSearch && matchesStatus;
+  });
+
+  return (
+    <>
+      {/* Search & Filters Bar */}
+      <div className="p-3 bg-white rounded-lg mb-2">
         <div className="flex justify-evenly p-2 gap-2 items-center">
-      {/* Search Input */}
-      <input
-        type="text"
-        placeholder="Search orders..."
-        className=" border border-gray-300 rounded-md px-4 py-2 mb-3 text-sm focus:outline-none focus:ring-2 focus:ring-orange-200"
-      />
+          {/* Search Input */}
+          <input
+            type="text"
+            placeholder="Search orders..."
+            value={searchTerm}
+            onChange={(e) => setSearchTerm(e.target.value)}
+            className="border border-gray-300 rounded-md px-4 py-2 mb-3 text-sm focus:outline-none focus:ring-2 focus:ring-orange-200"
+          />
 
-      {/* Filters */}
-      
-      <select className=" border border-gray-300 rounded-md px-4 py-2 mb-3 text-sm text-gray-700">
-        <option>All Status</option>
-        <option>Pending</option>
-        <option>Delivered</option>
-        <option>Cancelled</option>
-      </select>
+          {/* Status Filter */}
+          <select
+            className="border border-gray-300 rounded-md px-4 py-2 mb-3 text-sm text-gray-700"
+            value={statusFilter}
+            onChange={(e) => setStatusFilter(e.target.value)}
+          >
+            <option value="">All Status</option>
+            <option value="ORDERED">Ordered</option>
+            <option value="PREPARING">Preparing</option>
+            <option value="ON_THE_WAY">On the Way</option>
+            <option value="DELIVERED">Delivered</option>
+            <option value="CANCELLED">Cancelled</option>
+          </select>
 
-      
+          {/* Date Filter - Not wired yet */}
+          <select className="border border-gray-300 rounded-md px-4 py-2 mb-3 text-sm text-gray-700">
+            <option>Today</option>
+            <option>Last 7 Days</option>
+            <option>This Month</option>
+          </select>
 
-      <select className=" border border-gray-300 rounded-md px-4 py-2 mb-3 text-sm text-gray-700">
-        <option>Today</option>
-        <option>Last 7 Days</option>
-        <option>This Month</option>
-      </select>
-
-      <div className="flex items-center gap-2">
-          <div className="relative">
-            <div className="bg-orange-100 rounded-full p-2">
-              <Bell className="text-orange-500 w-5 h-5" />
+          {/* Active Orders Counter */}
+          <div className="flex items-center gap-2">
+            <div className="relative">
+              <div className="bg-orange-100 rounded-full p-2">
+                <Bell className="text-orange-500 w-5 h-5" />
+              </div>
             </div>
-          </div>
-          <div className="text-right">
-            <p className="text-xs text-gray-500">Active Orders</p>
-            <p className="text-lg font-bold">3</p>
+            <div className="text-right">
+              <p className="text-xs text-gray-500">Active Orders</p>
+              <p className="text-lg font-bold">{calculateActiveOrder()}</p>
+            </div>
           </div>
         </div>
       </div>
-    </div>
 
-    {/* Orders */}
-
-    <div className="bg-white p-4">
-        <h2 >Orders (4)</h2>
-        <hr className="text-gray-300  mt-3"/>
+      {/* Orders List */}
+      <div className="bg-white p-4">
+        <h2>Orders ({filteredOrders.length})</h2>
+        <hr className="text-gray-300 mt-3" />
 
         <div>
-            {Orders.map((order)=>{
-                return <OrderCard order = {order} key= {order.id}/>
-            })}
-            
+          {filteredOrders.length > 0 ? (
+            filteredOrders.map((order) => (
+              <OrderCard order={order} key={order.id} />
+            ))
+          ) : (
+            <p className="text-center text-gray-500 py-6">
+              No orders match your filters
+            </p>
+          )}
         </div>
-    </div>
+      </div>
     </>
   );
 };
 
-
-
-export default OrdersView
+export default OrdersView;

@@ -1,8 +1,9 @@
 import { CheckCircle2, Star, ShoppingCart, DollarSign, Calendar, Eye, Trash, Edit } from "lucide-react";
 import { useEffect, useState } from "react";
 import axios from "axios";
-
+import {Link} from 'react-router-dom';
 import { toast } from "react-toastify";
+import dayjs from "dayjs";
 const RestaurantCard = ({ restaurant }) => {
 
     const [orderCount, setOrderCount] = useState(0);
@@ -47,7 +48,7 @@ const RestaurantCard = ({ restaurant }) => {
                 <div className="flex items-center justify-between ">
                     <div className="flex items-center gap-4">
                         <div className="rounded-full w-12 h-12 bg-gray-300 flex
-                items-center justify-center">R</div>
+                items-center justify-center">{restaurant.name.charAt(0).toUpperCase()}</div>
                         <div>
                             <h2>{restaurant.name}</h2>
                             <h3>{restaurant.address.addressLine1} . {restaurant.address.city}</h3>
@@ -105,14 +106,19 @@ const RestaurantCard = ({ restaurant }) => {
                 <div className="flex items-center justify-between">
                     <div className="flex items-center gap-2">
                         <Calendar className="w-4 h-4 text-gray-500 " />
-                        <h3 className="text-gray-500 text-sm">Joined {restaurant.joinedDate}</h3>
+                        <h3 className="text-gray-500 text-sm">Joined {dayjs(restaurant.address.createdAt).format('DD-MM-YYYY')}</h3>
                     </div>
                     <div className="flex
                 items-center gap-2">
+
+
+                        <Link to={`/admin/restaurants/${restaurant.id}`}
+                        state={{orderCount,revenue}}>
                         <Eye
                             className="text-blue-500 hover:scale-110 hover:text-blue-700 transition-transform duration-200 cursor-pointer"
                             
                         />
+                        </Link>
                         <Edit
                             className="text-gray-500 hover:scale-110 hover:text-gray-700 transition-transform duration-200 cursor-pointer"
                         />

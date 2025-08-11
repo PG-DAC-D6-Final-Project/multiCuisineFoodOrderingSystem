@@ -70,8 +70,8 @@ public class RestaurantServiceImpl implements RestaurantService {
 	@Override
 	public RestaurantByIdDto getRestaurantById(Long restaurantId) {
 		Restaurant entity = restaurantDao.findById(restaurantId).orElseThrow(() -> new ResourceNotFoundException("Invalid restaurant id!"));
-		if(entity.getStatus() != RestaurantStatus.ACTIVE)
-			throw new ResourceNotFoundException("Restaurant isn't available at the moment...");
+//		if(entity.getStatus() != RestaurantStatus.ACTIVE)
+//			throw new ResourceNotFoundException("Restaurant isn't available at the moment...");
 		return modelMapper.map(entity,RestaurantByIdDto.class);
 	}
 
