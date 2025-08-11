@@ -74,7 +74,7 @@ function App() {
           <Route path="cuisine/:id" element={<MenuItemsByCuisine />} />
           <Route path="orders" element={<ViewOrders />} />
           <Route path="search/:menuItem" element={<SearchResults />} />
-          <Route path="review/:orderId" element={<RateOrder />} /> 
+          <Route path="review/:orderId" element={<RateOrder />} />
         </Route>
 
         <Route path="/restaurant">
