@@ -20,5 +20,7 @@ public interface RestaurantService {
 	List<AllRestaurantDto> getAllRestaurant(int limit);
 	ApiResponse deleteRestaurantDetail(Long restaurantId);
 	RestaurantMenuDto getRestaurantMenu(Long Id);
+	List<AllRestaurantDto> getAll();
+	void changeStatusToSuspended(Long restaurantId);
 
 }

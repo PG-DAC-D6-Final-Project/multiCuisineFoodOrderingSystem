@@ -62,8 +62,11 @@ public class Restaurant extends BaseEntity {
 		menuItem.setRestaurant(this);
 	}
 
+	
 	public void removeMenuItem(MenuItem menuItem) {
 		this.menuItems.remove(menuItem);
 		menuItem.setRestaurant(null);
 	}
+	
+
 }
