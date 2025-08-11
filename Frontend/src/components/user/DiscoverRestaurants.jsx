@@ -4,6 +4,7 @@ import restaurant2 from "../../assets/resources/restaurant2.png";
 import restaurant3 from "../../assets/resources/restaurant3.png";
 import restaurant4 from "../../assets/resources/restaurant4.png";
 import { Link } from "react-router-dom";
+import { baseUrl } from "../../utils/config.js";
 import React from "react";
 import { useState, useEffect } from "react";
 
@@ -21,7 +22,7 @@ const DiscoverRestaurants = () => {
     const fetchRestaurants = async () => {
 
       try {
-        const response = await fetch("http://localhost:8080/restaurant/?limit=4")
+        const response = await fetch(baseUrl+"/restaurant/?limit=4")
 
         if (!response.ok) throw new Error("Failed to fetch restaurants");
 
