@@ -6,7 +6,7 @@ const Navbar = () => {
   const navigate = useNavigate()
   return (
     <>
-      {userId != null && <nav className="flex justify-between items-center bg-orange-600 shadow px-6 py-4">
+      {userId != null ? <nav className="flex justify-between items-center bg-orange-600 shadow px-6 py-4 sticky top-0 z-10">
         <div className="text-xl font-bold text-amber-50">ZomatoLite</div>
 
         <div className="flex gap-4">
@@ -33,7 +33,23 @@ const Navbar = () => {
             LogOut
           </button>
         </div>
-      </nav>}
+      </nav> :
+        <nav className="flex justify-between items-center bg-orange-600 shadow px-6 py-4 sticky top-0 z-10">
+          <div className="text-xl font-bold text-amber-50">ZomatoLite</div>
+
+          <div className="flex gap-4">
+            <Link to="/customer/register">
+              <button className="bg-gray-100 px-4 py-2 rounded hover:bg-gray-200">
+                Signup
+              </button>
+            </Link>
+            <Link to="/customer/login">
+              <button className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600">
+                Login
+              </button>
+            </Link>
+          </div>
+        </nav>}
     </>
   )
 }

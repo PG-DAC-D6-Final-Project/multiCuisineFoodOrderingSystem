@@ -13,7 +13,7 @@ const Home = () => {
   return (
     <div>
       {/* Navbar */}
-      {userId != null ? <nav className="flex justify-between items-center bg-orange-600 shadow px-6 py-4">
+      {userId != null ? <nav className="flex justify-between items-center bg-orange-600 shadow px-6 py-4 sticky top-0 z-10">
         <div className="text-xl font-bold text-amber-50">ZomatoLite</div>
 
         <div className="flex gap-4">
@@ -41,7 +41,7 @@ const Home = () => {
           </button>
         </div>
       </nav> :
-        <nav className="flex justify-between items-center bg-orange-600 shadow px-6 py-4">
+        <nav className="flex justify-between items-center bg-orange-600 shadow px-6 py-4 sticky top-0 z-10">
           <div className="text-xl font-bold text-amber-50">ZomatoLite</div>
 
           <div className="flex gap-4">
