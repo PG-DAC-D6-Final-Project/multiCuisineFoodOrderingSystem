@@ -11,7 +11,7 @@ function Dashboard() {
   const handleEdit = (id) => {
     navigate(`/restaurant/EditItem/${id}`);
   }
-  
+
   // Step 1: Get restaurantId from localStorage
   const restaurantId = localStorage.getItem("restaurantId");
 
@@ -74,7 +74,7 @@ function Dashboard() {
               className="bg-orange-100 rounded-xl shadow p-4"
             >
               <img
-                src={item.imageUrl || "https://imgs.search.brave.com/OwXdOWW5Rs97loNV3rD9jvTj9Izuhni0_uyOyy0CyTI/rs:fit:500:0:1:0/g:ce/aHR0cHM6Ly93d3cu/dmVkYW50dS5jb20v/c2VvL2NvbnRlbnQt/aW1hZ2VzLzA4Njdi/ODkyLTMzNmItNDU2/YS04OWU3LWE2MDU2/NjE0Y2MyNi5wbmc"}
+                src={item.image_url || "https://imgs.search.brave.com/OwXdOWW5Rs97loNV3rD9jvTj9Izuhni0_uyOyy0CyTI/rs:fit:500:0:1:0/g:ce/aHR0cHM6Ly93d3cu/dmVkYW50dS5jb20v/c2VvL2NvbnRlbnQt/aW1hZ2VzLzA4Njdi/ODkyLTMzNmItNDU2/YS04OWU3LWE2MDU2/NjE0Y2MyNi5wbmc"}
                 alt={item.name}
                 className="h-60 w-80 object-cover rounded"
               />
@@ -83,8 +83,8 @@ function Dashboard() {
               <p>Price: Rs.{item.price} /-</p>
               <p>Description: {item.description}</p>
               <div className=" flex gap-4">
-                 <button className="bg-yellow-300 px-5 py-2 rounded text-white" onClick={() => handleEdit(item.id)}>Edit</button>
-                 <button className="bg-orange-500 px-5 py-2 rounded text-white" onClick={() => handleDelete(item.id)}>Delete</button>
+                <button className="bg-yellow-300 px-5 py-2 rounded text-white" onClick={() => handleEdit(item.id)}>Edit</button>
+                <button className="bg-orange-500 px-5 py-2 rounded text-white" onClick={() => handleDelete(item.id)}>Delete</button>
               </div>
             </div>
           ))}

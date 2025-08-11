@@ -108,9 +108,6 @@ public class MenuItemServiceImpl implements MenuItemService {
 	}
 
 	@Override
-
-	// public List<MenuItemResponseDto> getAllMenuItemsByCuisineType(Long cuisineTypeId) {
-
 	public List<MenuItemsWithRestaurantDto> getAllMenuItemsByCuisineType(Long cuisineTypeId) {
 		List<MenuItem> menuItems = menuItemDao.findByCuisineTypeId(cuisineTypeId);
 		if(menuItems.size() == 0) {
@@ -118,7 +115,23 @@ public class MenuItemServiceImpl implements MenuItemService {
 		}
 		return menuItems.stream()
 				.map(menuItem -> {
-					// MenuItemResponseDto dto = modelMapper.map(menuItem, MenuItemResponseDto.class);
+					MenuItemsWithRestaurantDto dto = modelMapper.map(menuItem, MenuItemsWithRestaurantDto.class);
+		            dto.setRestaurantId(menuItem.getRestaurant().getId());
+		            dto.setCuisineTypeId(menuItem.getCuisineType().getId());
+		            return dto;
+				})
+				.toList();
+	}
+
+	@Override
+	public List<MenuItemsWithRestaurantDto> getMenuItemsByName(String menuItemName) {
+		List<MenuItem> menuItems = menuItemDao.findByNameContaining(menuItemName);
+		if(menuItems.size() == 0) {
+			throw new RuntimeException("No such cuisine exists.");
+		}
+		
+		return menuItems.stream()
+				.map(menuItem -> {
 					MenuItemsWithRestaurantDto dto = modelMapper.map(menuItem, MenuItemsWithRestaurantDto.class);
 		            dto.setRestaurantId(menuItem.getRestaurant().getId());
 		            dto.setCuisineTypeId(menuItem.getCuisineType().getId());

@@ -17,8 +17,8 @@ function ShowOrders() {
   setOrders(prevOrders =>
     prevOrders.map(order =>
       order.id === orderId
-        ? { ...order, orderstatus: newStatus } // update matching order's status
-        : order // leave as it is
+        ? { ...order, orderstatus: newStatus }
+        : order 
     )
   );
 };
@@ -40,7 +40,7 @@ function ShowOrders() {
         <hr className="border-black border-t-2 my-4" />
         <div className="overflow-x-auto">
           <table className="min-w-full bg-white rounded shadow">
-            <thead className="bg-orange-400 text-white">
+            <thead className="bg-orange-600 text-white">
               <tr>
                 <th className="py-2 px-4 text-left">Order ID</th>
                 <th className="py-2 px-4 text-left">Customer</th>
@@ -70,10 +70,7 @@ function ShowOrders() {
                       onChange={(e) => handleStatusChange(order.id, e.target.value)}
                       className="border rounded px-2 py-1"
                     >
-                      <option value="ORDERED">ORDERED</option>
                       <option value="PREPARING">PREPARING</option>
-                      <option value="ON_THE_WAY">ON_THE_WAY</option>
-                      <option value="DELIVERED">DELIVERED</option>
                       <option value="REJECTED">REJECTED</option>
                       
                     </select>

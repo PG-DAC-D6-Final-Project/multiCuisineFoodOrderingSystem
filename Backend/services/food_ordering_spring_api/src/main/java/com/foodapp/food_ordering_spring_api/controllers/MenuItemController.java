@@ -53,5 +53,11 @@ public class MenuItemController {
 	public ResponseEntity<?> getMenuItemsByCuisineType(@PathVariable Long cuisineTypeId) {
         return ResponseEntity.ok(menuItemService.getAllMenuItemsByCuisineType(cuisineTypeId));
     }
+	
+	@GetMapping("/search/{menuItem}")
+	public ResponseEntity<?> getMenuItemsByName(@PathVariable String menuItem){
+		return ResponseEntity.status(HttpStatus.OK)
+        		.body(menuItemService.getMenuItemsByName(menuItem));
+	}
 
 }

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { getOrders } from "../../services/userServices";
-import { useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom"
 import axios from "axios";
 
 const ViewOrders = () => {
@@ -36,6 +36,8 @@ const ViewOrders = () => {
 
   const getStatusColor = (status) => {
     switch (status) {
+
+
       case "ORDERED":
         return "bg-orange-100 text-orange-700 border border-orange-300";
       case "ACCEPTED":
@@ -48,51 +50,7 @@ const ViewOrders = () => {
         return "bg-green-100 text-green-700 border border-green-300";
       default:
         return "bg-orange-100 text-orange-700 border border-orange-300";
-    }
-  };
 
-  const handleStarClick = (orderId, menuItemId, star) => {
-    setRatings((prev) => ({
-      ...prev,
-      [orderId]: {
-        ...prev[orderId],
-        [menuItemId]: star,
-      },
-    }));
-  };
-
-  const handleCommentChange = (orderId, value) => {
-    setComments((prev) => ({
-      ...prev,
-      [orderId]: value,
-    }));
-  };
-
-
-  const submitReview = async (order) => {
-    const orderRatings = ratings[order.id] || {};
-
-    const listOfItemRating = order.menuItems.map((item) => ({
-      menuItemId: item.id,
-      itemRating: orderRatings[item.id] || 0,
-    }));
-
-    const payload = {
-      userId: Number(userId),
-      orderId: order.id,
-      comment: comments[order.id] || "",
-      listOfItemRating,
-    };
-
-    try {
-      await axios.post("http://localhost:8080/review/addReview", payload);
-      alert("Review submitted!");
-      
-      setComments((prev) => ({ ...prev, [order.id]: "" }));
-      setRatings((prev) => ({ ...prev, [order.id]: {} }));
-    } catch (err) {
-      console.error("Error submitting review:", err);
-      alert("Failed to submit review.");
     }
   };
 
@@ -149,31 +107,16 @@ const ViewOrders = () => {
               {order.menuItems.map((item, index) => (
                 <li
                   key={index}
-                  className="py-2 flex justify-between items-center text-gray-700"
+
+                  className="py-2 flex justify-between text-gray-700"
+
                 >
                   <span>
                     {item.name} × {item.quantity}
                   </span>
-                  {order.orderstatus === "DELIVERED" && (
-                    <div className="flex items-center space-x-1">
-                      {[1, 2, 3, 4, 5].map((star) => (
-                        <button
-                          key={star}
-                          type="button"
-                          onClick={() =>
-                            handleStarClick(order.id, item.id, star)
-                          }
-                          className={`text-2xl ${
-                            ratings[order.id]?.[item.id] >= star
-                              ? "text-yellow-500"
-                              : "text-gray-300"
-                          }`}
-                        >
-                          ★
-                        </button>
-                      ))}
-                    </div>
-                  )}
+
+                  <span className="font-medium">₹{item.price * item.quantity}</span>
+
                 </li>
               ))}
             </ul>
@@ -183,7 +126,10 @@ const ViewOrders = () => {
                 <span>Subtotal:</span> <span>₹{order.subtotal}</span>
               </p>
               <p className="flex justify-between">
-                <span>Tax:</span> <span>₹{order.tax_amount.toFixed(2)}</span>
+
+                <span>Tax:</span>{" "}
+                <span>₹{order.tax_amount.toFixed(2)}</span>
+
               </p>
               <p className="flex justify-between">
                 <span>Delivery Fee:</span> <span>₹{order.delivery_fee}</span>
@@ -197,22 +143,20 @@ const ViewOrders = () => {
               </p>
             </div>
 
-            {order.orderstatus === "DELIVERED" && (
-              <>
-                <textarea
-                  className="w-full p-2 border rounded mt-4 mb-4"
-                  placeholder="Write your comment here..."
-                  value={comments[order.id] || ""}
-                  onChange={(e) => handleCommentChange(order.id, e.target.value)}
-                />
 
+            {/* Rate Order button only for DELIVERED orders */}
+            {order.orderstatus === "DELIVERED" && (
+              <div className="mt-4">
                 <button
-                  onClick={() => submitReview(order)}
-                  className="px-4 py-2 bg-orange-500 text-white rounded-lg hover:bg-orange-600 transition"
+                  onClick={() =>
+                    navigate(`/customer/review/${order.id}`)
+                  }
+                  className="px-4 py-2 bg-orange-600 text-white rounded hover:bg-orange-700"
                 >
-                  Submit Review
+                  Rate Order
                 </button>
-              </>
+              </div>
+
             )}
           </div>
         ))}

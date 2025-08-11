@@ -40,15 +40,16 @@ public class RestaurantController {
 //	Restaurant login 
 	@PostMapping("/")
 	public ResponseEntity<?> RestaurantLogin(@RequestBody RestaurantLoginDto dto){
-		return ResponseEntity.ok(restaurantService.restaurantLogin(dto));
+		return ResponseEntity.ok(restaurantService.restaurantSignin(dto));
 	}
 	@GetMapping("/{restaurantId}")
 	public ResponseEntity<?> GetRestaurantById(@PathVariable Long restaurantId){
 		return ResponseEntity.ok(restaurantService.getRestaurantById(restaurantId));
 	}	
 	@GetMapping("/")
-	public ResponseEntity<?> GetAllActiveRestaurants(@RequestParam(defaultValue="10") int limit){
-		
+
+	public ResponseEntity<?> GetAllRestaurants(@RequestParam(defaultValue="50") int limit){
+
 		List<AllRestaurantDto> restaurants = restaurantService.getAllRestaurant(limit);
 		if(restaurants.isEmpty()) {
 			return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
