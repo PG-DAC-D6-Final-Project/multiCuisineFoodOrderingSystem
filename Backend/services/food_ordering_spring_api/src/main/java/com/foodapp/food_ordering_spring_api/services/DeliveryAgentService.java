@@ -9,6 +9,8 @@ import com.foodapp.food_ordering_spring_api.dto.DeliveryAgentOrderDto;
 import com.foodapp.food_ordering_spring_api.dto.DeliveryAgentRegisterDto;
 
 public interface DeliveryAgentService {
+	List<DeliveryAgentDto> getAllDeliveryAgents();
+	
 	DeliveryAgentDto deliveryAgentLogin(DeliveryAgentLoginDto dto);
 	
 	DeliveryAgentDto deliveryAgentRegistration(DeliveryAgentRegisterDto dto);
