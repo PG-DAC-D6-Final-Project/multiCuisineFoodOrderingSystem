@@ -70,5 +70,10 @@ public class OrderController {
 				.body(orderService.getOrdersByCustomerId(userId));
 
 	}
+	@GetMapping("/orderCountAndRevenueByRestaurantId/{restaurantId}")
+	public ResponseEntity<?> getOrderCountAndRevenueByRestaurantId(@PathVariable Long restaurantId){
+		return ResponseEntity.status(HttpStatus.OK)
+				.body(orderService.getOrderCountAndRevenueByRestaurantId(restaurantId));
+	}
 
 }

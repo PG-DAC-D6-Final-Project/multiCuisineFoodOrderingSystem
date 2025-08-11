@@ -1,10 +1,18 @@
 import React, { useEffect, useState } from "react";
 import { getOrders } from "../../services/userServices";
-import { useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom"
+import axios from "axios";
 
 const ViewOrders = () => {
   const [orders, setOrders] = useState([]);
   const [loading, setLoading] = useState(true);
+
+  
+  const [ratings, setRatings] = useState({});
+
+
+  const [comments, setComments] = useState({});
+
   const userId = sessionStorage.getItem("id");
   const navigate = useNavigate();
 
@@ -29,6 +37,7 @@ const ViewOrders = () => {
   const getStatusColor = (status) => {
     switch (status) {
 
+
       case "ORDERED":
         return "bg-orange-100 text-orange-700 border border-orange-300";
       case "ACCEPTED":
@@ -41,6 +50,7 @@ const ViewOrders = () => {
         return "bg-green-100 text-green-700 border border-green-300";
       default:
         return "bg-orange-100 text-orange-700 border border-orange-300";
+
     }
   };
 
@@ -97,12 +107,16 @@ const ViewOrders = () => {
               {order.menuItems.map((item, index) => (
                 <li
                   key={index}
+
                   className="py-2 flex justify-between text-gray-700"
+
                 >
                   <span>
                     {item.name} × {item.quantity}
                   </span>
+
                   <span className="font-medium">₹{item.price * item.quantity}</span>
+
                 </li>
               ))}
             </ul>
@@ -112,8 +126,10 @@ const ViewOrders = () => {
                 <span>Subtotal:</span> <span>₹{order.subtotal}</span>
               </p>
               <p className="flex justify-between">
+
                 <span>Tax:</span>{" "}
                 <span>₹{order.tax_amount.toFixed(2)}</span>
+
               </p>
               <p className="flex justify-between">
                 <span>Delivery Fee:</span> <span>₹{order.delivery_fee}</span>
@@ -127,6 +143,7 @@ const ViewOrders = () => {
               </p>
             </div>
 
+
             {/* Rate Order button only for DELIVERED orders */}
             {order.orderstatus === "DELIVERED" && (
               <div className="mt-4">
@@ -139,6 +156,7 @@ const ViewOrders = () => {
                   Rate Order
                 </button>
               </div>
+
             )}
           </div>
         ))}

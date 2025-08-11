@@ -47,7 +47,9 @@ public class RestaurantController {
 		return ResponseEntity.ok(restaurantService.getRestaurantById(restaurantId));
 	}	
 	@GetMapping("/")
+
 	public ResponseEntity<?> GetAllRestaurants(@RequestParam(defaultValue="50") int limit){
+
 		List<AllRestaurantDto> restaurants = restaurantService.getAllRestaurant(limit);
 		if(restaurants.isEmpty()) {
 			return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
@@ -70,5 +72,15 @@ public class RestaurantController {
 		return ResponseEntity.ok(restaurantService.getRestaurantMenu(restaurantId));
 	}
 	
+	@GetMapping("/getAllRestaurants")
+	public ResponseEntity<?> getAllRestaurants(){
+		return ResponseEntity.ok(restaurantService.getAll());
+	}
+	
+	@PatchMapping("/suspended/{restaurantId}")
+	public ResponseEntity<?> changeRestaurantStatusToSuspended(@PathVariable Long restaurantId){
+		restaurantService.changeStatusToSuspended(restaurantId);
+		return ResponseEntity.ok("Restaurant Status Changed to SUSPENDED ");
+	}
 	
 }
