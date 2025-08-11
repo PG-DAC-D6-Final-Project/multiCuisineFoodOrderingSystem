@@ -25,10 +25,7 @@ import lombok.AllArgsConstructor;
 public class DeliveryAgentController {
 	private final DeliveryAgentService deliveryAgentService;
 	
-	@GetMapping
-	public ResponseEntity<?> getAllDeliveryAgents(){
-		return ResponseEntity.ok(deliveryAgentService.getAllDeliveryAgents());
-	}
+	
 	
 	@GetMapping
 	public ResponseEntity<?> getAllDeliveryAgents(){
