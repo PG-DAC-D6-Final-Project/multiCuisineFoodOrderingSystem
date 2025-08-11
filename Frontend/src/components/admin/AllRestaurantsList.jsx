@@ -3,6 +3,7 @@ import { Search} from "lucide-react"
 import RestaurantCard from "./RestaurantCard";
 import { useEffect, useState } from "react";
 import axios from "axios";
+import { toast } from "react-toastify";
 
 const AllRestaurantList = (props)=>{
 
