@@ -11,5 +11,7 @@ public interface DeliveryAgentService {
 	
 	DeliveryAgentDto deliveryAgentRegistration(DeliveryAgentRegisterDto dto);
 	
+	List<DeliveryAgentDto> getAllDeliveryAgents();
+	
 //	List<OrdersHistoryDto> getOrderHistory(Long deliveryAgentId);
 }

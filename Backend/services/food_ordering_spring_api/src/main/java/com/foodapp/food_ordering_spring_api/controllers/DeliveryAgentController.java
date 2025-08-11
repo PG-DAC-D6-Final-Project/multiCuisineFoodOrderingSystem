@@ -27,6 +27,11 @@ public class DeliveryAgentController {
 //		return deliveryDao.findAll();
 //	}
 	
+	@GetMapping
+	public ResponseEntity<?> getAllDeliveryAgents(){
+		return ResponseEntity.ok(deliveryAgentService.getAllDeliveryAgents());
+	}
+	
 	@PostMapping("/login")
     public ResponseEntity<?> deliveryAgentLogin(@RequestBody DeliveryAgentLoginDto dto) {
         return ResponseEntity.ok(deliveryAgentService.deliveryAgentLogin(dto));

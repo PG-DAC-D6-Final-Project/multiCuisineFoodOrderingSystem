@@ -44,6 +44,14 @@ public class DeliveryAgentServiceImpl implements DeliveryAgentService {
 		return modelMapper.map(deliveryAgentDao.save(entity), DeliveryAgentDto.class);
 	}
 
+	
+	@Override
+	public List<DeliveryAgentDto> getAllDeliveryAgents() {
+		List<DeliveryAgent> agents = deliveryAgentDao.findAll();
+		return agents.stream()
+				.map(agent -> modelMapper.map(agent, DeliveryAgentDto.class))
+				.toList();
+	}
 //	@Override
 //	public List<OrdersHistoryDto> getOrderHistory(Long deliveryAgentId) {
 //		

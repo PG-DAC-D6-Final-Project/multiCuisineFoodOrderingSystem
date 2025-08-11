@@ -14,7 +14,12 @@ const Login = () => {
     if (email && password) {
       const result = await customerLogin(email, password);
 
-      if (result?.email) {
+      if(result === "ADMIN"){
+        toast.success("Admin Login successful");
+        navigate("/admin");
+      }
+
+      else if (result?.email) {
         toast.success("Login successful")
         sessionStorage.setItem("id", result.id)
         sessionStorage.setItem("firstName", result.firstName)

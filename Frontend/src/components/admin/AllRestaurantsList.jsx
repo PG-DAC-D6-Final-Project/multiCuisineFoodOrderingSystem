@@ -3,6 +3,7 @@ import { Search} from "lucide-react"
 import RestaurantCard from "./RestaurantCard";
 import { useEffect, useState } from "react";
 import axios from "axios";
+import { toast } from "react-toastify";
 
 const AllRestaurantList = (props)=>{
 
@@ -37,7 +38,7 @@ const AllRestaurantList = (props)=>{
   
     console.log("filter restaurants counts");
     props.activeRestaurantCount(restaurants.filter((restaurant)=>restaurant.status == 'ACTIVE').length);
-    props.pendindRestaurantCount(restaurants.filter((restaurant)=>restaurant.status == 'INACTIVE').length);
+    props.pendindRestaurantCount(restaurants.filter((restaurant)=>restaurant.status == 'PENDING').length);
   
   },[restaurants])
 
