@@ -135,7 +135,7 @@ function EditMenuItem() {
 
           <button
             type="submit"
-            className="w-full bg-orange-400 text-white py-2 rounded hover:bg-red-700 font-semibold"
+            className="w-full bg-orange-600 text-white py-2 rounded hover:bg-red-700 font-semibold"
           >
             Save Changes
           </button>

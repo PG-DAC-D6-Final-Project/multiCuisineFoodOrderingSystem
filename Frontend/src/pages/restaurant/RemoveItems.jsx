@@ -30,7 +30,7 @@ function RemoveMenuItems() {
 
   return (
     <div className="flex w-full">
-        <div className="min-h-screen w-full bg-orange-400 p-6 flex items-center justify-center">
+        <div className="min-h-screen w-full bg-orange-600 p-6 flex items-center justify-center">
       <div className="bg-white shadow-xl p-6 rounded-lg w-full max-w-2xl">
         <h2 className="text-2xl font-bold text-center text-orange-400 mb-6">
           Remove Menu Items

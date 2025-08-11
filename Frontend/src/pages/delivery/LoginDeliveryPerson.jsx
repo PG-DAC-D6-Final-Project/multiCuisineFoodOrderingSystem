@@ -1,7 +1,6 @@
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { Button } from "@/components/ui/button"
-import logo from "../../assets/image.png"
 import { useState } from "react"
 import { deliveryAgentLogin } from "../../services/deliveryAgentService"
 import { toast } from "react-toastify"
@@ -30,13 +29,14 @@ const LoginDeliveryPerson = () => {
 
       if (result?.email) {
         toast.success("Login successful")
-        sessionStorage.setItem("firstName", result.firstName)
-        sessionStorage.setItem("lastName", result.lastName)
-        sessionStorage.setItem("email", result.email)
-        sessionStorage.setItem("phone", result.phone)
-        sessionStorage.setItem("vehicleNumber", result.vehicleNumber)
-        sessionStorage.setItem("vehicleType", result.vehicleType)
-        sessionStorage.setItem("licenseNumber", result.licenseNumber)
+        sessionStorage.setItem("deliveryId", result.id)
+        sessionStorage.setItem("deliveryFirstName", result.firstName)
+        sessionStorage.setItem("deliveryLastName", result.lastName)
+        sessionStorage.setItem("deliveryEmail", result.email)
+        sessionStorage.setItem("deliveryPhone", result.phone)
+        sessionStorage.setItem("deliveryVehicleNumber", result.vehicleNumber)
+        sessionStorage.setItem("deliveryVehicleType", result.vehicleType)
+        sessionStorage.setItem("deliveryLicenseNumber", result.licenseNumber)
         navigate("/delivery");
       }
       else {
@@ -50,14 +50,12 @@ const LoginDeliveryPerson = () => {
 
   return (
     <>
-      <h1 className="text-3xl font-bold text-center">Login</h1>
+      <h1 className="text-3xl font-bold text-center mt-6 text-orange-600">Delivery Agent Login</h1>
       <div className="w-full flex justify-center items-center p-6">
         <form
           onSubmit={handleSubmit}
-          className="w-[50%] flex flex-col justify-center items-center gap-6 border-1 p-6 rounded-lg shadow-2xl"
+          className="w-[40%] h-[80vh] flex flex-col justify-center items-center gap-6 border-1 p-6 rounded-lg shadow-2xl"
         >
-          <img src={logo} alt="login" className="h-32 border-2 rounded-full" />
-
           <div className="grid w-full max-w-sm items-center gap-3">
             <Label htmlFor="email">Email</Label>
             <Input
@@ -88,7 +86,7 @@ const LoginDeliveryPerson = () => {
             <Button
               type="submit"
               variant="outline"
-              className="w-full bg-orange-400 hover:bg-orange-500 text-white hover:text-white"
+              className="w-full bg-orange-600 hover:bg-orange-500 text-white hover:text-white"
             >
               Login
             </Button>

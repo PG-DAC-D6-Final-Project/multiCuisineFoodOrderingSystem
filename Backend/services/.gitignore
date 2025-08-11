@@ -44,3 +44,5 @@ application-local.properties
 # === Others ===
 node_modules/
 *.tmp
+
+.vs/
