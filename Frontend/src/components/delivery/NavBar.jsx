@@ -19,7 +19,7 @@ const NavBar = () => {
     sessionStorage.removeItem("deliveryVehicleNumber")
     sessionStorage.removeItem("deliveryVehicleType")
     sessionStorage.removeItem("deliveryLicenseNumber")
-    navigate("/delivery/login");
+    navigate("/");
   }
 
   return (

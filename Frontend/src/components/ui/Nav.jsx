@@ -27,7 +27,7 @@ function Nav() {
               className="hover:bg-gray-700 p-2 rounded cursor-pointer"
               onClick={handleSignOut}
             >
-              <Link to={"/restaurant/"}>
+              <Link to={"/"}>
                 <div>🧾 Sign Out</div>
               </Link>
             </li>
