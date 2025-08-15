@@ -11,13 +11,13 @@ const UpdateCustomerProfile = () => {
     phone: sessionStorage.getItem("phone"),
   });
 
-  // const handleChange = (e) => {
-  //   const { name, value, files } = e.target;
-  //   setFormData({
-  //     ...formData,
-  //     [name]: files ? files[0] : value,
-  //   });
-  // };
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData({
+      ...formData,
+      [name]: value,
+    });
+  };
 
   const handleSave = () => {
     alert("Changes saved!");
@@ -45,6 +45,7 @@ const UpdateCustomerProfile = () => {
             type="text"
             name="firstName"
             value={formData.firstName}
+            onChange={handleChange}
             className="w-full border rounded px-3 py-2 bg-orange-50"
           />
         </div>
@@ -55,6 +56,7 @@ const UpdateCustomerProfile = () => {
             type="text"
             name="lastName"
             value={formData.lastName}
+            onChange={handleChange}
             className="w-full border rounded px-3 py-2 bg-orange-50"
           />
         </div>
@@ -65,6 +67,7 @@ const UpdateCustomerProfile = () => {
             type="email"
             name="email"
             value={formData.email}
+            onChange={handleChange}
             className="w-full border rounded px-3 py-2 bg-orange-50"
           />
         </div>
@@ -75,6 +78,7 @@ const UpdateCustomerProfile = () => {
             type="text"
             name="phone"
             value={formData.phone}
+            onChange={handleChange}
             className="w-full border rounded px-3 py-2 bg-orange-50"
           />
         </div>
