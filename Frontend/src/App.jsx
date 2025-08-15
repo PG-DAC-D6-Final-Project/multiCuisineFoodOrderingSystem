@@ -30,7 +30,7 @@ import AvailableOrders from "./pages/delivery/AvailableOrders";
 import Dashboard from "./pages/delivery/Dashboard";
 
 import DeliveryLayout from "./pages/delivery/DeliveryLayout";
-
+import DeliveryAgentDetailsPage from "./components/admin/DeliveryAgentDetails";
 import OrderHistory from "./pages/delivery/OrderHistory";
 import Profile from "./pages/delivery/Profile";
 import RegisterDeliveryAgent from "./pages/delivery/RegisterDeliveryPerson";
@@ -102,6 +102,7 @@ function App() {
           <Route path="" element={<Admin />} />
           <Route path="restaurants/:id" element={<RestaurantDetailsPage />} />
           <Route path="orders/:id" element={<OrderDetailsPage />} />
+           <Route path="delivery-agents/:id" element={<DeliveryAgentDetailsPage />} />
         </Route>
       </Routes >
     </>

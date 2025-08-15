@@ -10,15 +10,14 @@ import java.util.stream.Collectors;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
-import com.foodapp.food_ordering_spring_api.controllers.DummyController;
+
 import com.foodapp.food_ordering_spring_api.custom_exceptions.ApiException;
 import com.foodapp.food_ordering_spring_api.custom_exceptions.ResourceNotFoundException;
 import com.foodapp.food_ordering_spring_api.dao.RestaurantDao;
-import com.foodapp.food_ordering_spring_api.dto.AddressDto;
 import com.foodapp.food_ordering_spring_api.dto.AllRestaurantDto;
 import com.foodapp.food_ordering_spring_api.dto.ApiResponse;
-import com.foodapp.food_ordering_spring_api.dto.MenuItemDto;
 import com.foodapp.food_ordering_spring_api.dto.RestaurantByIdDto;
 import com.foodapp.food_ordering_spring_api.dto.RestaurantLoginDto;
 import com.foodapp.food_ordering_spring_api.dto.RestaurantMenuDto;
@@ -29,7 +28,6 @@ import com.foodapp.food_ordering_spring_api.entities.Address;
 import com.foodapp.food_ordering_spring_api.entities.MenuItem;
 import com.foodapp.food_ordering_spring_api.entities.Restaurant;
 import com.foodapp.food_ordering_spring_api.entities.RestaurantStatus;
-import org.springframework.data.domain.Pageable;
 
 import jakarta.transaction.Transactional;
 import lombok.AllArgsConstructor;
@@ -205,6 +203,24 @@ public class RestaurantServiceImpl implements RestaurantService {
 		restaurantDao.save(restaurant);
 		
 	}
+	
+	public int getTotalCount() {
+		return restaurantDao.findAll().size();
+	}
+
+	@Override
+	public List<AllRestaurantDto> getPendingRestaurant() {
+		List<Restaurant> list =  restaurantDao.findByStatus(RestaurantStatus.PENDING);
+		
+		return list.stream().map((restraunt)->modelMapper.map(restraunt, AllRestaurantDto.class))
+		.collect(Collectors.toList());
+		
+		
+		
+	}
+	
+	
+
 
 }
 

@@ -22,5 +22,7 @@ public interface RestaurantService {
 	RestaurantMenuDto getRestaurantMenu(Long Id);
 	List<AllRestaurantDto> getAll();
 	void changeStatusToSuspended(Long restaurantId);
+	int getTotalCount();
+	List<AllRestaurantDto> getPendingRestaurant();
 
 }

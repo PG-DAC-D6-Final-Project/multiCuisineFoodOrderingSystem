@@ -9,12 +9,13 @@ import com.foodapp.food_ordering_spring_api.dto.DeliveryAgentOrderDto;
 import com.foodapp.food_ordering_spring_api.dto.DeliveryAgentRegisterDto;
 
 public interface DeliveryAgentService {
-	List<DeliveryAgentDto> getAllDeliveryAgents();
 	
 	DeliveryAgentDto deliveryAgentLogin(DeliveryAgentLoginDto dto);
 	
 	DeliveryAgentDto deliveryAgentRegistration(DeliveryAgentRegisterDto dto);
 	
+	List<DeliveryAgentDto> getAllDeliveryAgents();
+
 	List<DeliveryAgentOrderDto> getAvailableOrders();
 	
 	ApiResponse acceptOrder(Long orderId, Long deliveryAgentId);
@@ -26,4 +27,5 @@ public interface DeliveryAgentService {
 	List<DeliveryAgentOrderDto> getOrderHistory(Long deliveryAgentId);
 	
 	DeliveryAgentDto updateDeliveryAgent(Long deliveryAgentId, DeliveryAgentDto dto);
+
 }
