@@ -20,7 +20,7 @@ public class DashboardService {
 	public Object getData() {
 		int userCount = userDao.findAll().size();
 		int ordersCount = orderDao.findAll().size();
-		int restaurantDao = restaurantDao.findAll().size();
+//		int restaurantCount = restaurantDao.findAll();
 		return null;
 	}
 	

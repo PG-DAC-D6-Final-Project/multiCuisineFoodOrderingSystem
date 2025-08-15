@@ -12,7 +12,7 @@ const PendingRestaurantRequests = () => {
   useEffect(() => {
     const fetchPendingRestaurants = async () => {
       try {
-        const res = await axios.get(baseUrl+"/restaurant/getAllPendingRestaurant"); 
+        const res = await axios.get(baseUrl + "/restaurant/getAllPendingRestaurant");
         setPendingRestaurants(res.data || []);
       } catch (error) {
         console.error("Error fetching pending restaurants:", error);
@@ -36,40 +36,37 @@ const PendingRestaurantRequests = () => {
       ) : pendingRestaurants.length === 0 ? (
         <p className="text-gray-500">No pending restaurant requests.</p>
       ) : (
-        pendingRestaurants.map((restaurant, index) => (
+        pendingRestaurants.map((restaurant) => (
           <div
-            key={restaurant.id || index}
+            key={restaurant.id}
             className="flex justify-between items-center border p-4 mb-3 rounded-lg"
           >
-            {/* Left Side */}
+            {/* Left: Image + Info */}
             <div className="flex items-center gap-4">
-              <div className="w-10 h-10 rounded-full bg-gray-200 flex items-center justify-center text-sm font-medium">
-                {restaurant.name?.[0]}
-              </div>
+              <img
+                src={restaurant.image_url}
+                alt={restaurant.name}
+                className="w-12 h-12 rounded-full object-cover"
+              />
               <div>
                 <h3 className="text-md font-semibold">{restaurant.name}</h3>
                 <p className="text-sm text-gray-500">
-                  {restaurant.cuisine || "Cuisine N/A"} · {restaurant.owner || "Owner N/A"}
+                  {restaurant.address?.city}, {restaurant.address?.state}
                 </p>
-                {restaurant.joinedDate && (
-                  <p className="text-xs text-gray-400 mt-1">
-                    Joined {restaurant.joinedDate}
-                  </p>
-                )}
+                <p className="text-xs text-gray-400 mt-1">
+                  Phone: {restaurant.phone}
+                </p>
               </div>
             </div>
 
-            {/* Stats */}
+            {/* Middle: Rating */}
             <div className="flex items-center gap-6">
               <div className="text-yellow-600 font-medium text-sm">
-                ⭐ {restaurant.rating || 0}
+                ⭐ {restaurant.avg_rating || 0}
               </div>
-              <div className="text-blue-600 text-sm flex items-center gap-1">
-                🛒 {restaurant.orders || 0}
-              </div>
-              <div className="text-green-600 text-sm">
-                ${restaurant.revenue?.toLocaleString() || 0}
-              </div>
+              <span className="px-3 py-1 text-xs rounded-full bg-yellow-100 text-yellow-700 border border-yellow-300">
+                {restaurant.status}
+              </span>
             </div>
 
             {/* Actions */}
