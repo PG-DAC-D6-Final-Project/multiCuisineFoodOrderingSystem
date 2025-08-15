@@ -22,6 +22,7 @@ export const customerRegister = async ({
   email,
   password,
   phone,
+  address
 }) => {
   try {
     const url = baseUrl + "/user";
@@ -31,11 +32,12 @@ export const customerRegister = async ({
       email,
       password,
       phone,
+      address
     };
 
     const response = await axios.post(url, body);
 
-    return response.data;
+    return response;
   } catch (e) {
     console.log(e);
   }

@@ -18,5 +18,6 @@ public class RestaurantByIdDto {
 	private LocalDateTime closingTime;
 	private Double avg_rating;
 	private double minimum_order_value;
+	private String image_url;
 	private RestaurantStatus status;
 }

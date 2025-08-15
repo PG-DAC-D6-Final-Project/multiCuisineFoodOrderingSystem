@@ -4,7 +4,7 @@ import RegistrationPage from "./pages/restaurant/Registration";
 import RestaurantDashboard from "./pages/restaurant/Dashboard";
 import { Route, Routes } from "react-router-dom";
 
-import { Button } from "./components/ui/button";
+import OrderDetailsPage from "./components/admin/OrderDetails";
 import ShowOrders from "./pages/restaurant/ShowOrders";
 import RestaurantRegistration from "./pages/restaurant/RestaurantRegistration";
 import AddFoodItem from "./pages/restaurant/AddMenuItems";
@@ -12,6 +12,7 @@ import EditRestaurantProfile from "./pages/restaurant/EditProfile";
 import EditMenuItem from "./pages/restaurant/EditMenuItem";
 import RemoveMenuItems from "./pages/restaurant/RemoveItems";
 import RestaurantLayout from "./pages/restaurant/RestaurantLayout";
+import RestaurantDetailsPage from "./components/admin/RestaurantDetailsPage";
 
 import Home from "./pages/User/Home";
 
@@ -37,8 +38,11 @@ import LoginDeliveryPerson from "./pages/delivery/LoginDeliveryPerson";
 import MenuItemsByCuisine from "./pages/User/MenuItemsByCuisine";
 import ViewOrders from "./pages/User/ViewOrders";
 import MenuItemsByRestaurants from "./pages/User/MenuItemsByRestaurants";
+
+import ReviewPage from "./pages/User/Review";
 import SearchResults from "./pages/User/SearchResults";
 import RateOrder from "./pages/User/RateOrder";
+import CustomerLayout from "./pages/User/CustomerLayout";
 
 function App() {
   return (
@@ -61,20 +65,24 @@ function App() {
           {/* <Route path="" element={<Home />} /> */}
           <Route path="login" element={<Login />} />
           <Route path="register" element={<Register />} />
-          <Route path="cart" element={<Cart />} />
-          <Route path="profile" element={<CustomerProfile />} />
-          <Route
-            path="UpdateCustomerProfile"
-            element={<UpdateCustomerProfile />}
-          />
-          <Route path="CustomerPastOrders" element={<CustomerPastOrders />} />
-          <Route path="viewAllRestaurants" element={<ViewAllRestaurants />} />
-          <Route path="viewRestaurantMenuItems" element={<MenuItemsByRestaurants />} />
-          <Route path="checkout" element={<Checkout />} />
-          <Route path="cuisine/:id" element={<MenuItemsByCuisine />} />
-          <Route path="orders" element={<ViewOrders />} />
-          <Route path="search/:menuItem" element={<SearchResults />} />
-          <Route path="review/:orderId" element={<RateOrder />} /> 
+          <Route path="" element={<CustomerLayout />}>
+            <Route path="cart" element={<Cart />} />
+            <Route path="profile" element={<CustomerProfile />} />
+            <Route
+              path="UpdateCustomerProfile"
+              element={<UpdateCustomerProfile />}
+            />
+            <Route path="CustomerPastOrders" element={<CustomerPastOrders />} />
+            <Route path="viewAllRestaurants" element={<ViewAllRestaurants />} />
+            <Route path="viewRestaurantMenuItems" element={<MenuItemsByRestaurants />} />
+            <Route path="checkout" element={<Checkout />} />
+            <Route path="cuisine/:id" element={<MenuItemsByCuisine />} />
+            <Route path="orders" element={<ViewOrders />} />
+            <Route path="rate/:orderId" element={<ReviewPage />} />
+
+            <Route path="search/:menuItem" element={<SearchResults />} />
+            <Route path="review/:orderId" element={<RateOrder />} />
+          </Route>
         </Route>
 
         <Route path="/restaurant">
@@ -92,6 +100,8 @@ function App() {
         </Route>
         <Route path="/admin">
           <Route path="" element={<Admin />} />
+          <Route path="restaurants/:id" element={<RestaurantDetailsPage />} />
+          <Route path="orders/:id" element={<OrderDetailsPage />} />
         </Route>
       </Routes >
     </>

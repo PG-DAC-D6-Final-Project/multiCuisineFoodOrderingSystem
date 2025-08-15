@@ -25,10 +25,10 @@ import lombok.AllArgsConstructor;
 public class DeliveryAgentController {
 	private final DeliveryAgentService deliveryAgentService;
 	
-//	@GetMapping
-//	public List<DeliveryAgent> getAllDeliveryAgents(){
-//		return deliveryDao.findAll();
-//	}
+	@GetMapping
+	public ResponseEntity<?> getAllDeliveryAgents(){
+		return ResponseEntity.ok(deliveryAgentService.getAllDeliveryAgents());
+	}
 	
 	@PostMapping("/login")
     public ResponseEntity<?> deliveryAgentLogin(@RequestBody DeliveryAgentLoginDto dto) {

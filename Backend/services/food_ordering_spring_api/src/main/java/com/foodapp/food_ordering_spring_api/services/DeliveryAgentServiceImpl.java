@@ -5,7 +5,6 @@ import java.util.List;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
-import com.foodapp.food_ordering_spring_api.controllers.UserController;
 import com.foodapp.food_ordering_spring_api.custom_exceptions.ApiException;
 import com.foodapp.food_ordering_spring_api.dao.DeliveryAgentDao;
 import com.foodapp.food_ordering_spring_api.dao.OrdersDao;
@@ -132,6 +131,14 @@ public class DeliveryAgentServiceImpl implements DeliveryAgentService {
 		DeliveryAgent updatedAgent = deliveryAgentDao.save(agent);
 
 	    return modelMapper.map(updatedAgent, DeliveryAgentDto.class);
+	}
+
+	@Override
+	public List<DeliveryAgentDto> getAllDeliveryAgents() {
+		List<DeliveryAgent> agents = deliveryAgentDao.findAll();
+		return agents.stream()
+				.map(agent -> modelMapper.map(agent, DeliveryAgentDto.class))
+				.toList();
 	}
 
 }

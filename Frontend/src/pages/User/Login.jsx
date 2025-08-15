@@ -11,6 +11,7 @@ const Login = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
+    sessionStorage.clear();
     if (email && password) {
       const result = await customerLogin(email, password);
 
