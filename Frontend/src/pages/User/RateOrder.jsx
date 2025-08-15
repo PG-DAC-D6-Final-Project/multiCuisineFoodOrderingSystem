@@ -30,6 +30,11 @@ const RateOrder = () => {
           orderId: Number(orderId),
           rating,
           comment,
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${sessionStorage.getItem("token")}`,
+          },
         }
       );
 
@@ -61,9 +66,8 @@ const RateOrder = () => {
                 onClick={() => setRating(star)}
                 onMouseEnter={() => setHoverRating(star)}
                 onMouseLeave={() => setHoverRating(0)}
-                className={`${
-                  (hoverRating || rating) >= star ? "text-yellow-400" : "text-gray-300"
-                }`}
+                className={`${(hoverRating || rating) >= star ? "text-yellow-400" : "text-gray-300"
+                  }`}
               >
                 ★
               </span>

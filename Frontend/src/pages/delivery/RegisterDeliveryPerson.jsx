@@ -9,7 +9,6 @@ import {
     SelectTrigger,
     SelectValue,
 } from "@/components/ui/select"
-import logo from "../../assets/image.png"
 import { useState } from "react"
 import { Link, useNavigate } from "react-router-dom"
 import { deliveryAgentRegister } from "../../services/deliveryAgentService"

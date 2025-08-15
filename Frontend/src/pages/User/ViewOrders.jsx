@@ -1,13 +1,13 @@
 import React, { useEffect, useState } from "react";
 import { getOrders } from "../../services/userServices";
-import { useNavigate } from "react-router-dom"
+import { Navigate, useNavigate } from "react-router-dom"
 import axios from "axios";
 
 const ViewOrders = () => {
   const [orders, setOrders] = useState([]);
   const [loading, setLoading] = useState(true);
 
-  
+
   const [ratings, setRatings] = useState({});
 
 
@@ -53,6 +53,10 @@ const ViewOrders = () => {
 
     }
   };
+
+  if (sessionStorage.getItem("role") != "CUSTOMER") {
+    return <Navigate to="/customer/login" />
+  }
 
   if (loading) {
     return (

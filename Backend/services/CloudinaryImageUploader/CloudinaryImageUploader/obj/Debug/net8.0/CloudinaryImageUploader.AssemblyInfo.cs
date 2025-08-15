@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("CloudinaryImageUploader")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+89121d24376e1c7b3a48c907dc9c2b86d8696524")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+ef39b19d332a9e3aa83a35aee2d6d12e10a4bd04")]
 [assembly: System.Reflection.AssemblyProductAttribute("CloudinaryImageUploader")]
 [assembly: System.Reflection.AssemblyTitleAttribute("CloudinaryImageUploader")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

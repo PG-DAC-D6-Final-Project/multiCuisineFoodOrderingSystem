@@ -16,9 +16,9 @@ const NavBar = () => {
     sessionStorage.removeItem("deliveryLastName")
     sessionStorage.removeItem("deliveryEmail")
     sessionStorage.removeItem("deliveryPhone")
-    sessionStorage.removeItem("deliveryVehicleNumber")
-    sessionStorage.removeItem("deliveryVehicleType")
-    sessionStorage.removeItem("deliveryLicenseNumber")
+    // sessionStorage.removeItem("deliveryVehicleNumber")
+    // sessionStorage.removeItem("deliveryVehicleType")
+    // sessionStorage.removeItem("deliveryLicenseNumber")
     navigate("/");
   }
 

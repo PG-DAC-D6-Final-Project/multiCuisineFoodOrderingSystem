@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import { useNavigate } from "react-router-dom";
+import { Navigate, useNavigate } from "react-router-dom";
 
 function Dashboard() {
   const [menuItems, setMenuItems] = useState([]);
@@ -24,7 +24,13 @@ function Dashboard() {
     }
 
     axios
-      .get(`http://localhost:8080/menu-item/${restaurantId}`)
+      .get(`http://localhost:8080/menu-item/${restaurantId}`,
+        {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("token")}`
+          }
+        }
+      )
       .then((res) => {
         setMenuItems(res.data);
         setLoading(false);
@@ -40,7 +46,13 @@ function Dashboard() {
     if (!window.confirm("Are you sure you want to delete this item?")) return;
 
     axios
-      .delete(`http://localhost:8080/menu-item/${id}`)
+      .delete(`http://localhost:8080/menu-item/${id}`,
+        {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("token")}`
+          }
+        }
+      )
       .then(() => {
         // Remove from frontend state
         setMenuItems((prevItems) => prevItems.filter((item) => item.id !== id));
@@ -51,6 +63,10 @@ function Dashboard() {
         alert("Failed to delete menu item.");
       });
   };
+
+  if (localStorage.getItem("role") != "RESTAURANT") {
+    return <Navigate to="/restaurant/" />
+  }
 
   // Step 3: Show loading, no data, or menu items
   if (loading) {

@@ -26,11 +26,11 @@ public class MultiTableUserDetailsService implements UserDetailsService {
 	@Override
 	public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
 		return userRepo.findByEmail(email)
-				.map(u -> new CustomUserDetails(u.getId(), u.getEmail(), u.getPassword(), Role.CUSTOMER))
+				.map(u -> new CustomUserDetails(u.getId(), u.getEmail(), u.getPassword(), Role.CUSTOMER, u.getFirstName() + " " + u.getLastName(), u.getPhone()))
 				.or(() -> restaurantRepo.findByEmail(email)
-						.map(r -> new CustomUserDetails(r.getId(), r.getEmail(), r.getPassword(), Role.RESTAURANT)))
+						.map(r -> new CustomUserDetails(r.getId(), r.getEmail(), r.getPassword(), Role.RESTAURANT, r.getName(), r.getPhone())))
 				.or(() -> deliveryRepo.findByEmail(email)
-						.map(d -> new CustomUserDetails(d.getId(), d.getEmail(), d.getPassword(), Role.DELIVERY_AGENT)))
+						.map(d -> new CustomUserDetails(d.getId(), d.getEmail(), d.getPassword(), Role.DELIVERY_AGENT, d.getFirstName() + " " + d.getLastName(), d.getPhone())))
 				.orElseThrow(() -> new UsernameNotFoundException("User not found"));
 	}
 }

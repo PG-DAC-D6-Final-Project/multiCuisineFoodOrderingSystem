@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import { Navigate } from 'react-router-dom';
 
 function ShowOrders() {
   const [orders, setOrders] = useState([]);
@@ -7,31 +8,46 @@ function ShowOrders() {
 
   // Fetch orders
   useEffect(() => {
-    axios.get(`http://localhost:8080/order/${restaurantId}`)
+    axios.get(`http://localhost:8080/order/${restaurantId}`,
+      {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("token")}`
+        }
+      }
+    )
       .then(res => setOrders(res.data))
       .catch(err => console.error(err));
   }, []);
 
   // status changing
- const handleStatusChange = (orderId, newStatus) => {
-  setOrders(prevOrders =>
-    prevOrders.map(order =>
-      order.id === orderId
-        ? { ...order, orderstatus: newStatus }
-        : order 
-    )
-  );
-};
+  const handleStatusChange = (orderId, newStatus) => {
+    setOrders(prevOrders =>
+      prevOrders.map(order =>
+        order.id === orderId
+          ? { ...order, orderstatus: newStatus }
+          : order
+      )
+    );
+  };
 
   // Save status change
   const saveStatus = (orderId, status) => {
-  axios.patch(`http://localhost:8080/order/status`, {
-    orderId: orderId,
-    status: status
-  })
-  .then(() => alert(`Status updated to ${status}`))
-  .catch(err => console.error(err));
-};
+    axios.patch(`http://localhost:8080/order/status`, {
+      orderId: orderId,
+      status: status
+    },
+      {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("token")}`
+        }
+      })
+      .then(() => alert(`Status updated to ${status}`))
+      .catch(err => console.error(err));
+  };
+
+  if (localStorage.getItem("role") != "RESTAURANT") {
+    return <Navigate to="/restaurant/" />
+  }
 
   return (
     <div className="flex h-screen w-full">
@@ -72,7 +88,7 @@ function ShowOrders() {
                     >
                       <option value="PREPARING">PREPARING</option>
                       <option value="REJECTED">REJECTED</option>
-                      
+
                     </select>
                   </td>
                   <td className="py-2 px-4">{new Date(order.order_date_time).toLocaleString()}</td>

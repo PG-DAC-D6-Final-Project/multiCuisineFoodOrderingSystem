@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import AvailableOrderCard from "../../components/delivery/AvailableOrderCard";
 import { getAvailableOrders } from "../../services/deliveryAgentService";
+import { Navigate } from "react-router-dom";
 
 const AvailableOrders = () => {
   const [orders, setOrders] = useState([]);
@@ -21,6 +22,10 @@ const AvailableOrders = () => {
 
     loadAvailableOrders();
   }, []);
+
+  if (sessionStorage.getItem("role") != "DELIVERY_AGENT") {
+    return <Navigate to="/delivery/login" />
+  }
 
   return (
     <div className="px-4 py-6">

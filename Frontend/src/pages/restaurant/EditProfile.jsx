@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
+import { Navigate } from "react-router-dom";
 
 export default function EditRestaurantProfile() {
   const [formData, setFormData] = useState({
@@ -21,12 +22,20 @@ export default function EditRestaurantProfile() {
     }
   });
 
-  const restaurantId = 12; // Example — replace with actual ID or get from route
+  const restaurantId = localStorage.getItem("restaurantId"); // Example — replace with actual ID or get from route
 
   useEffect(() => {
     axios
-      .get(`http://localhost:8080/restaurant/${restaurantId}`)
+      .get(`http://localhost:8080/restaurant/${restaurantId}`,
+        {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("token")}`
+          }
+        }
+      )
       .then((res) => {
+        console.log(res);
+
         setFormData(res.data);
       })
       .catch((err) => {
@@ -58,7 +67,13 @@ export default function EditRestaurantProfile() {
   const handleSubmit = (e) => {
     e.preventDefault();
     axios
-      .patch(`http://localhost:8080/restaurant/${restaurantId}`, formData)
+      .patch(`http://localhost:8080/restaurant/${restaurantId}`, formData,
+        {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("token")}`
+          }
+        }
+      )
       .then((res) => {
         console.log("Updated successfully:", res.data);
         alert("Restaurant updated!");
@@ -67,6 +82,10 @@ export default function EditRestaurantProfile() {
         console.error("Error updating restaurant:", err);
       });
   };
+
+  if (localStorage.getItem("role") != "RESTAURANT") {
+    return <Navigate to="/restaurant/" />
+  }
 
   return (
     <div className="max-w-2xl mx-auto p-6 bg-white rounded-lg shadow-lg">

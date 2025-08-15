@@ -4,7 +4,7 @@ import java.util.List;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
-
+import com.foodapp.food_ordering_spring_api.controllers.MenuItemController;
 import com.foodapp.food_ordering_spring_api.custom_exceptions.ResourceNotFoundException;
 import com.foodapp.food_ordering_spring_api.dao.CuisineTypeDao;
 import com.foodapp.food_ordering_spring_api.dao.MenuItemDao;
@@ -25,6 +25,7 @@ import lombok.AllArgsConstructor;
 @Transactional
 @AllArgsConstructor
 public class MenuItemServiceImpl implements MenuItemService {
+
 	private final MenuItemDao menuItemDao;
 	private final ModelMapper modelMapper;
 	private final RestaurantDao restaurantDao;
@@ -138,6 +139,13 @@ public class MenuItemServiceImpl implements MenuItemService {
 		            return dto;
 				})
 				.toList();
+	}
+
+	@Override
+	public MenuItemResponseDto getMenuItemById(Long menuItemId) {
+		MenuItem menuItem = menuItemDao.findById(menuItemId).orElseThrow(() ->
+		new RuntimeException("Invalid menu item id - Menu Item can't be found!!!!"));
+		return modelMapper.map(menuItem, MenuItemResponseDto.class);
 	}
 
 }

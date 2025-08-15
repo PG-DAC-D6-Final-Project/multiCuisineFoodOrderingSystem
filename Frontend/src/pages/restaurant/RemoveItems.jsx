@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { Navigate } from "react-router-dom";
 
 function RemoveMenuItems() {
     const [isSidebarOpen, setIsSidebarOpen] = useState(true);
@@ -27,6 +28,10 @@ function RemoveMenuItems() {
     const updatedItems = menuItems.filter((item) => item.id !== id);
     setMenuItems(updatedItems);
   };
+
+  if (localStorage.getItem("role") != "RESTAURANT") {
+    return <Navigate to="/restaurant/" />
+  }
 
   return (
     <div className="flex w-full">

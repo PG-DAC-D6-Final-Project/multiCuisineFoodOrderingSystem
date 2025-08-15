@@ -10,12 +10,12 @@ const RegistrationPage = () => {
   });
 
   const [errors, setErrors] = useState({});
-  
+
 
   const handleChange = (e) => {
-    setFormData({ 
-      ...formData, 
-      [e.target.name]: e.target.value 
+    setFormData({
+      ...formData,
+      [e.target.name]: e.target.value
     });
   };
 
@@ -40,40 +40,42 @@ const RegistrationPage = () => {
   //   // ✅ Step 3: Redirect to dashboard
   //   navigate("/restaurant/dashboard");
   // };
-const handleSubmit = async (e) => {
-  e.preventDefault();
-  const validationErrors = validate();
-  if (Object.keys(validationErrors).length > 0) {
-    setErrors(validationErrors);
-    return;
-  }
-
-  try {
-    const response = await axios.post("http://localhost:8080/restaurant/", {
-      email: formData.username,
-      password: formData.password
-    });
-
-    const resData = response.data;
-    console.log(resData);
-
-    if (resData.message === "Restaurant Login successful...") {
-      alert("Login Successful!");
-
-      // Store restaurantId in localStorage
-      localStorage.setItem("restaurantId", resData.restaurantId);
-
-      navigate("/restaurant/Dashboard");
-    } else {
-      console.log(resData)
-      alert(resData.message);
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    const validationErrors = validate();
+    if (Object.keys(validationErrors).length > 0) {
+      setErrors(validationErrors);
+      return;
     }
 
-  } catch (error) {
-    console.error("Login failed:", error);
-    alert("Server error during login.");
-  }
-};
+    try {
+      const response = await axios.post("http://localhost:8080/auth/login", {
+        email: formData.username,
+        password: formData.password
+      });
+
+      const resData = response.data;
+      console.log(resData);
+
+      if (response.status === 200) {
+        alert("Login Successful!");
+
+        // Store restaurantId in localStorage
+        localStorage.setItem("restaurantId", resData.id);
+        localStorage.setItem("role", resData.role);
+        localStorage.setItem("token", resData.token);
+
+        navigate("/restaurant/Dashboard");
+      } else {
+        console.log(resData)
+        alert("Invalid email or password.");
+      }
+
+    } catch (error) {
+      console.error("Login failed:", error);
+      alert("Server error during login.");
+    }
+  };
 
 
 
@@ -113,6 +115,13 @@ const handleSubmit = async (e) => {
             className="w-full bg-orange-600 text-white py-2 rounded-md hover:bg-blue-700 transition"
           >
             Sign In
+          </button>
+          <button
+            type="button"
+            onClick={() => navigate("/restaurant/Register")}
+            className="w-full text-orange-400 font-semibold py-2 rounded hover:underline"
+          >
+            Don't have an account? Sign Up
           </button>
         </form>
       </div>

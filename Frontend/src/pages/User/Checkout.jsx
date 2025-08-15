@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useNavigate, Link, useLocation } from "react-router-dom";
+import { useNavigate, Link, useLocation, Navigate } from "react-router-dom";
 import { useDispatch, useSelector } from 'react-redux';
 import { createOrder } from "../../services/userServices";
 import { toast } from "react-toastify";
@@ -53,6 +53,10 @@ const Checkout = () => {
   };
 
   const paymentOptions = ["CASH", "UPI", "CREDIT_CARD", "DEBIT_CARD"];
+
+  if (sessionStorage.getItem("role") != "CUSTOMER") {
+    return <Navigate to="/customer/login" />
+  }
 
   return (
     <div className="flex flex-col items-center justify-center min-h-screen p-6 bg-gradient-to-br from-orange-50 to-orange-100">

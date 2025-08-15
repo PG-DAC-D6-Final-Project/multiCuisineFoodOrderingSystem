@@ -3,14 +3,14 @@ import { baseUrl } from "./../utils/config";
 
 export const customerLogin = async (email, password) => {
   try {
-    const url = baseUrl + "/user/login";
+    const url = baseUrl + "/auth/login";
     const body = {
       email,
       password,
     };
     const response = await axios.post(url, body);
 
-    return response.data;
+    return response;
   } catch (e) {
     console.log(e);
   }
@@ -22,17 +22,17 @@ export const customerRegister = async ({
   email,
   password,
   phone,
-  address
+  address,
 }) => {
   try {
-    const url = baseUrl + "/user";
+    const url = baseUrl + "/user/register";
     const body = {
       firstName,
       lastName,
       email,
       password,
       phone,
-      address
+      address,
     };
 
     const response = await axios.post(url, body);
@@ -83,7 +83,11 @@ export const createOrder = async (body) => {
   try {
     const url = baseUrl + `/order`;
 
-    const response = await axios.post(url, body);
+    const response = await axios.post(url, body, {
+      headers: {
+        Authorization: `Bearer ${sessionStorage.getItem("token")}`,
+      },
+    });
 
     return response;
   } catch (e) {
@@ -95,7 +99,11 @@ export const getOrders = async (userId) => {
   try {
     const url = baseUrl + `/order/customer/${userId}`;
 
-    const response = await axios.get(url);
+    const response = await axios.get(url, {
+      headers: {
+        Authorization: `Bearer ${sessionStorage.getItem("token")}`,
+      },
+    });
 
     return response;
   } catch (e) {

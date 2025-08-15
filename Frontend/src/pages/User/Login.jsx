@@ -13,15 +13,18 @@ const Login = () => {
 
     sessionStorage.clear();
     if (email && password) {
-      const result = await customerLogin(email, password);
+      const response = await customerLogin(email, password);
 
-      if (result?.email) {
+      if (response.status === 200) {
+        const result = response.data;
         toast.success("Login successful")
         sessionStorage.setItem("id", result.id)
-        sessionStorage.setItem("firstName", result.firstName)
-        sessionStorage.setItem("lastName", result.lastName)
+        sessionStorage.setItem("firstName", result?.name.split(" ")[0])
+        sessionStorage.setItem("lastName", result?.name.split(" ")[1])
         sessionStorage.setItem("email", result.email)
         sessionStorage.setItem("phone", result.phone)
+        sessionStorage.setItem("token", result.token)
+        sessionStorage.setItem("role", result.role)
         navigate("/");
       }
       else {

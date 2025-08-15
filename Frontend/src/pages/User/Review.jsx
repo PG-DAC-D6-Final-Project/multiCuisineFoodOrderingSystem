@@ -14,7 +14,11 @@ function ReviewPage() {
   useEffect(() => {
     // Fetch items of the order to rate
     axios
-      .get(`http://localhost:8080/order/${orderId}`)
+      .get(`http://localhost:8080/order/${orderId}`, {
+        headers: {
+          Authorization: `Bearer ${sessionStorage.getItem("token")}`,
+        },
+      })
       .then((res) => {
         setMenuItems(res.data.orderItems || []);
         // Initialize rating for each item
@@ -80,9 +84,8 @@ function ReviewPage() {
               <span
                 key={star}
                 onClick={() => handleStarClick(item.menuItem.id, star)}
-                className={`cursor-pointer text-2xl ${
-                  ratings[item.menuItem.id] >= star ? "text-yellow-500" : "text-gray-300"
-                }`}
+                className={`cursor-pointer text-2xl ${ratings[item.menuItem.id] >= star ? "text-yellow-500" : "text-gray-300"
+                  }`}
               >
                 ★
               </span>

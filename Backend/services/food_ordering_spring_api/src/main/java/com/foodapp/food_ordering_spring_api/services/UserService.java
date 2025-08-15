@@ -1,6 +1,7 @@
 package com.foodapp.food_ordering_spring_api.services;
 
 import org.modelmapper.ModelMapper;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.foodapp.food_ordering_spring_api.custom_exceptions.ApiException;
@@ -20,6 +21,7 @@ import lombok.AllArgsConstructor;
 public class UserService {
 	private final UserDao userDao;
 	private final ModelMapper modelMapper;
+	private PasswordEncoder passwordEncoder;
 	
 	
 	public UserDto registerUser(UserDto reqDto) {
@@ -27,6 +29,8 @@ public class UserService {
 			throw new ApiException("Duplicate Email ");
 		}
 		User entity = modelMapper.map(reqDto, User.class);
+		
+		entity.setPassword(passwordEncoder.encode(reqDto.getPassword()));
 		
 		return modelMapper.map(userDao.save(entity), UserDto.class);
 	}

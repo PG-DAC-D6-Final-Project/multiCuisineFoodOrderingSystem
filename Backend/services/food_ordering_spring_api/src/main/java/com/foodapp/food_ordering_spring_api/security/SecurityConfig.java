@@ -11,6 +11,8 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.web.servlet.config.annotation.CorsRegistry;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 @Configuration
 public class SecurityConfig {
@@ -28,13 +30,20 @@ public class SecurityConfig {
         JwtAuthenticationFilter jwtFilter = new JwtAuthenticationFilter(jwtUtil, userDetailsService);
 
         http
+        	.cors().and()
             .csrf(csrf -> csrf.disable())
             .sessionManagement(sm -> sm.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
             .authorizeHttpRequests(auth -> auth
                 .requestMatchers("/auth/**").permitAll()
-                .requestMatchers("/customer/**").hasRole("CUSTOMER")
-                .requestMatchers("/restaurant/**").hasRole("RESTAURANT")
-                .requestMatchers("/delivery/**").hasRole("DELIVERY_AGENT")
+                .requestMatchers("/user/register").permitAll()
+                .requestMatchers("/delivery/register").permitAll()
+                .requestMatchers("/restaurant/Register").permitAll()
+                .requestMatchers("/cuisine").permitAll()
+                .requestMatchers("/menu-item/**").permitAll()
+                .requestMatchers("/restaurant/**").permitAll()
+//                .requestMatchers("/user/**").hasRole("CUSTOMER")
+//                .requestMatchers("/restaurant/**").hasRole("RESTAURANT")
+//                .requestMatchers("/delivery/**").hasRole("DELIVERY_AGENT")
                 .anyRequest().authenticated()
             );
 
@@ -54,5 +63,18 @@ public class SecurityConfig {
         provider.setUserDetailsService(userDetailsService);
         provider.setPasswordEncoder(passwordEncoder());
         return new org.springframework.security.authentication.ProviderManager(provider);
+    }
+    
+    @Bean
+    public WebMvcConfigurer corsConfigurer() {
+        return new WebMvcConfigurer() {
+            @Override
+            public void addCorsMappings(CorsRegistry registry) {
+                registry.addMapping("http://localhost:5173")   // allow all endpoints
+                        .allowedOriginPatterns("http://localhost:5173") // frontend origin
+                        .allowedMethods("GET", "POST", "PUT", "DELETE", "OPTIONS")
+                        .allowCredentials(true); // if sending cookies/auth headers
+            }
+        };
     }
 }

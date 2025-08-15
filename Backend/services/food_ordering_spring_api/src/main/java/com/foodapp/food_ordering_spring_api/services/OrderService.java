@@ -192,7 +192,7 @@ public class OrderService {
 	public OrderDto updateOrderStatus(Long orderId, OrderStatus status) {
 	    Orders order = orderDao.findById(orderId)
 	            .orElseThrow(() -> new RuntimeException("Order not found with ID " + orderId));
-	    order.setOrderstatus(OrderStatus.PREPARING);
+	    order.setOrderstatus(status);
 	    orderDao.save(order);
 	    return modelMapper.map(order, OrderDto.class);
 	    	}

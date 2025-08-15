@@ -41,7 +41,7 @@ public class Restaurant extends BaseEntity {
 	private String phone;
 	@Column(length = 100)
 	private String email;
-	@Column(length = 50)
+	@Column(length = 255)
 	private String password;
 	@Column(name="average_rating")
 	private double avg_rating;

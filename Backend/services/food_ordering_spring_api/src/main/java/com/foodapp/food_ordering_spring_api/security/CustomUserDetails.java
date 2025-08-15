@@ -13,13 +13,17 @@ public class CustomUserDetails implements UserDetails {
     private Long id;
     private String email;
     private String password;
+    private String name;
+    private String phone;
     private Role role;
 
-    public CustomUserDetails(Long id, String email, String password, Role role) {
+    public CustomUserDetails(Long id, String email, String password, Role role, String name, String phone) {
         this.id = id;
         this.email = email;
         this.password = password;
         this.role = role;
+        this.name = name;
+        this.phone = phone;
     }
 
     @Override
@@ -36,5 +40,7 @@ public class CustomUserDetails implements UserDetails {
 
     public Long getId() { return id; }
     public Role getRole() { return role; }
+    public String getName() { return name; }
+    public String getPhone() { return phone; }
 }
 

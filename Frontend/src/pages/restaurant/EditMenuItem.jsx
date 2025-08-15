@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useNavigate, useParams } from "react-router-dom";
+import { Navigate, useNavigate, useParams } from "react-router-dom";
 import axios from "axios";
 
 function EditMenuItem() {
@@ -18,12 +18,18 @@ function EditMenuItem() {
   });
 
   // Fetch item details when page loads. NOT WORKING 
-  // useEffect(() => {
-  //   axios
-  //     .get(`http://localhost:8080/menu-item/item/${id}`) // You'll need a GET by ID API
-  //     .then((res) => setFormData(res.data))
-  //     .catch((err) => console.error("Error fetching menu item:", err));
-  // }, [id]);
+  useEffect(() => {
+    axios
+      .get(`http://localhost:8080/menu-item/item/${id}`,
+        {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("token")}`
+          }
+        }
+      ) // You'll need a GET by ID API
+      .then((res) => setFormData(res.data))
+      .catch((err) => console.error("Error fetching menu item:", err));
+  }, [id]);
 
   const handleChange = (e) => {
     const { name, value, type, checked } = e.target;
@@ -36,7 +42,13 @@ function EditMenuItem() {
 
     // Send update request to backend
     axios
-      .patch(`http://localhost:8080/menu-item/${id}`, formData)
+      .patch(`http://localhost:8080/menu-item/${id}`, formData,
+        {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("token")}`
+          }
+        }
+      )
       .then(() => {
         alert("Menu item updated successfully!");
         navigate("/restaurant/Dashboard");
@@ -46,6 +58,10 @@ function EditMenuItem() {
         alert("Failed to update item.");
       });
   };
+
+  if (localStorage.getItem("role") != "RESTAURANT") {
+    return <Navigate to="/restaurant/" />
+  }
 
   return (
     <div className="flex w-full">
