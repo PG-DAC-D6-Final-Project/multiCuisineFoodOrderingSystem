@@ -72,6 +72,11 @@ public class RestaurantController {
 		return ResponseEntity.ok(restaurantService.getRestaurantMenu(restaurantId));
 	}
 	
+	@GetMapping("/getAllPendingRestaurant")
+	public ResponseEntity<?>getAllPendingRestaurants(){
+		return ResponseEntity.ok(restaurantService.getPendingRestaurant());
+	}
+	
 	@GetMapping("/getAllRestaurants")
 	public ResponseEntity<?> getAllRestaurants(){
 		return ResponseEntity.ok(restaurantService.getAll());
@@ -83,4 +88,8 @@ public class RestaurantController {
 		return ResponseEntity.ok("Restaurant Status Changed to SUSPENDED ");
 	}
 	
+	@GetMapping("/getTotalRestaurantsCount")
+	public ResponseEntity<?> getTotalRestaurantCount(){
+		return ResponseEntity.ok(restaurantService.getTotalCount());
+	}
 }

@@ -56,6 +56,7 @@ public class DeliveryAgentServiceImpl implements DeliveryAgentService {
 		return modelMapper.map(deliveryAgentDao.save(entity), DeliveryAgentDto.class);
 	}
 
+
 	@Override
 	public List<DeliveryAgentOrderDto> getAvailableOrders() {
 		List<Orders> orders = ordersDao.findByDeliveryPersonIsNullAndOrderstatus(OrderStatus.PREPARING);
@@ -137,6 +138,7 @@ public class DeliveryAgentServiceImpl implements DeliveryAgentService {
 	    return modelMapper.map(updatedAgent, DeliveryAgentDto.class);
 	}
 
+
 	@Override
 	public List<DeliveryAgentDto> getAllDeliveryAgents() {
 		List<DeliveryAgent> agents = deliveryAgentDao.findAll();
@@ -144,5 +146,6 @@ public class DeliveryAgentServiceImpl implements DeliveryAgentService {
 				.map(agent -> modelMapper.map(agent, DeliveryAgentDto.class))
 				.toList();
 	}
+
 
 }

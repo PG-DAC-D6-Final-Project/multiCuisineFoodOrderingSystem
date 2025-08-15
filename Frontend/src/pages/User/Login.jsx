@@ -17,15 +17,29 @@ const Login = () => {
 
       if (response.status === 200) {
         const result = response.data;
-        toast.success("Login successful")
-        sessionStorage.setItem("id", result.id)
-        sessionStorage.setItem("firstName", result?.name.split(" ")[0])
-        sessionStorage.setItem("lastName", result?.name.split(" ")[1])
-        sessionStorage.setItem("email", result.email)
-        sessionStorage.setItem("phone", result.phone)
-        sessionStorage.setItem("token", result.token)
-        sessionStorage.setItem("role", result.role)
-        navigate("/");
+        if (result.name === "admin admin") {
+          toast.success("Admin Login successful");
+          sessionStorage.setItem("id", result.id)
+          sessionStorage.setItem("firstName", result?.name.split(" ")[0])
+          sessionStorage.setItem("lastName", result?.name.split(" ")[1])
+          sessionStorage.setItem("email", result.email)
+          sessionStorage.setItem("phone", result.phone)
+          sessionStorage.setItem("token", result.token)
+          sessionStorage.setItem("role", "ADMIN")
+          navigate("/admin");
+        }
+
+        else {
+          toast.success("Login successful")
+          sessionStorage.setItem("id", result.id)
+          sessionStorage.setItem("firstName", result?.name.split(" ")[0])
+          sessionStorage.setItem("lastName", result?.name.split(" ")[1])
+          sessionStorage.setItem("email", result.email)
+          sessionStorage.setItem("phone", result.phone)
+          sessionStorage.setItem("token", result.token)
+          sessionStorage.setItem("role", result.role)
+          navigate("/");
+        }
       }
       else {
         toast.error("Invalid email or password");
