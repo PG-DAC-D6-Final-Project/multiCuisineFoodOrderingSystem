@@ -31,7 +31,6 @@ const Register = () => {
   const handleChange = (e) => {
     const { name, value } = e.target;
 
-    // Handle nested address fields
     if (name in formData.address) {
       setFormData((prev) => ({
         ...prev,
@@ -53,9 +52,13 @@ const Register = () => {
 
     if (formData.email && formData.firstName && formData.lastName && formData.password && formData.phone) {
       const result = await customerRegister(formData);
-
-      toast.success("User registered successfully.")
-      navigate("/customer/login");
+      if (result.status == 201) {
+        toast.success("User registered successfully.")
+        navigate("/customer/login");
+      }
+      else {
+        toast.error("Registration failed.")
+      }
     }
     else {
       toast.error("All fields are required.")

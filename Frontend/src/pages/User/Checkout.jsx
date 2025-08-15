@@ -17,26 +17,6 @@ const Checkout = () => {
 
   const [paymentMethod, setPaymentMethod] = useState("CASH");
 
-  // {
-  //   "delivery_date_time": "2024-08-10T19:30:00",
-  //   "order_date_time": "2024-08-10T18:45:00",
-  //   "subtotal": 600.00,
-  //   "tax_amount": 40.50,
-  //   "delivery_fee": 30.00,
-  //   "discount_amount": 20.00,
-  //   "total_amount": 500.50,
-  //   "payment_method": "CREDIT_CARD",
-  //   "orderstatus": "PREPARING",
-  //   "userId": 3,
-  //   "restaurantId": 5,
-  //   "orderItems": [
-  //     {"menuItemId": 31, "quantity": 2},
-  //     {"menuItemId": 32, "quantity": 1}
-  //   ]
-  // }
-
-  // console.log(cartItems);
-
   const handlePay = async () => {
     let orderItems = [];
     for (let item of cartItems) {
