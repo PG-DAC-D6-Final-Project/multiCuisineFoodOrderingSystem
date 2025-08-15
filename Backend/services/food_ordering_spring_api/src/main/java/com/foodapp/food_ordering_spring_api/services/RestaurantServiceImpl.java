@@ -28,6 +28,8 @@ import com.foodapp.food_ordering_spring_api.entities.Address;
 import com.foodapp.food_ordering_spring_api.entities.MenuItem;
 import com.foodapp.food_ordering_spring_api.entities.Restaurant;
 import com.foodapp.food_ordering_spring_api.entities.RestaurantStatus;
+import org.springframework.data.domain.Pageable;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 import jakarta.transaction.Transactional;
 import lombok.AllArgsConstructor;
@@ -39,6 +41,7 @@ public class RestaurantServiceImpl implements RestaurantService {
 	
 	private final RestaurantDao restaurantDao;
 	private final ModelMapper modelMapper;
+	private final PasswordEncoder passwordEncoder;
 	
 	@Override
 	public ApiResponse restaurantSignUp(RestaurantSignUpDTO dto) {
@@ -52,6 +55,7 @@ public class RestaurantServiceImpl implements RestaurantService {
 		Restaurant entity = modelMapper.map(dto,Restaurant.class);
 		entity.setStatus(RestaurantStatus.ACTIVE);
 		entity.setMinimum_order_amount(100);
+		entity.setPassword(passwordEncoder.encode(dto.getPassword()));
 		Restaurant persistentRestaurant = restaurantDao.save(entity);
 		return new ApiResponse("Added new Restaurant with ID = " + persistentRestaurant.getId());
 	}

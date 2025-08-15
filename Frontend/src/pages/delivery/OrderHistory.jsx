@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import OrderHistoryCard from "../../components/delivery/OrderHistoryCard";
 import { getOrderHistory } from "../../services/deliveryAgentService";
+import { Navigate } from "react-router-dom";
 
 const OrderHistory = () => {
   const [orders, setOrders] = useState([]);
@@ -22,6 +23,10 @@ const OrderHistory = () => {
 
     loadOrderHistory();
   }, [deliveryAgentId]);
+
+  if (sessionStorage.getItem("role") != "DELIVERY_AGENT") {
+    return <Navigate to="/delivery/login" />
+  }
 
   return (
     <div className="px-4 py-6">

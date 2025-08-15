@@ -10,15 +10,8 @@ import { toast } from "react-toastify";
 const NavBar = () => {
   const navigate = useNavigate();
   const handleLogout = () => {
-    toast.success("Logout successful")
-    sessionStorage.removeItem("deliveryId")
-    sessionStorage.removeItem("deliveryFirstName")
-    sessionStorage.removeItem("deliveryLastName")
-    sessionStorage.removeItem("deliveryEmail")
-    sessionStorage.removeItem("deliveryPhone")
-    sessionStorage.removeItem("deliveryVehicleNumber")
-    sessionStorage.removeItem("deliveryVehicleType")
-    sessionStorage.removeItem("deliveryLicenseNumber")
+    toast.success("Logout successful");
+    sessionStorage.clear();
     navigate("/");
   }
 

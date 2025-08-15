@@ -3,14 +3,14 @@ import { baseUrl } from "./../utils/config";
 
 export const deliveryAgentLogin = async ({ email, password }) => {
   try {
-    const url = baseUrl + "/delivery/login";
+    const url = baseUrl + "/auth/login";
     const body = {
       email,
       password,
     };
     const response = await axios.post(url, body);
 
-    return response.data;
+    return response;
   } catch (e) {
     console.log(e);
   }
@@ -51,7 +51,11 @@ export const getAvailableOrders = async () => {
   try {
     const url = baseUrl + "/delivery/availableOrders";
 
-    const response = await axios.get(url);
+    const response = await axios.get(url, {
+      headers: {
+        Authorization: `Bearer ${sessionStorage.getItem("token")}`,
+      },
+    });
 
     return response;
   } catch (e) {
@@ -67,7 +71,11 @@ export const acceptOrder = async (orderId, deliveryAgentId) => {
       deliveryAgentId,
     };
 
-    const response = await axios.post(url, body);
+    const response = await axios.post(url, body, {
+      headers: {
+        Authorization: `Bearer ${sessionStorage.getItem("token")}`,
+      },
+    });
 
     return response;
   } catch (e) {
@@ -79,7 +87,11 @@ export const getActiveOrders = async (deliveryAgentId) => {
   try {
     const url = baseUrl + `/delivery/activeOrders/${deliveryAgentId}`;
 
-    const response = await axios.get(url);
+    const response = await axios.get(url, {
+      headers: {
+        Authorization: `Bearer ${sessionStorage.getItem("token")}`,
+      },
+    });
 
     return response;
   } catch (e) {
@@ -91,7 +103,11 @@ export const deliverOrder = async (orderId) => {
   try {
     const url = baseUrl + `/delivery/deliverOrder/${orderId}`;
 
-    const response = await axios.post(url);
+    const response = await axios.post(url, null, {
+      headers: {
+        Authorization: `Bearer ${sessionStorage.getItem("token")}`,
+      },
+    });
 
     return response;
   } catch (e) {
@@ -103,7 +119,11 @@ export const getOrderHistory = async (deliveryAgentId) => {
   try {
     const url = baseUrl + `/delivery/orderHistory/${deliveryAgentId}`;
 
-    const response = await axios.get(url);
+    const response = await axios.get(url, {
+      headers: {
+        Authorization: `Bearer ${sessionStorage.getItem("token")}`,
+      },
+    });
 
     return response;
   } catch (e) {
@@ -136,7 +156,11 @@ export const updateProfile = async ({
 
     console.log(body);
 
-    const response = await axios.put(url, body);
+    const response = await axios.put(url, body, {
+      headers: {
+        Authorization: `Bearer ${sessionStorage.getItem("token")}`,
+      },
+    });
 
     return response;
   } catch (e) {

@@ -12,7 +12,7 @@ import {
 import { useEffect, useState } from "react";
 import { updateProfile } from "../../services/deliveryAgentService";
 import { toast } from "react-toastify";
-import { useNavigate } from "react-router-dom";
+import { Navigate, useNavigate } from "react-router-dom";
 
 const Profile = () => {
   const navigate = useNavigate();
@@ -34,9 +34,9 @@ const Profile = () => {
       lastName: sessionStorage.getItem("deliveryLastName") || "",
       email: sessionStorage.getItem("deliveryEmail") || "",
       phone: sessionStorage.getItem("deliveryPhone") || "",
-      vehicleNumber: sessionStorage.getItem("deliveryVehicleNumber") || "",
-      vehicleType: sessionStorage.getItem("deliveryVehicleType") || "",
-      licenseNumber: sessionStorage.getItem("deliveryLicenseNumber") || "",
+      // vehicleNumber: sessionStorage.getItem("deliveryVehicleNumber") || "",
+      // vehicleType: sessionStorage.getItem("deliveryVehicleType") || "",
+      // licenseNumber: sessionStorage.getItem("deliveryLicenseNumber") || "",
     });
   }, []);
 
@@ -65,9 +65,9 @@ const Profile = () => {
         sessionStorage.setItem("deliveryLastName", result.data.lastName)
         sessionStorage.setItem("deliveryEmail", result.data.email)
         sessionStorage.setItem("deliveryPhone", result.data.phone)
-        sessionStorage.setItem("deliveryVehicleNumber", result.data.vehicleNumber)
-        sessionStorage.setItem("deliveryVehicleType", result.data.vehicleType)
-        sessionStorage.setItem("deliveryLicenseNumber", result.data.licenseNumber)
+        // sessionStorage.setItem("deliveryVehicleNumber", result.data.vehicleNumber)
+        // sessionStorage.setItem("deliveryVehicleType", result.data.vehicleType)
+        // sessionStorage.setItem("deliveryLicenseNumber", result.data.licenseNumber)
         navigate("/delivery");
       }
       else {
@@ -77,6 +77,10 @@ const Profile = () => {
     catch (e) {
       console.log(e);
     }
+  }
+
+  if (sessionStorage.getItem("role") != "DELIVERY_AGENT") {
+    return <Navigate to="/delivery/login" />
   }
 
   return (
@@ -136,7 +140,7 @@ const Profile = () => {
             />
           </div>
 
-          <div className="grid gap-2">
+          {/* <div className="grid gap-2">
             <Label htmlFor="vehicleType">Vehicle</Label>
             <Select onValueChange={handleVehicleTypeChange} value={agentProfile.vehicleType}>
               <SelectTrigger className="w-full border-gray-300 focus:border-green-500 focus:ring-green-500">
@@ -174,7 +178,7 @@ const Profile = () => {
               onChange={handleChange}
               className="border-gray-300 focus:border-green-500 focus:ring-green-500"
             />
-          </div>
+          </div> */}
 
           <div className="mt-4">
             <Button

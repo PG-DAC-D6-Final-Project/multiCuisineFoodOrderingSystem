@@ -1,5 +1,5 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, Navigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import {
   removeItem,
@@ -36,6 +36,10 @@ const Cart = () => {
   const handleClear = () => {
     dispatch(clearCart());
   };
+
+  if (sessionStorage.getItem("role") != "CUSTOMER") {
+    return <Navigate to="/customer/login" />
+  }
 
   if (cartItems.length === 0) {
     return (

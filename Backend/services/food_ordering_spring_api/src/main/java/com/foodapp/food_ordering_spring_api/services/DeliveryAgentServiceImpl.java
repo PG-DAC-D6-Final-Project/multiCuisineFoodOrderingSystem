@@ -3,6 +3,7 @@ package com.foodapp.food_ordering_spring_api.services;
 import java.util.List;
 
 import org.modelmapper.ModelMapper;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.foodapp.food_ordering_spring_api.custom_exceptions.ApiException;
@@ -29,6 +30,7 @@ public class DeliveryAgentServiceImpl implements DeliveryAgentService {
 	private final DeliveryAgentDao deliveryAgentDao;
 	private final OrdersDao ordersDao;
 	private final ModelMapper modelMapper;
+	private PasswordEncoder passwordEncoder;
 
 	@Override
 	public DeliveryAgentDto deliveryAgentLogin(DeliveryAgentLoginDto dto) {
@@ -48,6 +50,8 @@ public class DeliveryAgentServiceImpl implements DeliveryAgentService {
 			throw new ApiException("Duplicate Email ");
 		}
 		DeliveryAgent entity = modelMapper.map(dto, DeliveryAgent.class);
+		
+		entity.setPassword(passwordEncoder.encode(dto.getPassword()));
 
 		return modelMapper.map(deliveryAgentDao.save(entity), DeliveryAgentDto.class);
 	}

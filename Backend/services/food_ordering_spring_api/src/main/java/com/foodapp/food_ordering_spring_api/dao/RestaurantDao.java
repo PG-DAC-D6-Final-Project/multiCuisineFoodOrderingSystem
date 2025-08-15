@@ -10,6 +10,7 @@ import org.springframework.data.jpa.repository.Query;
 
 import com.foodapp.food_ordering_spring_api.entities.Restaurant;
 import com.foodapp.food_ordering_spring_api.entities.RestaurantStatus;
+import com.foodapp.food_ordering_spring_api.entities.User;
 
 public interface RestaurantDao extends JpaRepository<Restaurant, Long>{
 	boolean existsByName(String restaurantName);
@@ -21,4 +22,6 @@ public interface RestaurantDao extends JpaRepository<Restaurant, Long>{
 	Optional<Restaurant> fetchRestaurantMenu(Long restaurantId);
 	
 	boolean existsByEmail(String email);
+
+	Optional<Restaurant> findByEmail(String email);
 }

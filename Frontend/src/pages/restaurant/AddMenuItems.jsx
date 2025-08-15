@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { Navigate, useNavigate } from "react-router-dom";
 import { baseUrlNet } from "../../utils/config";
 import { Button } from "../../components/ui/button";
 import axios from "axios";
@@ -32,30 +32,36 @@ function AddFoodItem() {
   };
 
   const handleSubmit = async (e) => {
-    e.preventDefault();
-    try {
-      const res = await fetch(`http://localhost:8080/menu-item/${restaurantId}`, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          ...formData,
-          price: parseFloat(formData.price), // ensure number
-          cuisineType: parseInt(formData.cuisineType), // ensure number
-          image_url: imageUrl
-        }),
-      });
-      if (res.ok) {
-        alert("Menu item added successfully!");
-        setFormData({ name: "", description: "", price: "", cuisineType: "" });
-      } else {
-        alert("Error adding menu item");
-      }
-    } catch (error) {
-      console.error("Error:", error);
-      alert("Server error");
+  e.preventDefault();
+  try {
+    const res = await fetch(`http://localhost:8080/menu-item/${restaurantId}`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        "Authorization": `Bearer ${localStorage.getItem("token")}`
+      },
+      body: JSON.stringify({
+        ...formData,
+        price: parseFloat(formData.price),
+        cuisineType: parseInt(formData.cuisineType),
+        image_url: imageUrl
+      }),
+    });
+
+    if (res.ok) {
+      alert("Menu item added successfully!");
+      setFormData({ name: "", description: "", price: "", cuisineType: "" });
+      navigate("/restaurant/dashboard");
+    } else {
+      const errorData = await res.json().catch(() => ({}));
+      console.error("Server error:", errorData);
+      alert(errorData.message || "Error adding menu item");
     }
-    navigate("/restaurant/dashboard");
-  };
+  } catch (error) {
+    console.error("Error:", error);
+    alert("Server error");
+  }
+};
 
   const handleFileChange = (e) => {
     const file = e.target.files[0];
@@ -90,6 +96,10 @@ function AddFoodItem() {
     catch (e) {
       console.log(e);
     }
+  }
+
+  if (localStorage.getItem("role") != "RESTAURANT") {
+    return <Navigate to="/restaurant/" />
   }
 
   return (

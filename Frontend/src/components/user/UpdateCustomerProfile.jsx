@@ -1,18 +1,14 @@
 import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { Navigate, useNavigate } from "react-router-dom";
 
 const UpdateCustomerProfile = () => {
   const navigate = useNavigate();
 
   const [formData, setFormData] = useState({
-    firstName: "John",
-    lastName: "Doe",
-    email: "john@example.com",
-    phone: "9876543210",
-    address: "123 Street, City",
-    role: "Customer",
-    image: "",
-    password: "password123",
+    firstName: sessionStorage.getItem("firstName"),
+    lastName: sessionStorage.getItem("lastName"),
+    email: sessionStorage.getItem("email"),
+    phone: sessionStorage.getItem("phone"),
   });
 
   // const handleChange = (e) => {
@@ -26,12 +22,15 @@ const UpdateCustomerProfile = () => {
   const handleSave = () => {
     alert("Changes saved!");
     navigate("/");
-    // Save logic here (e.g., API call)
   };
 
   const handleCancel = () => {
     navigate("/");
   };
+
+  if (sessionStorage.getItem("role") != "CUSTOMER") {
+    return <Navigate to="/customer/login" />
+  }
 
   return (
     <div className="max-w-md mx-auto p-6 mt-10 shadow rounded bg-white">
@@ -80,7 +79,7 @@ const UpdateCustomerProfile = () => {
           />
         </div>
 
-        <div>
+        {/* <div>
           <label className="block text-sm mb-1 text-gray-700">Address</label>
           <input
             type="text"
@@ -97,9 +96,9 @@ const UpdateCustomerProfile = () => {
             name="image"
             className="w-full text-sm"
           />
-        </div>
+        </div> */}
 
-        <div>
+        {/* <div>
           <label className="block text-sm mb-1 text-gray-700">Password</label>
           <input
             type="password"
@@ -107,11 +106,11 @@ const UpdateCustomerProfile = () => {
             value={formData.password}
             className="w-full border rounded px-3 py-2 bg-orange-50"
           />
-        </div>
+        </div> */}
 
-        <div className="text-sm text-gray-600">
+        {/* <div className="text-sm text-gray-600">
           Role: <span className="font-medium text-black">{formData.role}</span>
-        </div>
+        </div> */}
 
         <div className="flex justify-between mt-4">
           <button

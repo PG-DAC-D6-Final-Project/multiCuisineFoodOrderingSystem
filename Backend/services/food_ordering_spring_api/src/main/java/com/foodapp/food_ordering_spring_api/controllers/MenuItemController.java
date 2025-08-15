@@ -59,5 +59,11 @@ public class MenuItemController {
 		return ResponseEntity.status(HttpStatus.OK)
         		.body(menuItemService.getMenuItemsByName(menuItem));
 	}
+	
+	@GetMapping("/item/{menuItemId}")
+	public ResponseEntity<?> getMenuItemsById(@PathVariable Long menuItemId){
+		return ResponseEntity.status(HttpStatus.OK)
+        		.body(menuItemService.getMenuItemById(menuItemId));
+	}
 
 }

@@ -25,18 +25,21 @@ const LoginDeliveryPerson = () => {
     e.preventDefault()
 
     if (email && password) {
-      const result = await deliveryAgentLogin(formData);
+      const response = await deliveryAgentLogin(formData);
 
-      if (result?.email) {
+      if (response.status === 200) {
+        const result = response.data;
         toast.success("Login successful")
         sessionStorage.setItem("deliveryId", result.id)
-        sessionStorage.setItem("deliveryFirstName", result.firstName)
-        sessionStorage.setItem("deliveryLastName", result.lastName)
+        sessionStorage.setItem("deliveryFirstName", result.name.split(" ")[0])
+        sessionStorage.setItem("deliveryLastName", result.name.split(" ")[1])
         sessionStorage.setItem("deliveryEmail", result.email)
         sessionStorage.setItem("deliveryPhone", result.phone)
-        sessionStorage.setItem("deliveryVehicleNumber", result.vehicleNumber)
-        sessionStorage.setItem("deliveryVehicleType", result.vehicleType)
-        sessionStorage.setItem("deliveryLicenseNumber", result.licenseNumber)
+        sessionStorage.setItem("token", result.token)
+        sessionStorage.setItem("role", result.role)
+        // sessionStorage.setItem("deliveryVehicleNumber", result.vehicleNumber)
+        // sessionStorage.setItem("deliveryVehicleType", result.vehicleType)
+        // sessionStorage.setItem("deliveryLicenseNumber", result.licenseNumber)
         navigate("/delivery");
       }
       else {

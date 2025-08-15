@@ -13,21 +13,33 @@ const Login = () => {
 
     sessionStorage.clear();
     if (email && password) {
-      const result = await customerLogin(email, password);
+      const response = await customerLogin(email, password);
 
-      if(result === "ADMIN"){
-        toast.success("Admin Login successful");
-        navigate("/admin");
-      }
+      if (response.status === 200) {
+        const result = response.data;
+        if (result.name === "admin admin") {
+          toast.success("Admin Login successful");
+          sessionStorage.setItem("id", result.id)
+          sessionStorage.setItem("firstName", result?.name.split(" ")[0])
+          sessionStorage.setItem("lastName", result?.name.split(" ")[1])
+          sessionStorage.setItem("email", result.email)
+          sessionStorage.setItem("phone", result.phone)
+          sessionStorage.setItem("token", result.token)
+          sessionStorage.setItem("role", "ADMIN")
+          navigate("/admin");
+        }
 
-      else if (result?.email) {
-        toast.success("Login successful")
-        sessionStorage.setItem("id", result.id)
-        sessionStorage.setItem("firstName", result.firstName)
-        sessionStorage.setItem("lastName", result.lastName)
-        sessionStorage.setItem("email", result.email)
-        sessionStorage.setItem("phone", result.phone)
-        navigate("/");
+        else {
+          toast.success("Login successful")
+          sessionStorage.setItem("id", result.id)
+          sessionStorage.setItem("firstName", result?.name.split(" ")[0])
+          sessionStorage.setItem("lastName", result?.name.split(" ")[1])
+          sessionStorage.setItem("email", result.email)
+          sessionStorage.setItem("phone", result.phone)
+          sessionStorage.setItem("token", result.token)
+          sessionStorage.setItem("role", result.role)
+          navigate("/");
+        }
       }
       else {
         toast.error("Invalid email or password");

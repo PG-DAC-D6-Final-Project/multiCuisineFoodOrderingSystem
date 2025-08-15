@@ -1,17 +1,19 @@
-import React from "react";
-import { useNavigate } from "react-router-dom";
+import React, { useState } from "react";
+import { Navigate, useNavigate } from "react-router-dom";
 
 const CustomerProfile = () => {
   const navigate = useNavigate();
 
-  const dummyData = {
-    firstName: "John",
-    lastName: "Doe",
-    email: "john@example.com",
-    phone: "9876543210",
-    address: "123 Street, City",
-    role: "Customer",
-  };
+  const [formData, setFormData] = useState({
+    firstName: sessionStorage.getItem("firstName"),
+    lastName: sessionStorage.getItem("lastName"),
+    email: sessionStorage.getItem("email"),
+    phone: sessionStorage.getItem("phone"),
+  });
+
+  if (sessionStorage.getItem("role") != "CUSTOMER") {
+    return <Navigate to="/customer/login" />
+  }
 
   return (
     <div className="max-w-md mx-auto p-6 mt-10 shadow rounded bg-white">
@@ -20,12 +22,10 @@ const CustomerProfile = () => {
       </h2>
 
       <div className="space-y-2 text-gray-700">
-        <p><strong>First Name:</strong> {dummyData.firstName}</p>
-        <p><strong>Last Name:</strong> {dummyData.lastName}</p>
-        <p><strong>Email:</strong> {dummyData.email}</p>
-        <p><strong>Phone:</strong> {dummyData.phone}</p>
-        <p><strong>Address:</strong> {dummyData.address}</p>
-        <p><strong>Role:</strong> {dummyData.role}</p>
+        <p><strong>First Name:</strong> {formData.firstName}</p>
+        <p><strong>Last Name:</strong> {formData.lastName}</p>
+        <p><strong>Email:</strong> {formData.email}</p>
+        <p><strong>Phone:</strong> {formData.phone}</p>
       </div>
 
       <div className="flex justify-between mt-6">

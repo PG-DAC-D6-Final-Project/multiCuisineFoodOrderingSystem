@@ -9,4 +9,5 @@ import com.foodapp.food_ordering_spring_api.entities.User;
 public interface UserDao extends JpaRepository<User, Long>{
 	Optional<User> findByEmailAndPassword(String email, String password);
 	boolean existsByEmail(String email);
+	Optional<User> findByEmail(String email);
 }

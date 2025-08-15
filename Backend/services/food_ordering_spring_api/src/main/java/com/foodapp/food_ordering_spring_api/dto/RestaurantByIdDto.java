@@ -14,6 +14,7 @@ public class RestaurantByIdDto {
 	private String name;
 	private Address address;
 	private String phone;
+	private String email;
 	private LocalDateTime openingTime;
 	private LocalDateTime closingTime;
 	private Double avg_rating;

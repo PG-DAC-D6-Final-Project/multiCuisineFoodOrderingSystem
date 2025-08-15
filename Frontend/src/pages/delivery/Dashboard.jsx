@@ -6,7 +6,7 @@ import { FaBoxOpen } from "react-icons/fa";
 import { FaStar } from "react-icons/fa";
 import { Button } from "../../components/ui/button";
 import { toast } from "react-toastify";
-import { Link } from "react-router-dom";
+import { Link, Navigate } from "react-router-dom";
 
 
 const Dashboard = () => {
@@ -14,6 +14,10 @@ const Dashboard = () => {
 
   const onlineStateHandler = (event) => {
     setIsOnline(!isOnline)
+  }
+
+  if (sessionStorage.getItem("role") != "DELIVERY_AGENT") {
+    return <Navigate to="/delivery/login" />
   }
 
   return (
